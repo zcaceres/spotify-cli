@@ -38,7 +38,7 @@ export async function saveTokens(tokens: StoredTokens): Promise<void> {
 /**
  * Loads stored tokens from disk.
  * @returns The stored tokens.
- * @throws {@link SpotifyCliError} if not logged in or the tokens file is invalid.
+ * @throws `SpotifyCliError` if not logged in or the tokens file is invalid.
  */
 export async function loadTokens(): Promise<StoredTokens> {
   const file = Bun.file(TOKENS_PATH);
@@ -90,7 +90,7 @@ export function isExpired(tokens: StoredTokens): boolean {
  *
  * @param flagValue - Optional client ID from the CLI flag.
  * @returns The resolved client ID.
- * @throws {@link SpotifyCliError} if no client ID can be found.
+ * @throws `SpotifyCliError` if no client ID can be found.
  */
 export async function getClientId(flagValue?: string): Promise<string> {
   if (flagValue) return flagValue;

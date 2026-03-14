@@ -1,11 +1,34 @@
+/**
+ * Local HTTP callback server for the OAuth authorization flow.
+ *
+ * Starts a temporary HTTP server on {@link CALLBACK_PORT} that waits for
+ * Spotify to redirect the user back with an authorization code. The server
+ * automatically shuts down after receiving the callback or timing out.
+ *
+ * @module
+ */
+
 import { CALLBACK_PORT } from "../config.js";
 import { authError } from "../errors.js";
 
+/** The result returned by the OAuth callback server. */
 interface CallbackResult {
+  /** The authorization code to exchange for tokens. */
   code: string;
+  /** The state parameter echoed back by Spotify. */
   state: string;
 }
 
+/**
+ * Starts a local HTTP server and waits for the OAuth callback.
+ *
+ * The server validates the `state` parameter against `expectedState` to
+ * prevent CSRF attacks. It times out after 120 seconds.
+ *
+ * @param expectedState - The state value sent in the authorization request.
+ * @returns The authorization code and state from the callback.
+ * @throws `SpotifyCliError` on timeout, missing parameters, or state mismatch.
+ */
 export function startCallbackServer(expectedState: string): Promise<CallbackResult> {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {

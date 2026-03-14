@@ -1,14 +1,40 @@
+/**
+ * Low-level HTTP client for the Spotify Web API.
+ *
+ * Handles authentication headers, token refresh, rate-limit retries,
+ * and JSON response parsing. All other `api/*` modules delegate to
+ * {@link spotifyFetch}.
+ *
+ * @module
+ */
+
 import { SPOTIFY_API_BASE } from "../config.js";
 import { loadTokens, isExpired, saveTokens } from "../auth/token-store.js";
 import { refreshAccessToken } from "../auth/flow.js";
 import { apiError, networkError, authError } from "../errors.js";
 
+/** Options for a Spotify API request. */
 export interface RequestOptions {
+  /** HTTP method (defaults to `"GET"`). */
   method?: string;
+  /** Query parameters appended to the URL. `undefined` values are skipped. */
   params?: Record<string, string | number | boolean | undefined>;
+  /** Request body, serialized as JSON. */
   body?: unknown;
 }
 
+/**
+ * Makes an authenticated request to the Spotify Web API.
+ *
+ * Automatically refreshes expired tokens before the request and retries
+ * on `429 Too Many Requests` up to 3 times.
+ *
+ * @typeParam T - Expected shape of the JSON response body.
+ * @param path - API path (e.g. `"/me/player"`) or full URL.
+ * @param options - HTTP method, query params, and/or JSON body.
+ * @returns The parsed JSON response, or `undefined` for 204 No Content.
+ * @throws `SpotifyCliError` on auth, API, or network errors.
+ */
 export async function spotifyFetch<T = unknown>(
   path: string,
   options: RequestOptions = {},

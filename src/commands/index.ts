@@ -1,10 +1,25 @@
+/**
+ * Command registry for the Spotify CLI.
+ *
+ * Maps command names (e.g. `"play"`, `"search"`) to their handler
+ * functions and descriptions. This is the single source of truth
+ * for all available CLI commands.
+ *
+ * @module
+ */
+
+/** Parsed CLI arguments passed to each command handler. */
 export interface ParsedArgs {
+  /** Non-flag arguments in the order they were provided. */
   positional: string[];
+  /** Flag values keyed by name (without `--` prefix). Boolean flags have an empty string value. */
   flags: Record<string, string>;
 }
 
+/** A function that handles a CLI command. */
 export type CommandHandler = (args: ParsedArgs) => Promise<void>;
 
+/** @internal */
 interface CommandDef {
   handler: CommandHandler;
   description: string;
@@ -59,6 +74,7 @@ import {
   unfollowCommand,
 } from "./user.js";
 
+/** Registry of all CLI commands, keyed by command name. */
 export const commands = new Map<string, CommandDef>([
   // Auth
   ["login", { handler: loginCommand, description: "OAuth PKCE login (opens browser)" }],

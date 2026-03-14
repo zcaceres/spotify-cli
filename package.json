@@ -7,13 +7,20 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "start": "bun run src/cli.ts"
+    "start": "bun run src/cli.ts",
+    "docs:api": "typedoc",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "bun run docs:api && vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "zod": "^3.25.0"
   },
   "devDependencies": {
     "@types/bun": "^1.2.0",
-    "typescript": "^5.7.0"
+    "typedoc": "^0.28.17",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typescript": "^5.7.0",
+    "vitepress": "^1.6.4"
   }
 }

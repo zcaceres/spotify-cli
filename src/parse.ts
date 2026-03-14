@@ -11,7 +11,7 @@ import { argsError } from "./errors.js";
  * @param value - The raw string value to parse.
  * @param name - Display name used in the error message (e.g. `"--limit"`).
  * @returns The parsed integer.
- * @throws {@link SpotifyCliError} if the value is not a valid integer.
+ * @throws `SpotifyCliError` if the value is not a valid integer.
  */
 export function parseIntFlag(value: string, name: string): number {
   const n = parseInt(value, 10);
@@ -41,7 +41,7 @@ export function optionalIntFlag(flags: Record<string, string>, name: string): nu
  * @param positional - The positional arguments array.
  * @param usage - Usage string shown in the error message when no IDs are found.
  * @returns Array of non-empty ID strings.
- * @throws {@link SpotifyCliError} if no valid IDs are provided.
+ * @throws `SpotifyCliError` if no valid IDs are provided.
  */
 export function requireIds(positional: string[], usage: string): string[] {
   const ids = positional.filter((id) => id !== "");

@@ -1,6 +1,13 @@
+/**
+ * Zod schemas for Spotify player/playback objects.
+ *
+ * @module
+ */
+
 import { z } from "zod";
 import { TrackSchema } from "./track.js";
 
+/** Schema for a playback device. */
 export const DeviceSchema = z.object({
   id: z.string().nullable(),
   is_active: z.boolean(),
@@ -12,6 +19,7 @@ export const DeviceSchema = z.object({
   supports_volume: z.boolean(),
 });
 
+/** Schema for the playback context (album, playlist, or artist being played). */
 export const PlaybackContextSchema = z.object({
   type: z.string(),
   href: z.string(),
@@ -19,7 +27,7 @@ export const PlaybackContextSchema = z.object({
   uri: z.string(),
 });
 
-// Full playback state from GET /me/player
+/** Schema for full playback state from `GET /me/player`. */
 export const PlaybackStateSchema = z.object({
   device: DeviceSchema,
   repeat_state: z.string(),
@@ -32,7 +40,7 @@ export const PlaybackStateSchema = z.object({
   context: PlaybackContextSchema.nullable().optional(),
 });
 
-// Currently playing from GET /me/player/currently-playing (subset — no device/shuffle/repeat)
+/** Schema for currently playing response from `GET /me/player/currently-playing` (subset of playback state). */
 export const CurrentlyPlayingSchema = z.object({
   timestamp: z.number().optional(),
   progress_ms: z.number().nullable().optional(),
@@ -42,15 +50,18 @@ export const CurrentlyPlayingSchema = z.object({
   context: PlaybackContextSchema.nullable().optional(),
 });
 
+/** Schema for the playback queue. */
 export const QueueSchema = z.object({
   currently_playing: TrackSchema.nullable(),
   queue: z.array(TrackSchema),
 });
 
+/** Schema for the devices list response. */
 export const DevicesSchema = z.object({
   devices: z.array(DeviceSchema),
 });
 
+/** Schema for a play history entry (recently played track). */
 export const PlayHistorySchema = z.object({
   track: TrackSchema,
   played_at: z.string(),
@@ -64,7 +75,14 @@ export const PlayHistorySchema = z.object({
     .nullable(),
 });
 
+/** A Spotify playback device. */
 export type Device = z.infer<typeof DeviceSchema>;
+
+/** Full playback state including device, track, and settings. */
 export type PlaybackState = z.infer<typeof PlaybackStateSchema>;
+
+/** The user's playback queue. */
 export type Queue = z.infer<typeof QueueSchema>;
+
+/** A play history entry (track + timestamp + context). */
 export type PlayHistory = z.infer<typeof PlayHistorySchema>;
