@@ -121,7 +121,7 @@ All output is JSON to stdout. Errors go to stderr as JSON.
 | `playlist <id>` | Get playlist details |
 | `playlists` | List your playlists (`--limit`, `--offset`) |
 | `playlist-tracks <id>` | List playlist tracks (`--limit`, `--offset`) |
-| `playlist-add <id> <uri...>` | Add tracks to playlist |
+| `playlist-add <id> <uri...>` | Add tracks to playlist (`--position`) |
 | `playlist-remove <id> <uri...>` | Remove tracks from playlist |
 | `playlist-create <name>` | Create playlist (`--description`, `--public`) |
 
