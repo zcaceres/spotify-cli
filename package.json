@@ -1,0 +1,19 @@
+{
+  "name": "spotify-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "spotify": "./src/cli.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "start": "bun run src/cli.ts"
+  },
+  "dependencies": {
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.7.0"
+  }
+}
