@@ -74,6 +74,19 @@ export function removeTracksFromPlaylist(id: string, uris: string[]) {
 }
 
 /**
+ * Replaces all tracks in a playlist with the given URIs in order.
+ * @param id - The Spotify playlist ID.
+ * @param uris - Ordered array of Spotify track URIs (max 100 per request).
+ * @see `PUT /playlists/{id}/tracks`
+ */
+export function replacePlaylistTracks(id: string, uris: string[]) {
+  return spotifyFetch(`/playlists/${id}/items`, {
+    method: "PUT",
+    body: { uris },
+  });
+}
+
+/**
  * Creates a new playlist for a user.
  * @param userId - The Spotify user ID to create the playlist for.
  * @param options - Playlist creation options.
