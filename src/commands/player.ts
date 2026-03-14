@@ -1,6 +1,7 @@
 import * as api from "../api/player.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { parseIntFlag, optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 export const nowCommand: CommandHandler = async () => {
@@ -19,8 +20,8 @@ export const playCommand: CommandHandler = async (args) => {
   if (device) options.device_id = device;
   if (context) options.context_uri = context;
   if (uri) options.uris = [uri];
-  if (offset !== undefined) options.offset = { position: parseInt(offset, 10) };
-  if (position !== undefined) options.position_ms = parseInt(position, 10);
+  if (offset !== undefined && offset !== "") options.offset = { position: parseIntFlag(offset, "--offset") };
+  if (position !== undefined && position !== "") options.position_ms = parseIntFlag(position, "--position");
 
   await api.startPlayback(options);
   output({ status: "playing" });
@@ -44,15 +45,17 @@ export const prevCommand: CommandHandler = async (args) => {
 export const seekCommand: CommandHandler = async (args) => {
   const ms = args.positional[0];
   if (!ms) throw argsError("Usage: spotify seek <ms>");
-  await api.seekToPosition(parseInt(ms, 10), args.flags["device"]);
-  output({ status: "seeked", position_ms: parseInt(ms, 10) });
+  const position = parseIntFlag(ms, "position");
+  if (position < 0) throw argsError("Seek position must be non-negative");
+  await api.seekToPosition(position, args.flags["device"]);
+  output({ status: "seeked", position_ms: position });
 };
 
 export const volumeCommand: CommandHandler = async (args) => {
   const level = args.positional[0];
   if (!level) throw argsError("Usage: spotify volume <0-100>");
-  const vol = parseInt(level, 10);
-  if (isNaN(vol) || vol < 0 || vol > 100) throw argsError("Volume must be 0-100");
+  const vol = parseIntFlag(level, "volume");
+  if (vol < 0 || vol > 100) throw argsError("Volume must be 0-100");
   await api.setVolume(vol, args.flags["device"]);
   output({ status: "volume_set", volume: vol });
 };
@@ -99,9 +102,9 @@ export const transferCommand: CommandHandler = async (args) => {
 };
 
 export const recentCommand: CommandHandler = async (args) => {
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const after = args.flags["after"] ? parseInt(args.flags["after"], 10) : undefined;
-  const before = args.flags["before"] ? parseInt(args.flags["before"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const after = optionalIntFlag(args.flags, "after");
+  const before = optionalIntFlag(args.flags, "before");
   const data = await api.getRecentlyPlayed({ limit, after, before });
   output(data);
 };

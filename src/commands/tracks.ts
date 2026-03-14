@@ -1,6 +1,7 @@
 import * as api from "../api/tracks.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 export const trackCommand: CommandHandler = async (args) => {
@@ -11,8 +12,8 @@ export const trackCommand: CommandHandler = async (args) => {
 };
 
 export const savedTracksCommand: CommandHandler = async (args) => {
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getSavedTracks({ limit, offset });
   output(data);
 };
@@ -40,7 +41,7 @@ export const recommendationsCommand: CommandHandler = async (args) => {
   const seedTracks = args.flags["seed-tracks"];
   const seedArtists = args.flags["seed-artists"];
   const seedGenres = args.flags["seed-genres"];
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
 
   if (!seedTracks && !seedArtists && !seedGenres) {
     throw argsError(

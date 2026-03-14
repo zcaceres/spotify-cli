@@ -9,7 +9,7 @@ export const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
 export const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 export const SPOTIFY_API_BASE = "https://api.spotify.com/v1";
 
-export const REDIRECT_URI = "http://localhost:8888/callback";
+export const REDIRECT_URI = "http://127.0.0.1:8888/callback";
 export const CALLBACK_PORT = 8888;
 
 export const SCOPES = [

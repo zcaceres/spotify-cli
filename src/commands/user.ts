@@ -1,6 +1,7 @@
 import * as api from "../api/user.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 export const meCommand: CommandHandler = async () => {
@@ -14,14 +15,14 @@ export const topCommand: CommandHandler = async (args) => {
     throw argsError("Usage: spotify top <artists|tracks> [--time-range ...] [--limit N]");
   }
   const time_range = args.flags["time-range"];
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getTopItems(type, { time_range, limit, offset });
   output(data);
 };
 
 export const followingCommand: CommandHandler = async (args) => {
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
   const after = args.flags["after"];
   const data = await api.getFollowedArtists({ limit, after });
   output(data);

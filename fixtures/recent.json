@@ -1,0 +1,431 @@
+{
+  "items": [
+    {
+      "track": {
+        "album": {
+          "album_type": "compilation",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/2ZfttAdppjOzEtw1YZw1pZ"
+              },
+              "href": "https://api.spotify.com/v1/artists/2ZfttAdppjOzEtw1YZw1pZ",
+              "id": "2ZfttAdppjOzEtw1YZw1pZ",
+              "name": "Summer Hits",
+              "type": "artist",
+              "uri": "spotify:artist:2ZfttAdppjOzEtw1YZw1pZ"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/6m1VV6lVRgnZCi58HvFgcF"
+          },
+          "href": "https://api.spotify.com/v1/albums/6m1VV6lVRgnZCi58HvFgcF",
+          "id": "6m1VV6lVRgnZCi58HvFgcF",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273af14097658095dd565155944",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02af14097658095dd565155944",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851af14097658095dd565155944",
+              "width": 64
+            }
+          ],
+          "name": "Patriotic Hits / American Songs",
+          "release_date": "2023-05-23",
+          "release_date_precision": "day",
+          "total_tracks": 60,
+          "type": "album",
+          "uri": "spotify:album:6m1VV6lVRgnZCi58HvFgcF"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7Cf73Z3RZQTH4V69GSDxnv"
+            },
+            "href": "https://api.spotify.com/v1/artists/7Cf73Z3RZQTH4V69GSDxnv",
+            "id": "7Cf73Z3RZQTH4V69GSDxnv",
+            "name": "Harold Faltermeyer",
+            "type": "artist",
+            "uri": "spotify:artist:7Cf73Z3RZQTH4V69GSDxnv"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4ZMaiDLfxDaoG7ULXgcnDb"
+            },
+            "href": "https://api.spotify.com/v1/artists/4ZMaiDLfxDaoG7ULXgcnDb",
+            "id": "4ZMaiDLfxDaoG7ULXgcnDb",
+            "name": "Steve Stevens",
+            "type": "artist",
+            "uri": "spotify:artist:4ZMaiDLfxDaoG7ULXgcnDb"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 253333,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/2UQbrk3tmimrugj7QFc4XV"
+        },
+        "href": "https://api.spotify.com/v1/tracks/2UQbrk3tmimrugj7QFc4XV",
+        "id": "2UQbrk3tmimrugj7QFc4XV",
+        "is_local": false,
+        "name": "Top Gun Anthem - From \"Top Gun\" Original Soundtrack",
+        "preview_url": null,
+        "track_number": 14,
+        "type": "track",
+        "uri": "spotify:track:2UQbrk3tmimrugj7QFc4XV"
+      },
+      "played_at": "2026-03-14T18:02:47.048Z",
+      "context": {
+        "type": "playlist",
+        "href": "https://api.spotify.com/v1/playlists/0z0vDWCPWAef0S2ZL8xYE5",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/0z0vDWCPWAef0S2ZL8xYE5"
+        },
+        "uri": "spotify:playlist:0z0vDWCPWAef0S2ZL8xYE5"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/3I0ceM8qfqhCKGepaswmVg"
+              },
+              "href": "https://api.spotify.com/v1/artists/3I0ceM8qfqhCKGepaswmVg",
+              "id": "3I0ceM8qfqhCKGepaswmVg",
+              "name": "Starcadian",
+              "type": "artist",
+              "uri": "spotify:artist:3I0ceM8qfqhCKGepaswmVg"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/16ic6vbQ57Tx7bMjzfQFAv"
+          },
+          "href": "https://api.spotify.com/v1/albums/16ic6vbQ57Tx7bMjzfQFAv",
+          "id": "16ic6vbQ57Tx7bMjzfQFAv",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b2735e8ecf5c6a35e3628bfd1256",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e025e8ecf5c6a35e3628bfd1256",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d000048515e8ecf5c6a35e3628bfd1256",
+              "width": 64
+            }
+          ],
+          "name": "Radio Galaxy",
+          "release_date": "2021-11-26",
+          "release_date_precision": "day",
+          "total_tracks": 13,
+          "type": "album",
+          "uri": "spotify:album:16ic6vbQ57Tx7bMjzfQFAv"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/3I0ceM8qfqhCKGepaswmVg"
+            },
+            "href": "https://api.spotify.com/v1/artists/3I0ceM8qfqhCKGepaswmVg",
+            "id": "3I0ceM8qfqhCKGepaswmVg",
+            "name": "Starcadian",
+            "type": "artist",
+            "uri": "spotify:artist:3I0ceM8qfqhCKGepaswmVg"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 186666,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/0iepv0d5ffjUHH0WVi3Vtr"
+        },
+        "href": "https://api.spotify.com/v1/tracks/0iepv0d5ffjUHH0WVi3Vtr",
+        "id": "0iepv0d5ffjUHH0WVi3Vtr",
+        "is_local": false,
+        "name": "This City Is Going to Kill Us Babe",
+        "preview_url": null,
+        "track_number": 7,
+        "type": "track",
+        "uri": "spotify:track:0iepv0d5ffjUHH0WVi3Vtr"
+      },
+      "played_at": "2026-03-13T21:36:52.061Z",
+      "context": {
+        "type": "album",
+        "href": "https://api.spotify.com/v1/albums/4yY5TzJyexHiGFkmtN2gKy",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4yY5TzJyexHiGFkmtN2gKy"
+        },
+        "uri": "spotify:album:4yY5TzJyexHiGFkmtN2gKy"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/63QaiTh41azgSckkTVgpVD"
+              },
+              "href": "https://api.spotify.com/v1/artists/63QaiTh41azgSckkTVgpVD",
+              "id": "63QaiTh41azgSckkTVgpVD",
+              "name": "Sub Morphine",
+              "type": "artist",
+              "uri": "spotify:artist:63QaiTh41azgSckkTVgpVD"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/5NVM8CIpIq1oBtbUDW9txi"
+          },
+          "href": "https://api.spotify.com/v1/albums/5NVM8CIpIq1oBtbUDW9txi",
+          "id": "5NVM8CIpIq1oBtbUDW9txi",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273e0fdcdbca857458dc3451a5f",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02e0fdcdbca857458dc3451a5f",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851e0fdcdbca857458dc3451a5f",
+              "width": 64
+            }
+          ],
+          "name": "Oracle",
+          "release_date": "2019-03-20",
+          "release_date_precision": "day",
+          "total_tracks": 12,
+          "type": "album",
+          "uri": "spotify:album:5NVM8CIpIq1oBtbUDW9txi"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/63QaiTh41azgSckkTVgpVD"
+            },
+            "href": "https://api.spotify.com/v1/artists/63QaiTh41azgSckkTVgpVD",
+            "id": "63QaiTh41azgSckkTVgpVD",
+            "name": "Sub Morphine",
+            "type": "artist",
+            "uri": "spotify:artist:63QaiTh41azgSckkTVgpVD"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 273750,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/2RbUd4QHtoaLaA24tTurqW"
+        },
+        "href": "https://api.spotify.com/v1/tracks/2RbUd4QHtoaLaA24tTurqW",
+        "id": "2RbUd4QHtoaLaA24tTurqW",
+        "is_local": false,
+        "name": "Revenant",
+        "preview_url": null,
+        "track_number": 3,
+        "type": "track",
+        "uri": "spotify:track:2RbUd4QHtoaLaA24tTurqW"
+      },
+      "played_at": "2026-03-13T21:34:53.899Z",
+      "context": {
+        "type": "album",
+        "href": "https://api.spotify.com/v1/albums/4yY5TzJyexHiGFkmtN2gKy",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4yY5TzJyexHiGFkmtN2gKy"
+        },
+        "uri": "spotify:album:4yY5TzJyexHiGFkmtN2gKy"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "album_type": "single",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/4N55TE3vFODMR4BX5B9fnM"
+              },
+              "href": "https://api.spotify.com/v1/artists/4N55TE3vFODMR4BX5B9fnM",
+              "id": "4N55TE3vFODMR4BX5B9fnM",
+              "name": "Waveshaper",
+              "type": "artist",
+              "uri": "spotify:artist:4N55TE3vFODMR4BX5B9fnM"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/4InqTiEXpgNRpnm126iofJ"
+          },
+          "href": "https://api.spotify.com/v1/albums/4InqTiEXpgNRpnm126iofJ",
+          "id": "4InqTiEXpgNRpnm126iofJ",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273dd642b08f687eecb0ca6804a",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02dd642b08f687eecb0ca6804a",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851dd642b08f687eecb0ca6804a",
+              "width": 64
+            }
+          ],
+          "name": "Gigabot",
+          "release_date": "2022-02-11",
+          "release_date_precision": "day",
+          "total_tracks": 1,
+          "type": "album",
+          "uri": "spotify:album:4InqTiEXpgNRpnm126iofJ"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4N55TE3vFODMR4BX5B9fnM"
+            },
+            "href": "https://api.spotify.com/v1/artists/4N55TE3vFODMR4BX5B9fnM",
+            "id": "4N55TE3vFODMR4BX5B9fnM",
+            "name": "Waveshaper",
+            "type": "artist",
+            "uri": "spotify:artist:4N55TE3vFODMR4BX5B9fnM"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 228800,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/3bP6dA5O8yFFSE0vgga1rY"
+        },
+        "href": "https://api.spotify.com/v1/tracks/3bP6dA5O8yFFSE0vgga1rY",
+        "id": "3bP6dA5O8yFFSE0vgga1rY",
+        "is_local": false,
+        "name": "Gigabot",
+        "preview_url": null,
+        "track_number": 1,
+        "type": "track",
+        "uri": "spotify:track:3bP6dA5O8yFFSE0vgga1rY"
+      },
+      "played_at": "2026-03-13T21:30:19.457Z",
+      "context": {
+        "type": "album",
+        "href": "https://api.spotify.com/v1/albums/4yY5TzJyexHiGFkmtN2gKy",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4yY5TzJyexHiGFkmtN2gKy"
+        },
+        "uri": "spotify:album:4yY5TzJyexHiGFkmtN2gKy"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "album_type": "single",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/2T4w33dLBJyXVZugL5ZrwU"
+              },
+              "href": "https://api.spotify.com/v1/artists/2T4w33dLBJyXVZugL5ZrwU",
+              "id": "2T4w33dLBJyXVZugL5ZrwU",
+              "name": "Fantom '87",
+              "type": "artist",
+              "uri": "spotify:artist:2T4w33dLBJyXVZugL5ZrwU"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/61LJ9YlcEDyBzzAtmwd7Wc"
+          },
+          "href": "https://api.spotify.com/v1/albums/61LJ9YlcEDyBzzAtmwd7Wc",
+          "id": "61LJ9YlcEDyBzzAtmwd7Wc",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273b2b9e560ffcf088441075ac1",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02b2b9e560ffcf088441075ac1",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851b2b9e560ffcf088441075ac1",
+              "width": 64
+            }
+          ],
+          "name": "Discovery",
+          "release_date": "2017-10-06",
+          "release_date_precision": "day",
+          "total_tracks": 6,
+          "type": "album",
+          "uri": "spotify:album:61LJ9YlcEDyBzzAtmwd7Wc"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/2T4w33dLBJyXVZugL5ZrwU"
+            },
+            "href": "https://api.spotify.com/v1/artists/2T4w33dLBJyXVZugL5ZrwU",
+            "id": "2T4w33dLBJyXVZugL5ZrwU",
+            "name": "Fantom '87",
+            "type": "artist",
+            "uri": "spotify:artist:2T4w33dLBJyXVZugL5ZrwU"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 213182,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/2W1GtBjTzgKhj3IqWAElw0"
+        },
+        "href": "https://api.spotify.com/v1/tracks/2W1GtBjTzgKhj3IqWAElw0",
+        "id": "2W1GtBjTzgKhj3IqWAElw0",
+        "is_local": false,
+        "name": "Oh, Dreamer",
+        "preview_url": null,
+        "track_number": 2,
+        "type": "track",
+        "uri": "spotify:track:2W1GtBjTzgKhj3IqWAElw0"
+      },
+      "played_at": "2026-03-13T21:23:04.475Z",
+      "context": {
+        "type": "album",
+        "href": "https://api.spotify.com/v1/albums/4yY5TzJyexHiGFkmtN2gKy",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4yY5TzJyexHiGFkmtN2gKy"
+        },
+        "uri": "spotify:album:4yY5TzJyexHiGFkmtN2gKy"
+      }
+    }
+  ],
+  "next": "https://api.spotify.com/v1/me/player/recently-played?before=1773436984475&limit=5",
+  "cursors": {
+    "after": "1773511367048",
+    "before": "1773436984475"
+  },
+  "limit": 5,
+  "href": "https://api.spotify.com/v1/me/player/recently-played?limit=5"
+}

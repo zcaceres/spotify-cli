@@ -1,0 +1,21 @@
+{
+  "status": "valid",
+  "expires_at": 1773519740657,
+  "scope": [
+    "playlist-read-private",
+    "playlist-read-collaborative",
+    "user-follow-read",
+    "playlist-modify-private",
+    "user-read-email",
+    "user-read-private",
+    "user-modify-playback-state",
+    "user-follow-modify",
+    "user-library-read",
+    "user-library-modify",
+    "playlist-modify-public",
+    "user-read-playback-state",
+    "user-read-currently-playing",
+    "user-read-recently-played",
+    "user-top-read"
+  ]
+}

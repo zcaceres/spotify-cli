@@ -1,6 +1,7 @@
 import * as api from "../api/albums.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 export const albumCommand: CommandHandler = async (args) => {
@@ -13,15 +14,15 @@ export const albumCommand: CommandHandler = async (args) => {
 export const albumTracksCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) throw argsError("Usage: spotify album-tracks <id>");
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getAlbumTracks(id, { limit, offset });
   output(data);
 };
 
 export const savedAlbumsCommand: CommandHandler = async (args) => {
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getSavedAlbums({ limit, offset });
   output(data);
 };

@@ -1,0 +1,91 @@
+{
+  "items": [
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+      },
+      "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+      "id": "6UcJxoeHWWWyT5HZP064om",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb887f380a1d6fafe95238c86b",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174887f380a1d6fafe95238c86b",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178887f380a1d6fafe95238c86b",
+          "width": 160
+        }
+      ],
+      "name": "Chet Faker",
+      "type": "artist",
+      "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/7ltDVBr6mKbRvohxheJ9h1"
+      },
+      "href": "https://api.spotify.com/v1/artists/7ltDVBr6mKbRvohxheJ9h1",
+      "id": "7ltDVBr6mKbRvohxheJ9h1",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb9354faf80eb87961466edfbf",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051749354faf80eb87961466edfbf",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1789354faf80eb87961466edfbf",
+          "width": 160
+        }
+      ],
+      "name": "ROSALÍA",
+      "type": "artist",
+      "uri": "spotify:artist:7ltDVBr6mKbRvohxheJ9h1"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/65sChHf6etCvSFdXn8NPUO"
+      },
+      "href": "https://api.spotify.com/v1/artists/65sChHf6etCvSFdXn8NPUO",
+      "id": "65sChHf6etCvSFdXn8NPUO",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb971066f03dc0cc8e36b3f224",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174971066f03dc0cc8e36b3f224",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178971066f03dc0cc8e36b3f224",
+          "width": 160
+        }
+      ],
+      "name": "ALEX",
+      "type": "artist",
+      "uri": "spotify:artist:65sChHf6etCvSFdXn8NPUO"
+    }
+  ],
+  "total": 393,
+  "limit": 3,
+  "offset": 0,
+  "href": "https://api.spotify.com/v1/me/top/artists?limit=3",
+  "next": "https://api.spotify.com/v1/me/top/artists?offset=3&limit=3",
+  "previous": null
+}

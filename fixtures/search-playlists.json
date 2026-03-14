@@ -1,0 +1,50 @@
+{
+  "playlists": {
+    "href": "https://api.spotify.com/v1/search?offset=0&limit=3&query=chill%20vibes&type=playlist",
+    "limit": 3,
+    "next": "https://api.spotify.com/v1/search?offset=3&limit=3&query=chill%20vibes&type=playlist",
+    "offset": 0,
+    "previous": null,
+    "total": 6,
+    "items": [
+      null,
+      {
+        "collaborative": false,
+        "description": "Just chill &amp; relax... (Follow us on <a href=\"https://www.instagram.com/electropose/\">Instagram @electropose</a>)",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/6IKQrtMc4c00YzONcUt7QH"
+        },
+        "href": "https://api.spotify.com/v1/playlists/6IKQrtMc4c00YzONcUt7QH",
+        "id": "6IKQrtMc4c00YzONcUt7QH",
+        "images": [
+          {
+            "height": null,
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da842128d1e7b21f4f57fa1d0174",
+            "width": null
+          }
+        ],
+        "name": "Chill  Vibes 2026 🌙",
+        "owner": {
+          "display_name": "Electro Posé",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/electroposé"
+          },
+          "href": "https://api.spotify.com/v1/users/electroposé",
+          "id": "electroposé",
+          "type": "user",
+          "uri": "spotify:user:electropos%C3%A9"
+        },
+        "primary_color": null,
+        "public": true,
+        "snapshot_id": "AAATHYYKvagW3OaX+ZejlEaW1nI/UaHw",
+        "items": {
+          "href": "https://api.spotify.com/v1/playlists/6IKQrtMc4c00YzONcUt7QH/items",
+          "total": 216
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:6IKQrtMc4c00YzONcUt7QH"
+      },
+      null
+    ]
+  }
+}

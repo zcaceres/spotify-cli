@@ -2,6 +2,7 @@ import * as api from "../api/playlists.js";
 import { getCurrentUser } from "../api/user.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 export const playlistCommand: CommandHandler = async (args) => {
@@ -12,8 +13,8 @@ export const playlistCommand: CommandHandler = async (args) => {
 };
 
 export const playlistsCommand: CommandHandler = async (args) => {
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getCurrentUserPlaylists({ limit, offset });
   output(data);
 };
@@ -21,8 +22,8 @@ export const playlistsCommand: CommandHandler = async (args) => {
 export const playlistTracksCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) throw argsError("Usage: spotify playlist-tracks <id>");
-  const limit = args.flags["limit"] ? parseInt(args.flags["limit"], 10) : undefined;
-  const offset = args.flags["offset"] ? parseInt(args.flags["offset"], 10) : undefined;
+  const limit = optionalIntFlag(args.flags, "limit");
+  const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getPlaylistTracks(id, { limit, offset });
   output(data);
 };
@@ -33,9 +34,7 @@ export const playlistAddCommand: CommandHandler = async (args) => {
   if (!id || uris.length === 0) {
     throw argsError("Usage: spotify playlist-add <playlist_id> <uri...>");
   }
-  const position = args.flags["position"]
-    ? parseInt(args.flags["position"], 10)
-    : undefined;
+  const position = optionalIntFlag(args.flags, "position");
   const data = await api.addTracksToPlaylist(id, uris, position);
   output(data);
 };

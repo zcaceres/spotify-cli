@@ -1,0 +1,91 @@
+{
+  "is_playing": true,
+  "timestamp": 1773516204394,
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/playlist/0z0vDWCPWAef0S2ZL8xYE5"
+    },
+    "href": "https://api.spotify.com/v1/playlists/0z0vDWCPWAef0S2ZL8xYE5",
+    "type": "playlist",
+    "uri": "spotify:playlist:0z0vDWCPWAef0S2ZL8xYE5"
+  },
+  "progress_ms": 39296,
+  "item": {
+    "album": {
+      "album_type": "compilation",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"
+          },
+          "href": "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of",
+          "id": "0LyfQWJT6nXafLPZqxe9Of",
+          "name": "Various Artists",
+          "type": "artist",
+          "uri": "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"
+        }
+      ],
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/6K8iDZW8jPaoiqSzFFebJA"
+      },
+      "href": "https://api.spotify.com/v1/albums/6K8iDZW8jPaoiqSzFFebJA",
+      "id": "6K8iDZW8jPaoiqSzFFebJA",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b273b8f8d696810d68ce774e3a2f",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e02b8f8d696810d68ce774e3a2f",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d00004851b8f8d696810d68ce774e3a2f",
+          "width": 64
+        }
+      ],
+      "name": "Top Gun - Motion Picture Soundtrack (Special Expanded Edition)",
+      "release_date": "1999-01-01",
+      "release_date_precision": "day",
+      "total_tracks": 15,
+      "type": "album",
+      "uri": "spotify:album:6K8iDZW8jPaoiqSzFFebJA"
+    },
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/3Y3xIwWyq5wnNHPp5gPjOW"
+        },
+        "href": "https://api.spotify.com/v1/artists/3Y3xIwWyq5wnNHPp5gPjOW",
+        "id": "3Y3xIwWyq5wnNHPp5gPjOW",
+        "name": "Kenny Loggins",
+        "type": "artist",
+        "uri": "spotify:artist:3Y3xIwWyq5wnNHPp5gPjOW"
+      }
+    ],
+    "disc_number": 1,
+    "duration_ms": 216133,
+    "explicit": false,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/3hMHG6lx9QHVcfYSUr5PoM"
+    },
+    "href": "https://api.spotify.com/v1/tracks/3hMHG6lx9QHVcfYSUr5PoM",
+    "id": "3hMHG6lx9QHVcfYSUr5PoM",
+    "is_local": false,
+    "name": "Danger Zone - From \"Top Gun\" Original Soundtrack",
+    "preview_url": null,
+    "track_number": 1,
+    "type": "track",
+    "uri": "spotify:track:3hMHG6lx9QHVcfYSUr5PoM"
+  },
+  "currently_playing_type": "track",
+  "actions": {
+    "disallows": {
+      "resuming": true,
+      "skipping_prev": true
+    }
+  }
+}

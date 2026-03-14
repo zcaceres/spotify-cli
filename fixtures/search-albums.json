@@ -1,0 +1,141 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/search?offset=0&limit=3&query=ok%20computer&type=album",
+    "limit": 3,
+    "next": "https://api.spotify.com/v1/search?offset=3&limit=3&query=ok%20computer&type=album",
+    "offset": 0,
+    "previous": null,
+    "total": 845,
+    "items": [
+      {
+        "album_type": "album",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6dVIqQ8qmQ5GBnJ9shOYGE"
+        },
+        "href": "https://api.spotify.com/v1/albums/6dVIqQ8qmQ5GBnJ9shOYGE",
+        "id": "6dVIqQ8qmQ5GBnJ9shOYGE",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02c8b444df094279e70d0ed856",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851c8b444df094279e70d0ed856",
+            "width": 64
+          }
+        ],
+        "name": "OK Computer",
+        "release_date": "1997-05-28",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:6dVIqQ8qmQ5GBnJ9shOYGE",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb"
+            },
+            "href": "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb",
+            "id": "4Z8W4fKeB5YxbusRsdQVPb",
+            "name": "Radiohead",
+            "type": "artist",
+            "uri": "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5vkqYmiPBYLaalcmjujWxK"
+        },
+        "href": "https://api.spotify.com/v1/albums/5vkqYmiPBYLaalcmjujWxK",
+        "id": "5vkqYmiPBYLaalcmjujWxK",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273de3c04b5fc750b68899b20a9",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02de3c04b5fc750b68899b20a9",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851de3c04b5fc750b68899b20a9",
+            "width": 64
+          }
+        ],
+        "name": "In Rainbows",
+        "release_date": "2007-12-28",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:5vkqYmiPBYLaalcmjujWxK",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb"
+            },
+            "href": "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb",
+            "id": "4Z8W4fKeB5YxbusRsdQVPb",
+            "name": "Radiohead",
+            "type": "artist",
+            "uri": "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
+          }
+        ]
+      },
+      {
+        "album_type": "album",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6GjwtEZcfenmOf6l18N7T7"
+        },
+        "href": "https://api.spotify.com/v1/albums/6GjwtEZcfenmOf6l18N7T7",
+        "id": "6GjwtEZcfenmOf6l18N7T7",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b2736c7112082b63beefffe40151",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e026c7112082b63beefffe40151",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d000048516c7112082b63beefffe40151",
+            "width": 64
+          }
+        ],
+        "name": "Kid A",
+        "release_date": "2000-10-02",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:6GjwtEZcfenmOf6l18N7T7",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb"
+            },
+            "href": "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb",
+            "id": "4Z8W4fKeB5YxbusRsdQVPb",
+            "name": "Radiohead",
+            "type": "artist",
+            "uri": "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
+          }
+        ]
+      }
+    ]
+  }
+}

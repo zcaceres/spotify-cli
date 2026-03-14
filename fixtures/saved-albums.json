@@ -1,0 +1,1321 @@
+{
+  "href": "https://api.spotify.com/v1/me/albums?offset=0&limit=3",
+  "items": [
+    {
+      "added_at": "2026-01-23T02:58:44Z",
+      "album": {
+        "album_type": "album",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5hSWRDgVuz5mVirkTXPcfO"
+        },
+        "href": "https://api.spotify.com/v1/albums/5hSWRDgVuz5mVirkTXPcfO",
+        "id": "5hSWRDgVuz5mVirkTXPcfO",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273909fed8be67d331d491ff099",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02909fed8be67d331d491ff099",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851909fed8be67d331d491ff099",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "name": "A Buena Vista: Barrio De La Habana",
+        "release_date": "2004-08-09",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:5hSWRDgVuz5mVirkTXPcfO",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+            },
+            "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+            "id": "12eNUx8BvR5qmpFssq8Vkt",
+            "name": "Soneros De Verdad",
+            "type": "artist",
+            "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+          }
+        ],
+        "tracks": {
+          "href": "https://api.spotify.com/v1/albums/5hSWRDgVuz5mVirkTXPcfO/tracks?offset=0&limit=50",
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 13,
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 193693,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6K4iVISawI285iTxyvBIEB"
+              },
+              "href": "https://api.spotify.com/v1/tracks/6K4iVISawI285iTxyvBIEB",
+              "id": "6K4iVISawI285iTxyvBIEB",
+              "name": "A Buena Vista",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:6K4iVISawI285iTxyvBIEB",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 296800,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1AIBYuS7v39TVszAm25l4f"
+              },
+              "href": "https://api.spotify.com/v1/tracks/1AIBYuS7v39TVszAm25l4f",
+              "id": "1AIBYuS7v39TVszAm25l4f",
+              "name": "La Sitiera",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:1AIBYuS7v39TVszAm25l4f",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1gD092EUu8I77AG1zkDuJZ"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/1gD092EUu8I77AG1zkDuJZ",
+                  "id": "1gD092EUu8I77AG1zkDuJZ",
+                  "name": "Manuel 'Puntillita' Licea",
+                  "type": "artist",
+                  "uri": "spotify:artist:1gD092EUu8I77AG1zkDuJZ"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 264573,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/43Fyo0iGD1FZ3af9wPis8d"
+              },
+              "href": "https://api.spotify.com/v1/tracks/43Fyo0iGD1FZ3af9wPis8d",
+              "id": "43Fyo0iGD1FZ3af9wPis8d",
+              "name": "Bilongo",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:43Fyo0iGD1FZ3af9wPis8d",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 206200,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4MP75Zn4O1B8qaaYPWdFaX"
+              },
+              "href": "https://api.spotify.com/v1/tracks/4MP75Zn4O1B8qaaYPWdFaX",
+              "id": "4MP75Zn4O1B8qaaYPWdFaX",
+              "name": "Baila Suave",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:4MP75Zn4O1B8qaaYPWdFaX",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 301933,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4xc4eaTI2gTaR17L2MiutK"
+              },
+              "href": "https://api.spotify.com/v1/tracks/4xc4eaTI2gTaR17L2MiutK",
+              "id": "4xc4eaTI2gTaR17L2MiutK",
+              "name": "Hoy La Lluvia",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:4xc4eaTI2gTaR17L2MiutK",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 417626,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3V15nyA31QTazv3bhKGsWv"
+              },
+              "href": "https://api.spotify.com/v1/tracks/3V15nyA31QTazv3bhKGsWv",
+              "id": "3V15nyA31QTazv3bhKGsWv",
+              "name": "Oguere",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:3V15nyA31QTazv3bhKGsWv",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/55SpWdkjLvDiH67u0gct8k"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/55SpWdkjLvDiH67u0gct8k",
+                  "id": "55SpWdkjLvDiH67u0gct8k",
+                  "name": "Rudy Calzado",
+                  "type": "artist",
+                  "uri": "spotify:artist:55SpWdkjLvDiH67u0gct8k"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 409600,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4LHVwO2N89LuxT71KtQJW6"
+              },
+              "href": "https://api.spotify.com/v1/tracks/4LHVwO2N89LuxT71KtQJW6",
+              "id": "4LHVwO2N89LuxT71KtQJW6",
+              "name": "Linda Alborada",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:4LHVwO2N89LuxT71KtQJW6",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/03VpEWV03MshgwALAuQk3H"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/03VpEWV03MshgwALAuQk3H",
+                  "id": "03VpEWV03MshgwALAuQk3H",
+                  "name": "Juan De Marcos",
+                  "type": "artist",
+                  "uri": "spotify:artist:03VpEWV03MshgwALAuQk3H"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 294906,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5di7k99slqoya4Ef7p2GJa"
+              },
+              "href": "https://api.spotify.com/v1/tracks/5di7k99slqoya4Ef7p2GJa",
+              "id": "5di7k99slqoya4Ef7p2GJa",
+              "name": "Longina",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:5di7k99slqoya4Ef7p2GJa",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/10JiVkiyaFDrDsSakDbhd1"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/10JiVkiyaFDrDsSakDbhd1",
+                  "id": "10JiVkiyaFDrDsSakDbhd1",
+                  "name": "Manuel De La Cruz",
+                  "type": "artist",
+                  "uri": "spotify:artist:10JiVkiyaFDrDsSakDbhd1"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 124666,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3LaHJQkqHmO2cW3HJqMikf"
+              },
+              "href": "https://api.spotify.com/v1/tracks/3LaHJQkqHmO2cW3HJqMikf",
+              "id": "3LaHJQkqHmO2cW3HJqMikf",
+              "name": "Ojos Malignos",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:3LaHJQkqHmO2cW3HJqMikf",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 232160,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2dMOGXc1McHGMXLIFcKFQ2"
+              },
+              "href": "https://api.spotify.com/v1/tracks/2dMOGXc1McHGMXLIFcKFQ2",
+              "id": "2dMOGXc1McHGMXLIFcKFQ2",
+              "name": "Golondrina Guajira",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:2dMOGXc1McHGMXLIFcKFQ2",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/55SpWdkjLvDiH67u0gct8k"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/55SpWdkjLvDiH67u0gct8k",
+                  "id": "55SpWdkjLvDiH67u0gct8k",
+                  "name": "Rudy Calzado",
+                  "type": "artist",
+                  "uri": "spotify:artist:55SpWdkjLvDiH67u0gct8k"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 226400,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/26zLf1Ln0BnI6WEaYzGW49"
+              },
+              "href": "https://api.spotify.com/v1/tracks/26zLf1Ln0BnI6WEaYzGW49",
+              "id": "26zLf1Ln0BnI6WEaYzGW49",
+              "name": "La Más Bella Canción",
+              "track_number": 11,
+              "type": "track",
+              "uri": "spotify:track:26zLf1Ln0BnI6WEaYzGW49",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/13yIrDY8fitx2qJr7UjfAc"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/13yIrDY8fitx2qJr7UjfAc",
+                  "id": "13yIrDY8fitx2qJr7UjfAc",
+                  "name": "Pio Leyva",
+                  "type": "artist",
+                  "uri": "spotify:artist:13yIrDY8fitx2qJr7UjfAc"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+                  "id": "3NOoOH3WZuJRNe5cvmW7ic",
+                  "name": "Luis Frank",
+                  "type": "artist",
+                  "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/55SpWdkjLvDiH67u0gct8k"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/55SpWdkjLvDiH67u0gct8k",
+                  "id": "55SpWdkjLvDiH67u0gct8k",
+                  "name": "Rudy Calzado",
+                  "type": "artist",
+                  "uri": "spotify:artist:55SpWdkjLvDiH67u0gct8k"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 271173,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1MGtoPmiG9JinaXsH2j4te"
+              },
+              "href": "https://api.spotify.com/v1/tracks/1MGtoPmiG9JinaXsH2j4te",
+              "id": "1MGtoPmiG9JinaXsH2j4te",
+              "name": "Maracaibo Oriental",
+              "track_number": 12,
+              "type": "track",
+              "uri": "spotify:track:1MGtoPmiG9JinaXsH2j4te",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                  "id": "12eNUx8BvR5qmpFssq8Vkt",
+                  "name": "Soneros De Verdad",
+                  "type": "artist",
+                  "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7AVTtwMaqFNr045brLMuWd"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/7AVTtwMaqFNr045brLMuWd",
+                  "id": "7AVTtwMaqFNr045brLMuWd",
+                  "name": "Rubalcaba",
+                  "type": "artist",
+                  "uri": "spotify:artist:7AVTtwMaqFNr045brLMuWd"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 237133,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1y8bMtMfg99vHA2pPfByXz"
+              },
+              "href": "https://api.spotify.com/v1/tracks/1y8bMtMfg99vHA2pPfByXz",
+              "id": "1y8bMtMfg99vHA2pPfByXz",
+              "name": "Rubalcaba",
+              "track_number": 13,
+              "type": "track",
+              "uri": "spotify:track:1y8bMtMfg99vHA2pPfByXz",
+              "is_local": false
+            }
+          ]
+        },
+        "copyrights": [
+          {
+            "text": "2003 Termidor Musikverlag",
+            "type": "C"
+          },
+          {
+            "text": "2003 Termidor Musikverlag",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "743219095527"
+        },
+        "genres": []
+      }
+    },
+    {
+      "added_at": "2026-01-08T17:08:57Z",
+      "album": {
+        "album_type": "album",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1EvJl2nSEPBGnu0XqKAqbq"
+        },
+        "href": "https://api.spotify.com/v1/albums/1EvJl2nSEPBGnu0XqKAqbq",
+        "id": "1EvJl2nSEPBGnu0XqKAqbq",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27337608c354c36a4a3e12d548c",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0237608c354c36a4a3e12d548c",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485137608c354c36a4a3e12d548c",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "name": "Hotel Surrender",
+        "release_date": "2021-07-16",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:1EvJl2nSEPBGnu0XqKAqbq",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+            },
+            "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+            "id": "6UcJxoeHWWWyT5HZP064om",
+            "name": "Chet Faker",
+            "type": "artist",
+            "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+          }
+        ],
+        "tracks": {
+          "href": "https://api.spotify.com/v1/albums/1EvJl2nSEPBGnu0XqKAqbq/tracks?offset=0&limit=50",
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 10,
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 351140,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1t7NU93wgMQcBf5IfcFVOU"
+              },
+              "href": "https://api.spotify.com/v1/tracks/1t7NU93wgMQcBf5IfcFVOU",
+              "id": "1t7NU93wgMQcBf5IfcFVOU",
+              "name": "Oh Me Oh My",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:1t7NU93wgMQcBf5IfcFVOU",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 274423,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4RJYhQEGxI42b2OkiA6eYP"
+              },
+              "href": "https://api.spotify.com/v1/tracks/4RJYhQEGxI42b2OkiA6eYP",
+              "id": "4RJYhQEGxI42b2OkiA6eYP",
+              "name": "Low",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:4RJYhQEGxI42b2OkiA6eYP",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 222936,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3q8bVATKAOwjc8C0jY3DRd"
+              },
+              "href": "https://api.spotify.com/v1/tracks/3q8bVATKAOwjc8C0jY3DRd",
+              "id": "3q8bVATKAOwjc8C0jY3DRd",
+              "name": "Get High",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:3q8bVATKAOwjc8C0jY3DRd",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 263817,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6GAySd6p4Jofhf4b7De9y1"
+              },
+              "href": "https://api.spotify.com/v1/tracks/6GAySd6p4Jofhf4b7De9y1",
+              "id": "6GAySd6p4Jofhf4b7De9y1",
+              "name": "Whatever Tomorrow",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:6GAySd6p4Jofhf4b7De9y1",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 266560,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0V3pZNjPDNHIHhPyo4q3fd"
+              },
+              "href": "https://api.spotify.com/v1/tracks/0V3pZNjPDNHIHhPyo4q3fd",
+              "id": "0V3pZNjPDNHIHhPyo4q3fd",
+              "name": "It's Not You",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:0V3pZNjPDNHIHhPyo4q3fd",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 204752,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0tUgO3Hk0B1UPFXL8mR1Rz"
+              },
+              "href": "https://api.spotify.com/v1/tracks/0tUgO3Hk0B1UPFXL8mR1Rz",
+              "id": "0tUgO3Hk0B1UPFXL8mR1Rz",
+              "name": "Peace of Mind",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:0tUgO3Hk0B1UPFXL8mR1Rz",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 184314,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2dlWOORMNywqAvbZDWb9dQ"
+              },
+              "href": "https://api.spotify.com/v1/tracks/2dlWOORMNywqAvbZDWb9dQ",
+              "id": "2dlWOORMNywqAvbZDWb9dQ",
+              "name": "Feel Good",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:2dlWOORMNywqAvbZDWb9dQ",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 309186,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0Y6ZxhKo3Q4Wo1tOflIgRk"
+              },
+              "href": "https://api.spotify.com/v1/tracks/0Y6ZxhKo3Q4Wo1tOflIgRk",
+              "id": "0Y6ZxhKo3Q4Wo1tOflIgRk",
+              "name": "I Must Be Stupid",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:0Y6ZxhKo3Q4Wo1tOflIgRk",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 228555,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1A41odft5LbOC8uIDhdW1o"
+              },
+              "href": "https://api.spotify.com/v1/tracks/1A41odft5LbOC8uIDhdW1o",
+              "id": "1A41odft5LbOC8uIDhdW1o",
+              "name": "So Long So Lonely",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:1A41odft5LbOC8uIDhdW1o",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6UcJxoeHWWWyT5HZP064om"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6UcJxoeHWWWyT5HZP064om",
+                  "id": "6UcJxoeHWWWyT5HZP064om",
+                  "name": "Chet Faker",
+                  "type": "artist",
+                  "uri": "spotify:artist:6UcJxoeHWWWyT5HZP064om"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 309993,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/7Je77FtJs8cBYawzFDyHle"
+              },
+              "href": "https://api.spotify.com/v1/tracks/7Je77FtJs8cBYawzFDyHle",
+              "id": "7Je77FtJs8cBYawzFDyHle",
+              "name": "In Too Far",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:7Je77FtJs8cBYawzFDyHle",
+              "is_local": false
+            }
+          ]
+        },
+        "copyrights": [
+          {
+            "text": "2021 Detail Records under exclusive licence to BMG Rights Management (Australia) Pty Ltd",
+            "type": "C"
+          },
+          {
+            "text": "2021 Detail Records under exclusive licence to BMG Rights Management (Australia) Pty Ltd",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "4050538647730"
+        },
+        "genres": []
+      }
+    },
+    {
+      "added_at": "2019-12-18T20:31:14Z",
+      "album": {
+        "album_type": "album",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4C20M0ik7MU3UZFiDM8mxP"
+        },
+        "href": "https://api.spotify.com/v1/albums/4C20M0ik7MU3UZFiDM8mxP",
+        "id": "4C20M0ik7MU3UZFiDM8mxP",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2738d25d851e9227b84109ad6b8",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e028d25d851e9227b84109ad6b8",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048518d25d851e9227b84109ad6b8",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "name": "憂鬱",
+        "release_date": "2018-03-23",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:4C20M0ik7MU3UZFiDM8mxP",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+            },
+            "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+            "id": "0jeqCyxNueRWyFdlpEstNC",
+            "name": "憂鬱",
+            "type": "artist",
+            "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+          }
+        ],
+        "tracks": {
+          "href": "https://api.spotify.com/v1/albums/4C20M0ik7MU3UZFiDM8mxP/tracks?offset=0&limit=50",
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 10,
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 270006,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6dVqbuFRtVTnVTKFAZCXlu"
+              },
+              "href": "https://api.spotify.com/v1/tracks/6dVqbuFRtVTnVTKFAZCXlu",
+              "id": "6dVqbuFRtVTnVTKFAZCXlu",
+              "name": "Sun",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:6dVqbuFRtVTnVTKFAZCXlu",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 216006,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2qnfYDuEyiyi302f4RBLqq"
+              },
+              "href": "https://api.spotify.com/v1/tracks/2qnfYDuEyiyi302f4RBLqq",
+              "id": "2qnfYDuEyiyi302f4RBLqq",
+              "name": "Moon",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:2qnfYDuEyiyi302f4RBLqq",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 274291,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4S9mEOfEg66TjGgey67IJf"
+              },
+              "href": "https://api.spotify.com/v1/tracks/4S9mEOfEg66TjGgey67IJf",
+              "id": "4S9mEOfEg66TjGgey67IJf",
+              "name": "Slow",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:4S9mEOfEg66TjGgey67IJf",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 240006,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3lZADlRNZaQ6kx1wm8CSxR"
+              },
+              "href": "https://api.spotify.com/v1/tracks/3lZADlRNZaQ6kx1wm8CSxR",
+              "id": "3lZADlRNZaQ6kx1wm8CSxR",
+              "name": "Clear",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:3lZADlRNZaQ6kx1wm8CSxR",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/620tjkc2ceKkDkOJsgwZvn"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/620tjkc2ceKkDkOJsgwZvn",
+                  "id": "620tjkc2ceKkDkOJsgwZvn",
+                  "name": "Hello Meteor",
+                  "type": "artist",
+                  "uri": "spotify:artist:620tjkc2ceKkDkOJsgwZvn"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 241333,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0P9mbDZotTY0fLg905oYE5"
+              },
+              "href": "https://api.spotify.com/v1/tracks/0P9mbDZotTY0fLg905oYE5",
+              "id": "0P9mbDZotTY0fLg905oYE5",
+              "name": "Prime",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:0P9mbDZotTY0fLg905oYE5",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/4ld29tDCCa8BEh6UQyWeoN"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/4ld29tDCCa8BEh6UQyWeoN",
+                  "id": "4ld29tDCCa8BEh6UQyWeoN",
+                  "name": "Aima Lecia",
+                  "type": "artist",
+                  "uri": "spotify:artist:4ld29tDCCa8BEh6UQyWeoN"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 236866,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6vRhFV8MAn08wYO7SB9kzk"
+              },
+              "href": "https://api.spotify.com/v1/tracks/6vRhFV8MAn08wYO7SB9kzk",
+              "id": "6vRhFV8MAn08wYO7SB9kzk",
+              "name": "Nü",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:6vRhFV8MAn08wYO7SB9kzk",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/2zhOohLhIGzDcBhAqmBmuE"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/2zhOohLhIGzDcBhAqmBmuE",
+                  "id": "2zhOohLhIGzDcBhAqmBmuE",
+                  "name": "oDDling",
+                  "type": "artist",
+                  "uri": "spotify:artist:2zhOohLhIGzDcBhAqmBmuE"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 242493,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/390UxmwLkvUdup7DZzyRds"
+              },
+              "href": "https://api.spotify.com/v1/tracks/390UxmwLkvUdup7DZzyRds",
+              "id": "390UxmwLkvUdup7DZzyRds",
+              "name": "Endurance",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:390UxmwLkvUdup7DZzyRds",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3gi5McAv9c0qTjJ5jSmbL0"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/3gi5McAv9c0qTjJ5jSmbL0",
+                  "id": "3gi5McAv9c0qTjJ5jSmbL0",
+                  "name": "A.L.I.S.O.N",
+                  "type": "artist",
+                  "uri": "spotify:artist:3gi5McAv9c0qTjJ5jSmbL0"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 242418,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2HAjEqXROW6F6US3sOCkQm"
+              },
+              "href": "https://api.spotify.com/v1/tracks/2HAjEqXROW6F6US3sOCkQm",
+              "id": "2HAjEqXROW6F6US3sOCkQm",
+              "name": "Dive",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:2HAjEqXROW6F6US3sOCkQm",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                },
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6aAXBSjwLUEukyVDhOuKNO"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/6aAXBSjwLUEukyVDhOuKNO",
+                  "id": "6aAXBSjwLUEukyVDhOuKNO",
+                  "name": "Voyage",
+                  "type": "artist",
+                  "uri": "spotify:artist:6aAXBSjwLUEukyVDhOuKNO"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 301740,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2PeQtoD3O6y2SGpgwrChjx"
+              },
+              "href": "https://api.spotify.com/v1/tracks/2PeQtoD3O6y2SGpgwrChjx",
+              "id": "2PeQtoD3O6y2SGpgwrChjx",
+              "name": "Curius",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:2PeQtoD3O6y2SGpgwrChjx",
+              "is_local": false
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/0jeqCyxNueRWyFdlpEstNC"
+                  },
+                  "href": "https://api.spotify.com/v1/artists/0jeqCyxNueRWyFdlpEstNC",
+                  "id": "0jeqCyxNueRWyFdlpEstNC",
+                  "name": "憂鬱",
+                  "type": "artist",
+                  "uri": "spotify:artist:0jeqCyxNueRWyFdlpEstNC"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 270004,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6qVdYHdH2dIr4EbStJHq12"
+              },
+              "href": "https://api.spotify.com/v1/tracks/6qVdYHdH2dIr4EbStJHq12",
+              "id": "6qVdYHdH2dIr4EbStJHq12",
+              "name": "2099",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:6qVdYHdH2dIr4EbStJHq12",
+              "is_local": false
+            }
+          ]
+        },
+        "copyrights": [
+          {
+            "text": "2018 Midwest Collective",
+            "type": "C"
+          },
+          {
+            "text": "2018 Midwest Collective",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "840092543876"
+        },
+        "genres": []
+      }
+    }
+  ],
+  "limit": 3,
+  "next": "https://api.spotify.com/v1/me/albums?offset=3&limit=3",
+  "offset": 0,
+  "previous": null,
+  "total": 302
+}

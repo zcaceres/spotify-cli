@@ -1,0 +1,138 @@
+{
+  "href": "https://api.spotify.com/v1/me/playlists?offset=0&limit=3",
+  "limit": 3,
+  "next": "https://api.spotify.com/v1/me/playlists?offset=3&limit=3",
+  "offset": 0,
+  "previous": null,
+  "total": 109,
+  "items": [
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/0z0vDWCPWAef0S2ZL8xYE5"
+      },
+      "href": "https://api.spotify.com/v1/playlists/0z0vDWCPWAef0S2ZL8xYE5",
+      "id": "0z0vDWCPWAef0S2ZL8xYE5",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e02a09ca43db25489a5df6a6a49ab67616d00001e02a5af8963833cb8e7c88d16fcab67616d00001e02af14097658095dd565155944ab67616d00001e02b8f8d696810d68ce774e3a2f",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e02a09ca43db25489a5df6a6a49ab67616d00001e02a5af8963833cb8e7c88d16fcab67616d00001e02af14097658095dd565155944ab67616d00001e02b8f8d696810d68ce774e3a2f",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e02a09ca43db25489a5df6a6a49ab67616d00001e02a5af8963833cb8e7c88d16fcab67616d00001e02af14097658095dd565155944ab67616d00001e02b8f8d696810d68ce774e3a2f",
+          "width": 60
+        }
+      ],
+      "name": "Helicopters",
+      "owner": {
+        "display_name": "zach",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/improvisations"
+        },
+        "href": "https://api.spotify.com/v1/users/improvisations",
+        "id": "improvisations",
+        "type": "user",
+        "uri": "spotify:user:improvisations"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAFB3Wf2RZwrV44gmuQzmtyOpoytg8",
+      "items": {
+        "href": "https://api.spotify.com/v1/playlists/0z0vDWCPWAef0S2ZL8xYE5/items",
+        "total": 78
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:0z0vDWCPWAef0S2ZL8xYE5"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2kBCyalJmQzGDbIczmcdpg"
+      },
+      "href": "https://api.spotify.com/v1/playlists/2kBCyalJmQzGDbIczmcdpg",
+      "id": "2kBCyalJmQzGDbIczmcdpg",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0200f42df94e136a3a5435253aab67616d00001e02773f95f94a6981365257d9f0ab67616d00001e02eee6768bd7c19eda94ca93a5ab67616d00001e02f7ae97fbba1069acc3732afa",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0200f42df94e136a3a5435253aab67616d00001e02773f95f94a6981365257d9f0ab67616d00001e02eee6768bd7c19eda94ca93a5ab67616d00001e02f7ae97fbba1069acc3732afa",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0200f42df94e136a3a5435253aab67616d00001e02773f95f94a6981365257d9f0ab67616d00001e02eee6768bd7c19eda94ca93a5ab67616d00001e02f7ae97fbba1069acc3732afa",
+          "width": 60
+        }
+      ],
+      "name": "afro-cuban jazz guajira",
+      "owner": {
+        "display_name": "zach",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/improvisations"
+        },
+        "href": "https://api.spotify.com/v1/users/improvisations",
+        "id": "improvisations",
+        "type": "user",
+        "uri": "spotify:user:improvisations"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAAA+B/qfXooRoNi9lJUULsPFqNhxyy",
+      "items": {
+        "href": "https://api.spotify.com/v1/playlists/2kBCyalJmQzGDbIczmcdpg/items",
+        "total": 50
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:2kBCyalJmQzGDbIczmcdpg"
+    },
+    {
+      "collaborative": false,
+      "description": "",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/0mHNpth75xAQ3eJCwnJW1j"
+      },
+      "href": "https://api.spotify.com/v1/playlists/0mHNpth75xAQ3eJCwnJW1j",
+      "id": "0mHNpth75xAQ3eJCwnJW1j",
+      "images": [
+        {
+          "height": null,
+          "url": "https://i.scdn.co/image/ab67616d00001e02030b2a1b24826136295e583c",
+          "width": null
+        }
+      ],
+      "name": "gangster",
+      "owner": {
+        "display_name": "zach",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/improvisations"
+        },
+        "href": "https://api.spotify.com/v1/users/improvisations",
+        "id": "improvisations",
+        "type": "user",
+        "uri": "spotify:user:improvisations"
+      },
+      "primary_color": null,
+      "public": true,
+      "snapshot_id": "AAAABBru1vbk8r/MfkIfNzsH4V4NYbYA",
+      "items": {
+        "href": "https://api.spotify.com/v1/playlists/0mHNpth75xAQ3eJCwnJW1j/items",
+        "total": 2
+      },
+      "type": "playlist",
+      "uri": "spotify:playlist:0mHNpth75xAQ3eJCwnJW1j"
+    }
+  ]
+}

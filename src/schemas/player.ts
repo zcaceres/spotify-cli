@@ -19,6 +19,7 @@ export const PlaybackContextSchema = z.object({
   uri: z.string(),
 });
 
+// Full playback state from GET /me/player
 export const PlaybackStateSchema = z.object({
   device: DeviceSchema,
   repeat_state: z.string(),
@@ -27,6 +28,16 @@ export const PlaybackStateSchema = z.object({
   progress_ms: z.number().nullable(),
   is_playing: z.boolean(),
   item: TrackSchema.nullable(),
+  currently_playing_type: z.string(),
+  context: PlaybackContextSchema.nullable().optional(),
+});
+
+// Currently playing from GET /me/player/currently-playing (subset — no device/shuffle/repeat)
+export const CurrentlyPlayingSchema = z.object({
+  timestamp: z.number().optional(),
+  progress_ms: z.number().nullable().optional(),
+  is_playing: z.boolean(),
+  item: TrackSchema.nullable().optional(),
   currently_playing_type: z.string(),
   context: PlaybackContextSchema.nullable().optional(),
 });

@@ -1,0 +1,99 @@
+{
+  "artists": {
+    "href": "https://api.spotify.com/v1/me/following?type=artist&limit=3",
+    "limit": 3,
+    "next": "https://api.spotify.com/v1/me/following?type=artist&limit=3&after=6lmKkR8t1rFjjgKGhVpJOx",
+    "cursors": {
+      "after": "6lmKkR8t1rFjjgKGhVpJOx"
+    },
+    "total": 140,
+    "items": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/00n4Vljc6N9pvJ26SKPphh"
+        },
+        "href": "https://api.spotify.com/v1/artists/00n4Vljc6N9pvJ26SKPphh",
+        "id": "00n4Vljc6N9pvJ26SKPphh",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/e6ba16e3b34581a4fcfb8bd11fac7bbf7bb40f77",
+            "height": 1477,
+            "width": 1000
+          },
+          {
+            "url": "https://i.scdn.co/image/15ac4d2b13266d45037285e85c9fbee2a9a6bac6",
+            "height": 945,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/04b362639e4b57415929148a811105b6626e99ad",
+            "height": 295,
+            "width": 200
+          },
+          {
+            "url": "https://i.scdn.co/image/ee9a5a56666646de8941ce2086987b3168703aa9",
+            "height": 95,
+            "width": 64
+          }
+        ],
+        "name": "Ruben Gonzalez",
+        "type": "artist",
+        "uri": "spotify:artist:00n4Vljc6N9pvJ26SKPphh"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/4MzzjPw3VUmr72ZphV54Sa"
+        },
+        "href": "https://api.spotify.com/v1/artists/4MzzjPw3VUmr72ZphV54Sa",
+        "id": "4MzzjPw3VUmr72ZphV54Sa",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab6761610000e5eb44f55f94a4bb81da88b6a225",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab6761610000517444f55f94a4bb81da88b6a225",
+            "height": 320,
+            "width": 320
+          },
+          {
+            "url": "https://i.scdn.co/image/ab6761610000f17844f55f94a4bb81da88b6a225",
+            "height": 160,
+            "width": 160
+          }
+        ],
+        "name": "Minemice",
+        "type": "artist",
+        "uri": "spotify:artist:4MzzjPw3VUmr72ZphV54Sa"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/6lmKkR8t1rFjjgKGhVpJOx"
+        },
+        "href": "https://api.spotify.com/v1/artists/6lmKkR8t1rFjjgKGhVpJOx",
+        "id": "6lmKkR8t1rFjjgKGhVpJOx",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab6761610000e5eb34bc4cc1c0cd5ef915048805",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab6761610000517434bc4cc1c0cd5ef915048805",
+            "height": 320,
+            "width": 320
+          },
+          {
+            "url": "https://i.scdn.co/image/ab6761610000f17834bc4cc1c0cd5ef915048805",
+            "height": 160,
+            "width": 160
+          }
+        ],
+        "name": "Bardea",
+        "type": "artist",
+        "uri": "spotify:artist:6lmKkR8t1rFjjgKGhVpJOx"
+      }
+    ]
+  }
+}

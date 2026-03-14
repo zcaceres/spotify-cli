@@ -22,7 +22,7 @@ export const AlbumSchema = SimplifiedAlbumSchema.extend({
   tracks: PagingSchema(SimplifiedTrackSchema),
   genres: z.array(z.string()),
   label: z.string().optional(),
-  popularity: z.number(),
+  popularity: z.number().optional(),
   copyrights: z.array(z.object({ text: z.string(), type: z.string() })).optional(),
   external_ids: ExternalIdsSchema.optional(),
 });

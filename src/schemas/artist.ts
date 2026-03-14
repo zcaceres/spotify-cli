@@ -11,10 +11,10 @@ export const SimplifiedArtistSchema = z.object({
 });
 
 export const ArtistSchema = SimplifiedArtistSchema.extend({
-  followers: FollowersSchema,
-  genres: z.array(z.string()),
+  followers: FollowersSchema.optional(),
+  genres: z.array(z.string()).optional(),
   images: z.array(ImageSchema),
-  popularity: z.number(),
+  popularity: z.number().optional(),
 });
 
 export type SimplifiedArtist = z.infer<typeof SimplifiedArtistSchema>;

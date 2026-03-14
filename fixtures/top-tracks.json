@@ -1,0 +1,245 @@
+{
+  "items": [
+    {
+      "album": {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/6qxpnaukVayrQn6ViNvu9I"
+            },
+            "href": "https://api.spotify.com/v1/artists/6qxpnaukVayrQn6ViNvu9I",
+            "id": "6qxpnaukVayrQn6ViNvu9I",
+            "name": "BigXthaPlug",
+            "type": "artist",
+            "uri": "spotify:artist:6qxpnaukVayrQn6ViNvu9I"
+          }
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/7edOMLcHlhP4Y1b6tzJbn4"
+        },
+        "href": "https://api.spotify.com/v1/albums/7edOMLcHlhP4Y1b6tzJbn4",
+        "id": "7edOMLcHlhP4Y1b6tzJbn4",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273030b2a1b24826136295e583c",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02030b2a1b24826136295e583c",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851030b2a1b24826136295e583c",
+            "width": 64
+          }
+        ],
+        "is_playable": true,
+        "name": "AMAR",
+        "release_date": "2023-02-10",
+        "release_date_precision": "day",
+        "total_tracks": 13,
+        "type": "album",
+        "uri": "spotify:album:7edOMLcHlhP4Y1b6tzJbn4"
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6qxpnaukVayrQn6ViNvu9I"
+          },
+          "href": "https://api.spotify.com/v1/artists/6qxpnaukVayrQn6ViNvu9I",
+          "id": "6qxpnaukVayrQn6ViNvu9I",
+          "name": "BigXthaPlug",
+          "type": "artist",
+          "uri": "spotify:artist:6qxpnaukVayrQn6ViNvu9I"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 146133,
+      "explicit": true,
+      "external_ids": {
+        "isrc": "QZNMY2226814"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/7j7ud2oFTJ8BjmeI8bjkQm"
+      },
+      "href": "https://api.spotify.com/v1/tracks/7j7ud2oFTJ8BjmeI8bjkQm",
+      "id": "7j7ud2oFTJ8BjmeI8bjkQm",
+      "is_local": false,
+      "is_playable": true,
+      "name": "Texas",
+      "track_number": 4,
+      "type": "track",
+      "uri": "spotify:track:7j7ud2oFTJ8BjmeI8bjkQm"
+    },
+    {
+      "album": {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+            },
+            "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+            "id": "12eNUx8BvR5qmpFssq8Vkt",
+            "name": "Soneros De Verdad",
+            "type": "artist",
+            "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+          }
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5hSWRDgVuz5mVirkTXPcfO"
+        },
+        "href": "https://api.spotify.com/v1/albums/5hSWRDgVuz5mVirkTXPcfO",
+        "id": "5hSWRDgVuz5mVirkTXPcfO",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273909fed8be67d331d491ff099",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02909fed8be67d331d491ff099",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851909fed8be67d331d491ff099",
+            "width": 64
+          }
+        ],
+        "is_playable": true,
+        "name": "A Buena Vista: Barrio De La Habana",
+        "release_date": "2004-08-09",
+        "release_date_precision": "day",
+        "total_tracks": 13,
+        "type": "album",
+        "uri": "spotify:album:5hSWRDgVuz5mVirkTXPcfO"
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+          },
+          "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+          "id": "12eNUx8BvR5qmpFssq8Vkt",
+          "name": "Soneros De Verdad",
+          "type": "artist",
+          "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+        },
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+          },
+          "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+          "id": "3NOoOH3WZuJRNe5cvmW7ic",
+          "name": "Luis Frank",
+          "type": "artist",
+          "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 193693,
+      "explicit": false,
+      "external_ids": {
+        "isrc": "DEE790010410"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/6K4iVISawI285iTxyvBIEB"
+      },
+      "href": "https://api.spotify.com/v1/tracks/6K4iVISawI285iTxyvBIEB",
+      "id": "6K4iVISawI285iTxyvBIEB",
+      "is_local": false,
+      "is_playable": true,
+      "name": "A Buena Vista",
+      "track_number": 1,
+      "type": "track",
+      "uri": "spotify:track:6K4iVISawI285iTxyvBIEB"
+    },
+    {
+      "album": {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4q3ewBCX7sLwd24euuV69X"
+            },
+            "href": "https://api.spotify.com/v1/artists/4q3ewBCX7sLwd24euuV69X",
+            "id": "4q3ewBCX7sLwd24euuV69X",
+            "name": "Bad Bunny",
+            "type": "artist",
+            "uri": "spotify:artist:4q3ewBCX7sLwd24euuV69X"
+          }
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb"
+        },
+        "href": "https://api.spotify.com/v1/albums/5K79FLRUCSysQnVESLcTdb",
+        "id": "5K79FLRUCSysQnVESLcTdb",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02bbd45c8d36e0e045ef640411",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851bbd45c8d36e0e045ef640411",
+            "width": 64
+          }
+        ],
+        "is_playable": true,
+        "name": "DeBÍ TiRAR MáS FOToS",
+        "release_date": "2025-01-05",
+        "release_date_precision": "day",
+        "total_tracks": 17,
+        "type": "album",
+        "uri": "spotify:album:5K79FLRUCSysQnVESLcTdb"
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/4q3ewBCX7sLwd24euuV69X"
+          },
+          "href": "https://api.spotify.com/v1/artists/4q3ewBCX7sLwd24euuV69X",
+          "id": "4q3ewBCX7sLwd24euuV69X",
+          "name": "Bad Bunny",
+          "type": "artist",
+          "uri": "spotify:artist:4q3ewBCX7sLwd24euuV69X"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 183685,
+      "explicit": false,
+      "external_ids": {
+        "isrc": "QMFMF2447055"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/5TFD2bmFKGhoCRbX61nXY5"
+      },
+      "href": "https://api.spotify.com/v1/tracks/5TFD2bmFKGhoCRbX61nXY5",
+      "id": "5TFD2bmFKGhoCRbX61nXY5",
+      "is_local": false,
+      "is_playable": true,
+      "name": "NUEVAYoL",
+      "track_number": 1,
+      "type": "track",
+      "uri": "spotify:track:5TFD2bmFKGhoCRbX61nXY5"
+    }
+  ],
+  "total": 5236,
+  "limit": 3,
+  "offset": 0,
+  "href": "https://api.spotify.com/v1/me/top/tracks?limit=3",
+  "next": "https://api.spotify.com/v1/me/top/tracks?offset=3&limit=3",
+  "previous": null
+}

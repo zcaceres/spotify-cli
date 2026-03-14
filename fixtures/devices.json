@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "id": "139a3d6cdcfcb849b56797e4446748ee73097196",
+      "is_active": false,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "DESKTOP-0GQPIT3",
+      "supports_volume": true,
+      "type": "Computer",
+      "volume_percent": 100
+    },
+    {
+      "id": "ca12f7467f42877c70cf0b2d7195f57f9b2f9293",
+      "is_active": true,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "Zach’s MacBook Pro (2)",
+      "supports_volume": true,
+      "type": "Computer",
+      "volume_percent": 100
+    }
+  ]
+}

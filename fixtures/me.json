@@ -1,0 +1,22 @@
+{
+  "country": "US",
+  "display_name": "zach",
+  "email": "zachcaceres@gmail.com",
+  "explicit_content": {
+    "filter_enabled": false,
+    "filter_locked": false
+  },
+  "external_urls": {
+    "spotify": "https://open.spotify.com/user/improvisations"
+  },
+  "followers": {
+    "href": null,
+    "total": 46
+  },
+  "href": "https://api.spotify.com/v1/users/improvisations",
+  "id": "improvisations",
+  "images": [],
+  "product": "premium",
+  "type": "user",
+  "uri": "spotify:user:improvisations"
+}

@@ -9,7 +9,7 @@ export const SearchResponseSchema = z.object({
   tracks: PagingSchema(TrackSchema).optional(),
   albums: PagingSchema(SimplifiedAlbumSchema).optional(),
   artists: PagingSchema(ArtistSchema).optional(),
-  playlists: PagingSchema(SimplifiedPlaylistSchema).optional(),
+  playlists: PagingSchema(SimplifiedPlaylistSchema.nullable()).optional(),
 });
 
 export type SearchResponse = z.infer<typeof SearchResponseSchema>;

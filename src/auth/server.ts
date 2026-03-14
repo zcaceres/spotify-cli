@@ -1,4 +1,5 @@
 import { CALLBACK_PORT } from "../config.js";
+import { authError } from "../errors.js";
 
 interface CallbackResult {
   code: string;
@@ -9,10 +10,11 @@ export function startCallbackServer(expectedState: string): Promise<CallbackResu
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       server.stop();
-      reject(new Error("OAuth callback timed out after 120 seconds"));
+      reject(authError("OAuth callback timed out after 120 seconds"));
     }, 120_000);
 
     const server = Bun.serve({
+      hostname: "127.0.0.1",
       port: CALLBACK_PORT,
       fetch(req) {
         const url = new URL(req.url);
@@ -27,7 +29,7 @@ export function startCallbackServer(expectedState: string): Promise<CallbackResu
         if (error) {
           clearTimeout(timeout);
           server.stop();
-          reject(new Error(`OAuth error: ${error}`));
+          reject(authError(`OAuth error: ${error}`));
           return new Response(html("Authorization failed. You can close this tab."), {
             headers: { "Content-Type": "text/html" },
           });
@@ -36,7 +38,7 @@ export function startCallbackServer(expectedState: string): Promise<CallbackResu
         if (!code || !state) {
           clearTimeout(timeout);
           server.stop();
-          reject(new Error("Missing code or state in callback"));
+          reject(authError("Missing code or state in callback"));
           return new Response(html("Missing parameters. You can close this tab."), {
             headers: { "Content-Type": "text/html" },
           });
@@ -45,7 +47,7 @@ export function startCallbackServer(expectedState: string): Promise<CallbackResu
         if (state !== expectedState) {
           clearTimeout(timeout);
           server.stop();
-          reject(new Error("State mismatch — possible CSRF attack"));
+          reject(authError("State mismatch — possible CSRF attack"));
           return new Response(html("State mismatch. You can close this tab."), {
             headers: { "Content-Type": "text/html" },
           });

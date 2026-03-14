@@ -1,0 +1,264 @@
+{
+  "href": "https://api.spotify.com/v1/me/tracks?offset=0&limit=3",
+  "items": [
+    {
+      "added_at": "2026-01-23T02:58:08Z",
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+              },
+              "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+              "id": "12eNUx8BvR5qmpFssq8Vkt",
+              "name": "Soneros De Verdad",
+              "type": "artist",
+              "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/5hSWRDgVuz5mVirkTXPcfO"
+          },
+          "href": "https://api.spotify.com/v1/albums/5hSWRDgVuz5mVirkTXPcfO",
+          "id": "5hSWRDgVuz5mVirkTXPcfO",
+          "images": [
+            {
+              "height": 640,
+              "width": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273909fed8be67d331d491ff099"
+            },
+            {
+              "height": 300,
+              "width": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02909fed8be67d331d491ff099"
+            },
+            {
+              "height": 64,
+              "width": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851909fed8be67d331d491ff099"
+            }
+          ],
+          "is_playable": true,
+          "name": "A Buena Vista: Barrio De La Habana",
+          "release_date": "2004-08-09",
+          "release_date_precision": "day",
+          "total_tracks": 13,
+          "type": "album",
+          "uri": "spotify:album:5hSWRDgVuz5mVirkTXPcfO"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt"
+            },
+            "href": "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+            "id": "12eNUx8BvR5qmpFssq8Vkt",
+            "name": "Soneros De Verdad",
+            "type": "artist",
+            "uri": "spotify:artist:12eNUx8BvR5qmpFssq8Vkt"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/3NOoOH3WZuJRNe5cvmW7ic"
+            },
+            "href": "https://api.spotify.com/v1/artists/3NOoOH3WZuJRNe5cvmW7ic",
+            "id": "3NOoOH3WZuJRNe5cvmW7ic",
+            "name": "Luis Frank",
+            "type": "artist",
+            "uri": "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 193693,
+        "explicit": false,
+        "external_ids": {
+          "isrc": "DEE790010410"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/6K4iVISawI285iTxyvBIEB"
+        },
+        "href": "https://api.spotify.com/v1/tracks/6K4iVISawI285iTxyvBIEB",
+        "id": "6K4iVISawI285iTxyvBIEB",
+        "is_local": false,
+        "is_playable": true,
+        "name": "A Buena Vista",
+        "track_number": 1,
+        "type": "track",
+        "uri": "spotify:track:6K4iVISawI285iTxyvBIEB"
+      }
+    },
+    {
+      "added_at": "2026-01-21T02:07:10Z",
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/6SPpCqM8gOzrtICAxN5NuX"
+              },
+              "href": "https://api.spotify.com/v1/artists/6SPpCqM8gOzrtICAxN5NuX",
+              "id": "6SPpCqM8gOzrtICAxN5NuX",
+              "name": "Tito Puente",
+              "type": "artist",
+              "uri": "spotify:artist:6SPpCqM8gOzrtICAxN5NuX"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/7J3VF3HcxYEYr2tRFoaqNq"
+          },
+          "href": "https://api.spotify.com/v1/albums/7J3VF3HcxYEYr2tRFoaqNq",
+          "id": "7J3VF3HcxYEYr2tRFoaqNq",
+          "images": [
+            {
+              "height": 640,
+              "width": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273cd3bc05eb8cea8fa7d10fcf5"
+            },
+            {
+              "height": 300,
+              "width": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02cd3bc05eb8cea8fa7d10fcf5"
+            },
+            {
+              "height": 64,
+              "width": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851cd3bc05eb8cea8fa7d10fcf5"
+            }
+          ],
+          "is_playable": true,
+          "name": "El Rey Bravo",
+          "release_date": "1962-01-01",
+          "release_date_precision": "day",
+          "total_tracks": 11,
+          "type": "album",
+          "uri": "spotify:album:7J3VF3HcxYEYr2tRFoaqNq"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/6SPpCqM8gOzrtICAxN5NuX"
+            },
+            "href": "https://api.spotify.com/v1/artists/6SPpCqM8gOzrtICAxN5NuX",
+            "id": "6SPpCqM8gOzrtICAxN5NuX",
+            "name": "Tito Puente",
+            "type": "artist",
+            "uri": "spotify:artist:6SPpCqM8gOzrtICAxN5NuX"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 274018,
+        "explicit": false,
+        "external_ids": {
+          "isrc": "USDBB0601032"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/73uEbChpBB29ttwVnwuNVE"
+        },
+        "href": "https://api.spotify.com/v1/tracks/73uEbChpBB29ttwVnwuNVE",
+        "id": "73uEbChpBB29ttwVnwuNVE",
+        "is_local": false,
+        "is_playable": true,
+        "name": "Oye Cómo Va",
+        "track_number": 2,
+        "type": "track",
+        "uri": "spotify:track:73uEbChpBB29ttwVnwuNVE"
+      }
+    },
+    {
+      "added_at": "2025-12-24T18:46:26Z",
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/7ltDVBr6mKbRvohxheJ9h1"
+              },
+              "href": "https://api.spotify.com/v1/artists/7ltDVBr6mKbRvohxheJ9h1",
+              "id": "7ltDVBr6mKbRvohxheJ9h1",
+              "name": "ROSALÍA",
+              "type": "artist",
+              "uri": "spotify:artist:7ltDVBr6mKbRvohxheJ9h1"
+            }
+          ],
+          "external_urls": {
+            "spotify": "https://open.spotify.com/album/3SUEJULSGgBDG1j4GQhfYY"
+          },
+          "href": "https://api.spotify.com/v1/albums/3SUEJULSGgBDG1j4GQhfYY",
+          "id": "3SUEJULSGgBDG1j4GQhfYY",
+          "images": [
+            {
+              "height": 640,
+              "width": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b27393ee2e2f2dfb7de9befcc164"
+            },
+            {
+              "height": 300,
+              "width": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e0293ee2e2f2dfb7de9befcc164"
+            },
+            {
+              "height": 64,
+              "width": 64,
+              "url": "https://i.scdn.co/image/ab67616d0000485193ee2e2f2dfb7de9befcc164"
+            }
+          ],
+          "is_playable": true,
+          "name": "LUX",
+          "release_date": "2025-11-07",
+          "release_date_precision": "day",
+          "total_tracks": 15,
+          "type": "album",
+          "uri": "spotify:album:3SUEJULSGgBDG1j4GQhfYY"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7ltDVBr6mKbRvohxheJ9h1"
+            },
+            "href": "https://api.spotify.com/v1/artists/7ltDVBr6mKbRvohxheJ9h1",
+            "id": "7ltDVBr6mKbRvohxheJ9h1",
+            "name": "ROSALÍA",
+            "type": "artist",
+            "uri": "spotify:artist:7ltDVBr6mKbRvohxheJ9h1"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/51ZSh80McCt7vbqHouzW0A"
+            },
+            "href": "https://api.spotify.com/v1/artists/51ZSh80McCt7vbqHouzW0A",
+            "id": "51ZSh80McCt7vbqHouzW0A",
+            "name": "Yahritza Y Su Esencia",
+            "type": "artist",
+            "uri": "spotify:artist:51ZSh80McCt7vbqHouzW0A"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 195546,
+        "explicit": true,
+        "external_ids": {
+          "isrc": "USSM12504035"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/4oVO4fGNRRvEn0CRuFO4qv"
+        },
+        "href": "https://api.spotify.com/v1/tracks/4oVO4fGNRRvEn0CRuFO4qv",
+        "id": "4oVO4fGNRRvEn0CRuFO4qv",
+        "is_local": false,
+        "is_playable": true,
+        "name": "La Perla",
+        "track_number": 7,
+        "type": "track",
+        "uri": "spotify:track:4oVO4fGNRRvEn0CRuFO4qv"
+      }
+    }
+  ],
+  "limit": 3,
+  "next": "https://api.spotify.com/v1/me/tracks?offset=3&limit=3",
+  "offset": 0,
+  "previous": null,
+  "total": 1500
+}

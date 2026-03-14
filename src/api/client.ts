@@ -82,7 +82,8 @@ async function fetchWithRetry(
 
     if (response.status === 429) {
       const retryAfter = response.headers.get("Retry-After");
-      const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 1000 * (attempt + 1);
+      const parsed = retryAfter ? parseInt(retryAfter, 10) : NaN;
+      const waitMs = !isNaN(parsed) ? parsed * 1000 : 1000 * (attempt + 1);
       console.error(JSON.stringify({ warning: "rate_limited", retry_after_ms: waitMs }));
       await Bun.sleep(waitMs);
       continue;

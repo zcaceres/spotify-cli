@@ -18,13 +18,18 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
   for (let i = 1; i < raw.length; i++) {
     const arg = raw[i]!;
     if (arg.startsWith("--")) {
-      const key = arg.slice(2);
-      const next = raw[i + 1];
-      if (next !== undefined && !next.startsWith("--")) {
-        flags[key] = next;
-        i++;
+      const eqIdx = arg.indexOf("=");
+      if (eqIdx !== -1) {
+        flags[arg.slice(2, eqIdx)] = arg.slice(eqIdx + 1);
       } else {
-        flags[key] = "";
+        const key = arg.slice(2);
+        const next = raw[i + 1];
+        if (next !== undefined && !next.startsWith("--")) {
+          flags[key] = next;
+          i++;
+        } else {
+          flags[key] = "";
+        }
       }
     } else {
       positional.push(arg);
@@ -35,11 +40,6 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
 }
 
 function showHelp(): void {
-  const lines: string[] = ["Usage: spotify <command> [args] [--flags]\n", "Commands:"];
-  const maxLen = Math.max(...[...commands.keys()].map((k) => k.length));
-  for (const [name, def] of commands) {
-    lines.push(`  ${name.padEnd(maxLen + 2)}${def.description}`);
-  }
   output({ usage: "spotify <command> [args] [--flags]", commands: Object.fromEntries([...commands].map(([k, v]) => [k, v.description])) });
 }
 
