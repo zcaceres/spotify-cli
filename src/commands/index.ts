@@ -14,6 +14,8 @@ export interface ParsedArgs {
   positional: string[];
   /** Flag values keyed by name (without `--` prefix). Boolean flags have an empty string value. */
   flags: Record<string, string>;
+  /** Flags that appeared more than once. All values collected in order. */
+  multiFlags: Record<string, string[]>;
 }
 
 /** A function that handles a CLI command. */

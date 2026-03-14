@@ -14,6 +14,7 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
 
   const positional: string[] = [];
   const flags: Record<string, string> = {};
+  const multiFlags: Record<string, string[]> = {};
   let restArePositional = false;
 
   for (let i = 1; i < raw.length; i++) {
@@ -30,25 +31,33 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
     }
 
     if (arg.startsWith("--")) {
+      let key: string;
+      let value: string;
       const eqIdx = arg.indexOf("=");
       if (eqIdx !== -1) {
-        flags[arg.slice(2, eqIdx)] = arg.slice(eqIdx + 1);
+        key = arg.slice(2, eqIdx);
+        value = arg.slice(eqIdx + 1);
       } else {
-        const key = arg.slice(2);
+        key = arg.slice(2);
         const next = raw[i + 1];
         if (next !== undefined && !next.startsWith("-")) {
-          flags[key] = next;
+          value = next;
           i++;
         } else {
-          flags[key] = "";
+          value = "";
         }
       }
+      if (key in flags) {
+        if (!multiFlags[key]) multiFlags[key] = [flags[key]!];
+        multiFlags[key].push(value);
+      }
+      flags[key] = value;
     } else {
       positional.push(arg);
     }
   }
 
-  return { command, args: { positional, flags } };
+  return { command, args: { positional, flags, multiFlags } };
 }
 
 function showHelp(): void {
