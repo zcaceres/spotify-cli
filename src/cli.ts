@@ -14,9 +14,21 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
 
   const positional: string[] = [];
   const flags: Record<string, string> = {};
+  let restArePositional = false;
 
   for (let i = 1; i < raw.length; i++) {
     const arg = raw[i]!;
+
+    if (restArePositional) {
+      positional.push(arg);
+      continue;
+    }
+
+    if (arg === "--") {
+      restArePositional = true;
+      continue;
+    }
+
     if (arg.startsWith("--")) {
       const eqIdx = arg.indexOf("=");
       if (eqIdx !== -1) {
@@ -24,7 +36,7 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
       } else {
         const key = arg.slice(2);
         const next = raw[i + 1];
-        if (next !== undefined && !next.startsWith("--")) {
+        if (next !== undefined && !next.startsWith("-")) {
           flags[key] = next;
           i++;
         } else {

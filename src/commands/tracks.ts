@@ -1,9 +1,16 @@
+/**
+ * CLI command handlers for track operations.
+ *
+ * @module
+ */
+
 import * as api from "../api/tracks.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
-import { optionalIntFlag } from "../parse.js";
+import { optionalIntFlag, requireIds } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
+/** Handles `spotify track <id>`. Outputs track details. */
 export const trackCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) throw argsError("Usage: spotify track <id>");
@@ -11,6 +18,11 @@ export const trackCommand: CommandHandler = async (args) => {
   output(data);
 };
 
+/**
+ * Handles `spotify saved-tracks [--limit N] [--offset N]`.
+ *
+ * Lists the current user's saved tracks.
+ */
 export const savedTracksCommand: CommandHandler = async (args) => {
   const limit = optionalIntFlag(args.flags, "limit");
   const offset = optionalIntFlag(args.flags, "offset");
@@ -18,18 +30,33 @@ export const savedTracksCommand: CommandHandler = async (args) => {
   output(data);
 };
 
+/**
+ * Handles `spotify save-tracks <id...>`.
+ *
+ * Saves one or more tracks to the current user's library.
+ */
 export const saveTracksCommand: CommandHandler = async (args) => {
-  if (args.positional.length === 0) throw argsError("Usage: spotify save-tracks <id...>");
-  await api.saveTracks(args.positional);
-  output({ status: "saved", ids: args.positional });
+  const ids = requireIds(args.positional, "spotify save-tracks <id...>");
+  await api.saveTracks(ids);
+  output({ status: "saved", ids });
 };
 
+/**
+ * Handles `spotify remove-tracks <id...>`.
+ *
+ * Removes one or more tracks from the current user's library.
+ */
 export const removeTracksCommand: CommandHandler = async (args) => {
-  if (args.positional.length === 0) throw argsError("Usage: spotify remove-tracks <id...>");
-  await api.removeTracks(args.positional);
-  output({ status: "removed", ids: args.positional });
+  const ids = requireIds(args.positional, "spotify remove-tracks <id...>");
+  await api.removeTracks(ids);
+  output({ status: "removed", ids });
 };
 
+/**
+ * Handles `spotify audio-features <id>`.
+ *
+ * Outputs audio analysis features (danceability, energy, tempo, etc.) for a track.
+ */
 export const audioFeaturesCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) throw argsError("Usage: spotify audio-features <id>");
@@ -37,6 +64,12 @@ export const audioFeaturesCommand: CommandHandler = async (args) => {
   output(data);
 };
 
+/**
+ * Handles `spotify recommendations --seed-tracks <ids> | --seed-artists <ids> | --seed-genres <genres> [--limit N]`.
+ *
+ * Gets track recommendations based on seed tracks, artists, and/or genres.
+ * At least one seed type is required.
+ */
 export const recommendationsCommand: CommandHandler = async (args) => {
   const seedTracks = args.flags["seed-tracks"];
   const seedArtists = args.flags["seed-artists"];
