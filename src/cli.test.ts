@@ -45,7 +45,7 @@ function parseArgs(argv: string[]) {
       }
       if (key in flags) {
         if (!multiFlags[key]) multiFlags[key] = [flags[key]!];
-        multiFlags[key].push(value);
+        multiFlags[key]!.push(value);
       }
       flags[key] = value;
     } else {

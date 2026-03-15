@@ -2,8 +2,8 @@ import { describe, test, expect, mock, beforeEach } from "bun:test";
 import type { ParsedArgs } from "./index.js";
 
 // Mock the API module before importing the command
-const mockGetPlaylistTracks = mock(() => Promise.resolve({ items: [], total: 0 }));
-const mockRemoveTracksFromPlaylist = mock(() => Promise.resolve({ snapshot_id: "abc123" }));
+const mockGetPlaylistTracks = mock(() => Promise.resolve({ items: [] as Array<{ item: { name: string; uri: string; artists: Array<{ name: string }> } | null }>, total: 0 }));
+const mockRemoveTracksFromPlaylist = mock((_id: string, _uris: string[]) => Promise.resolve({ snapshot_id: "abc123" }));
 
 mock.module("../api/playlists.js", () => ({
   getPlaylistTracks: mockGetPlaylistTracks,
