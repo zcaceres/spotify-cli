@@ -26,11 +26,11 @@ export const nowCommand: CommandHandler = async () => {
  * Starts or resumes playback, optionally targeting a specific device, URI, or position.
  */
 export const playCommand: CommandHandler = async (args) => {
-  const uri = args.flags["uri"];
-  const context = args.flags["context"];
-  const device = args.flags["device"];
-  const offset = args.flags["offset"];
-  const position = args.flags["position"];
+  const uri = args.flags.uri;
+  const context = args.flags.context;
+  const device = args.flags.device;
+  const offset = args.flags.offset;
+  const position = args.flags.position;
 
   const options: Parameters<typeof api.startPlayback>[0] = {};
   if (device) options.device_id = device;
@@ -45,19 +45,19 @@ export const playCommand: CommandHandler = async (args) => {
 
 /** Handles `spotify pause [--device <id>]`. */
 export const pauseCommand: CommandHandler = async (args) => {
-  await api.pausePlayback(args.flags["device"]);
+  await api.pausePlayback(args.flags.device);
   output({ status: "paused" });
 };
 
 /** Handles `spotify next [--device <id>]`. */
 export const nextCommand: CommandHandler = async (args) => {
-  await api.skipToNext(args.flags["device"]);
+  await api.skipToNext(args.flags.device);
   output({ status: "skipped_next" });
 };
 
 /** Handles `spotify prev [--device <id>]`. */
 export const prevCommand: CommandHandler = async (args) => {
-  await api.skipToPrevious(args.flags["device"]);
+  await api.skipToPrevious(args.flags.device);
   output({ status: "skipped_previous" });
 };
 
@@ -71,7 +71,7 @@ export const seekCommand: CommandHandler = async (args) => {
   if (!ms) throw argsError("Usage: spotify seek <ms>");
   const position = parseIntFlag(ms, "position");
   if (position < 0) throw argsError("Seek position must be non-negative");
-  await api.seekToPosition(position, args.flags["device"]);
+  await api.seekToPosition(position, args.flags.device);
   output({ status: "seeked", position_ms: position });
 };
 
@@ -85,7 +85,7 @@ export const volumeCommand: CommandHandler = async (args) => {
   if (!level) throw argsError("Usage: spotify volume <0-100>");
   const vol = parseIntFlag(level, "volume");
   if (vol < 0 || vol > 100) throw argsError("Volume must be 0-100");
-  await api.setVolume(vol, args.flags["device"]);
+  await api.setVolume(vol, args.flags.device);
   output({ status: "volume_set", volume: vol });
 };
 
@@ -95,7 +95,7 @@ export const volumeCommand: CommandHandler = async (args) => {
 export const shuffleCommand: CommandHandler = async (args) => {
   const state = args.positional[0];
   if (state !== "on" && state !== "off") throw argsError("Usage: spotify shuffle <on|off>");
-  await api.setShuffle(state === "on", args.flags["device"]);
+  await api.setShuffle(state === "on", args.flags.device);
   output({ status: "shuffle_set", shuffle: state === "on" });
 };
 
@@ -107,7 +107,7 @@ export const repeatCommand: CommandHandler = async (args) => {
   if (state !== "off" && state !== "track" && state !== "context") {
     throw argsError("Usage: spotify repeat <off|track|context>");
   }
-  await api.setRepeat(state, args.flags["device"]);
+  await api.setRepeat(state, args.flags.device);
   output({ status: "repeat_set", repeat: state });
 };
 
@@ -125,7 +125,7 @@ export const queueCommand: CommandHandler = async () => {
 export const queueAddCommand: CommandHandler = async (args) => {
   const uri = args.positional[0];
   if (!uri) throw argsError("Usage: spotify queue-add <uri>");
-  await api.addToQueue(uri, args.flags["device"]);
+  await api.addToQueue(uri, args.flags.device);
   output({ status: "added_to_queue", uri });
 };
 
@@ -143,7 +143,7 @@ export const devicesCommand: CommandHandler = async () => {
 export const transferCommand: CommandHandler = async (args) => {
   const deviceId = args.positional[0];
   if (!deviceId) throw argsError("Usage: spotify transfer <device_id>");
-  const play = args.flags["play"] !== undefined ? true : undefined;
+  const play = args.flags.play !== undefined ? true : undefined;
   await api.transferPlayback(deviceId, play);
   output({ status: "transferred", device_id: deviceId });
 };

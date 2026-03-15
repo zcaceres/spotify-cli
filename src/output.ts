@@ -24,7 +24,7 @@ export function output(data: unknown): void {
  */
 export function logError(message: string, details?: Record<string, unknown>): void {
   const obj: Record<string, unknown> = { error: message };
-  if (details !== undefined) obj["details"] = details;
+  if (details !== undefined) obj.details = details;
   console.error(JSON.stringify(obj));
 }
 

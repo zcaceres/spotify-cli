@@ -15,7 +15,7 @@ import { argsError, ErrorCode } from "./errors.js";
  */
 export function parseIntFlag(value: string, name: string): number {
   const n = parseInt(value, 10);
-  if (isNaN(n)) throw argsError(`${name} must be a number, got "${value}"`, ErrorCode.INVALID_ARGUMENT);
+  if (Number.isNaN(n)) throw argsError(`${name} must be a number, got "${value}"`, ErrorCode.INVALID_ARGUMENT);
   return n;
 }
 

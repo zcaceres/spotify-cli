@@ -102,8 +102,8 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
   }
 
   const directUris = args.positional.slice(1);
-  const matchValues = args.multiFlags["match"] ?? (args.flags["match"] !== undefined ? [args.flags["match"]] : []);
-  const indexValues = args.multiFlags["index"] ?? (args.flags["index"] !== undefined ? [args.flags["index"]] : []);
+  const matchValues = args.multiFlags.match ?? (args.flags.match !== undefined ? [args.flags.match] : []);
+  const indexValues = args.multiFlags.index ?? (args.flags.index !== undefined ? [args.flags.index] : []);
 
   if (directUris.length === 0 && matchValues.length === 0 && indexValues.length === 0) {
     throw argsError("Usage: spotify playlist-remove <playlist_id> [uri...] [--match name] [--index N]");
@@ -127,10 +127,11 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
 
     const indices = indexValues.flatMap((v) => v.split(",").map((s) => parseInt(s.trim(), 10)));
     for (const idx of indices) {
-      if (isNaN(idx) || idx < 1 || idx > tracks.length) {
+      if (Number.isNaN(idx) || idx < 1 || idx > tracks.length) {
         throw argsError(`Invalid index ${idx}: playlist has ${tracks.length} tracks (1-based)`);
       }
-      urisToRemove.add(tracks[idx - 1]!.uri);
+      const track = tracks[idx - 1];
+      if (track) urisToRemove.add(track.uri);
     }
   }
 
@@ -147,8 +148,8 @@ export const playlistCreateCommand: CommandHandler = async (args) => {
   const name = args.positional[0];
   if (!name) throw argsError("Usage: spotify playlist-create <name> [--description ...] [--public]");
 
-  const description = args.flags["description"];
-  const isPublic = args.flags["public"] !== undefined ? true : undefined;
+  const description = args.flags.description;
+  const isPublic = args.flags.public !== undefined ? true : undefined;
 
   const opts: { name: string; description?: string; public?: boolean } = { name };
   if (description !== undefined) opts.description = description;

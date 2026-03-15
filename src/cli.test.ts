@@ -14,7 +14,8 @@ function parseArgs(argv: string[]) {
   let restArePositional = false;
 
   for (let i = 1; i < raw.length; i++) {
-    const arg = raw[i]!;
+    const arg = raw[i];
+    if (arg === undefined) continue;
 
     if (restArePositional) {
       positional.push(arg);
@@ -44,8 +45,9 @@ function parseArgs(argv: string[]) {
         }
       }
       if (key in flags) {
-        if (!multiFlags[key]) multiFlags[key] = [flags[key]!];
-        multiFlags[key]!.push(value);
+        const existing = flags[key];
+        if (!multiFlags[key] && existing !== undefined) multiFlags[key] = [existing];
+        multiFlags[key]?.push(value);
       }
       flags[key] = value;
     } else {

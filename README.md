@@ -1,138 +1,60 @@
 # spotify-cli
 
-Agent-friendly Spotify CLI. JSON-first output, flat subcommands, no interactive prompts.
+[![CI](https://github.com/zcaceres/spotify-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/zcaceres/spotify-cli/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
 
-Built with Bun + TypeScript + Zod. PKCE auth (no client secret needed).
+Secure, agent (and human) friendly CLI for playback, search, playlists, and library management. JSON output. PKCE auth.
 
-## Prerequisites
+**[Documentation](https://zcaceres.github.io/spotify-cli/)** · **[Command Reference](https://zcaceres.github.io/spotify-cli/commands)** · **[Releases](https://github.com/zcaceres/spotify-cli/releases)**
 
-- [Bun](https://bun.sh) runtime
-- Spotify Premium account (required for playback controls)
-- A Spotify Developer app (free, takes 2 minutes)
+## Quick start
 
-## Setup
+### Install
 
-### 1. Install dependencies
+Download the latest binary for your platform from [Releases](https://github.com/zcaceres/spotify-cli/releases):
 
 ```bash
-bun install
+chmod +x spotify-darwin-arm64
+sudo mv spotify-darwin-arm64 /usr/local/bin/spotify
 ```
 
-### 2. Create a Spotify app
+Or run from source with [Bun](https://bun.sh):
 
-All Spotify API access requires a registered app, even for personal use. It's free and no review is needed (dev mode supports up to 25 users).
+```bash
+git clone https://github.com/zcaceres/spotify-cli.git
+cd spotify-cli && bun install
+bun run src/cli.ts <command>  # instead of `spotify <command>`
+```
+
+### Set up a Spotify app
 
 1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-2. Click **Create App**
-3. Fill in any name and description
-4. Set the **Redirect URI** to `http://127.0.0.1:8888/callback`
-5. Copy the **Client ID**
+2. Click **Create App**, set redirect URI to `http://127.0.0.1:8888/callback`
+3. Copy the **Client ID**
 
-### 3. Log in
+### Log in
 
 ```bash
-bun run src/cli.ts login --client-id <your-client-id>
+spotify login --client-id <your-client-id>
 ```
 
-This opens your browser for OAuth authorization. After approving, tokens are saved to `~/.spotify-cli/tokens.json`.
-
-To skip the `--client-id` flag on future logins, set the environment variable:
+### Try it
 
 ```bash
-export SPOTIFY_CLIENT_ID=<your-client-id>
+spotify now                                    # what's playing
+spotify search "bohemian rhapsody" --type track # search
+spotify play --uri spotify:track:6rqhFgbbKwnb9MLmUQDhG6
+spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
 ```
 
-Or save it permanently:
+## Features
 
-```bash
-echo '{"client_id": "<your-client-id>"}' > ~/.spotify-cli/config.json
-```
-
-### 4. Verify
-
-```bash
-bun run src/cli.ts auth-status   # check token validity
-bun run src/cli.ts me             # your profile
-bun run src/cli.ts now            # currently playing
-```
-
-## Usage
-
-```bash
-bun run src/cli.ts <command> [args] [--flags]
-```
-
-All output is JSON to stdout. Errors go to stderr as JSON.
-
-### Commands
-
-#### Auth
-| Command | Description |
-|---------|-------------|
-| `login` | OAuth PKCE login (opens browser) |
-| `logout` | Clear stored tokens |
-| `auth-status` | Show token validity and scopes |
-
-#### Player (requires Premium)
-| Command | Description |
-|---------|-------------|
-| `now` | Currently playing track |
-| `play` | Start/resume playback (`--uri`, `--context`, `--device`, `--offset`, `--position`) |
-| `pause` | Pause playback |
-| `next` | Skip to next track |
-| `prev` | Skip to previous track |
-| `seek <ms>` | Seek to position |
-| `volume <0-100>` | Set volume |
-| `shuffle <on\|off>` | Toggle shuffle |
-| `repeat <off\|track\|context>` | Set repeat mode |
-| `queue` | Show playback queue |
-| `queue-add <uri>` | Add track to queue |
-| `devices` | List available devices |
-| `transfer <device_id>` | Transfer playback (`--play`) |
-| `recent` | Recently played tracks (`--limit`, `--after`, `--before`) |
-
-#### Search
-| Command | Description |
-|---------|-------------|
-| `search <query>` | Search Spotify (`--type`, `--limit`, `--offset`) |
-
-#### Library
-| Command | Description |
-|---------|-------------|
-| `track <id>` | Get track details |
-| `saved-tracks` | List saved tracks (`--limit`, `--offset`) |
-| `save-tracks <id...>` | Save tracks to library |
-| `remove-tracks <id...>` | Remove saved tracks |
-| `audio-features <id>` | Track audio features |
-| `recommendations` | Get recommendations (`--seed-tracks`, `--seed-artists`, `--seed-genres`) |
-
-#### Albums
-| Command | Description |
-|---------|-------------|
-| `album <id>` | Get album details |
-| `album-tracks <id>` | List album tracks (`--limit`, `--offset`) |
-| `saved-albums` | List saved albums (`--limit`, `--offset`) |
-| `save-albums <id...>` | Save albums to library |
-| `remove-albums <id...>` | Remove saved albums |
-
-#### Playlists
-| Command | Description |
-|---------|-------------|
-| `playlist <id>` | Get playlist details |
-| `playlists` | List your playlists (`--limit`, `--offset`) |
-| `playlist-tracks <id>` | List playlist tracks (`--limit`, `--offset`) |
-| `playlist-add <id> <uri...>` | Add tracks to playlist (`--position`) |
-| `playlist-remove <id> [uri...]` | Remove tracks (`--match`, `--index`, or URIs) |
-| `playlist-create <name>` | Create playlist (`--description`, `--public`) |
-
-#### User
-| Command | Description |
-|---------|-------------|
-| `me` | Current user profile |
-| `top <artists\|tracks>` | Top items (`--time-range`, `--limit`) |
-| `following` | Followed artists (`--limit`, `--after`) |
-| `follow <id...>` | Follow artists |
-| `unfollow <id...>` | Unfollow artists |
+- **40 commands** — playback, search, library, playlists, albums, user profile
+- **JSON to stdout** — pipe to `jq`, scripts, or AI agents
+- **PKCE auth** — no client secret, tokens refresh automatically
+- **Structured errors** — JSON to stderr with [error codes](https://zcaceres.github.io/spotify-cli/commands#exit-codes) and exit codes
+- **Zero config** — single binary, no runtime dependencies
 
 ## Exit codes
 
@@ -148,3 +70,7 @@ All output is JSON to stdout. Errors go to stderr as JSON.
 
 - `audio-features` and `recommendations` are restricted for Spotify apps created after November 2024 unless you have extended quota mode approval.
 - Queue and playback state schemas handle tracks only, not podcast episodes.
+
+## License
+
+MIT. Not affiliated with or endorsed by Spotify AB.

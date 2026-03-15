@@ -40,7 +40,7 @@ export const topCommand: CommandHandler = async (args) => {
  */
 export const followingCommand: CommandHandler = async (args) => {
   const limit = optionalIntFlag(args.flags, "limit");
-  const after = args.flags["after"];
+  const after = args.flags.after;
   const data = await api.getFollowedArtists({ limit, after });
   output(data);
 };

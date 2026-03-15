@@ -53,9 +53,9 @@ export async function loadTokens(): Promise<StoredTokens> {
   }
   const tokens = data as Record<string, unknown>;
   if (
-    typeof tokens["access_token"] !== "string" ||
-    typeof tokens["refresh_token"] !== "string" ||
-    typeof tokens["expires_at"] !== "number"
+    typeof tokens.access_token !== "string" ||
+    typeof tokens.refresh_token !== "string" ||
+    typeof tokens.expires_at !== "number"
   ) {
     throw authError("Invalid tokens file. Run `spotify login` to re-authenticate.", ErrorCode.TOKEN_CORRUPTED);
   }
@@ -94,13 +94,13 @@ export function isExpired(tokens: StoredTokens): boolean {
  */
 export async function getClientId(flagValue?: string): Promise<string> {
   if (flagValue) return flagValue;
-  const envId = process.env["SPOTIFY_CLIENT_ID"];
+  const envId = process.env.SPOTIFY_CLIENT_ID;
   if (envId) return envId;
 
   const file = Bun.file(CONFIG_PATH);
   if (await file.exists()) {
     const config = (await file.json()) as Record<string, unknown>;
-    if (typeof config["client_id"] === "string") return config["client_id"];
+    if (typeof config.client_id === "string") return config.client_id;
   }
 
   throw authError(
@@ -120,7 +120,7 @@ export async function saveClientId(clientId: string): Promise<void> {
   if (await file.exists()) {
     config = (await file.json()) as Record<string, unknown>;
   }
-  config["client_id"] = clientId;
+  config.client_id = clientId;
   await Bun.write(CONFIG_PATH, JSON.stringify(config, null, 2));
   await chmod(CONFIG_PATH, 0o600);
 }

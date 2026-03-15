@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterEach, describe, expect, mock, test } from "bun:test";
 import { ErrorCode, ExitCode, SpotifyCliError } from "../errors.js";
 
 // Mock token store and auth flow so spotifyFetch can run without real credentials
@@ -76,7 +76,7 @@ describe("spotifyFetch", () => {
     }) as unknown as typeof fetch;
 
     await spotifyFetch("/me");
-    expect(capturedHeaders["Authorization"]).toBe("Bearer fake-access-token");
+    expect(capturedHeaders.Authorization).toBe("Bearer fake-access-token");
   });
 
   test("sends JSON body and Content-Type for POST", async () => {

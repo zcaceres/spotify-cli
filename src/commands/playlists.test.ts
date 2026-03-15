@@ -238,7 +238,7 @@ describe("playlist-remove", () => {
   test("removes by --match (multiple via multiFlags)", async () => {
     mockGetPlaylistTracks.mockResolvedValue(makeFakePlaylistResponse(SAMPLE_TRACKS));
     await playlistRemoveCommand(args([PLAYLIST_ID], { match: "Sandman" }, { match: ["Hotel California", "Sandman"] }));
-    const removedUris = mockRemoveTracksFromPlaylist.mock.calls[0]![1] as string[];
+    const removedUris = (mockRemoveTracksFromPlaylist.mock.calls[0]?.[1] ?? []) as string[];
     expect(removedUris).toContain("spotify:track:ccc");
     expect(removedUris).toContain("spotify:track:ddd");
     expect(removedUris).toHaveLength(2);
@@ -265,7 +265,7 @@ describe("playlist-remove", () => {
   test("removes by --index with comma-separated values", async () => {
     mockGetPlaylistTracks.mockResolvedValue(makeFakePlaylistResponse(SAMPLE_TRACKS));
     await playlistRemoveCommand(args([PLAYLIST_ID], { index: "1,3,5" }, {}));
-    const removedUris = mockRemoveTracksFromPlaylist.mock.calls[0]![1] as string[];
+    const removedUris = (mockRemoveTracksFromPlaylist.mock.calls[0]?.[1] ?? []) as string[];
     expect(removedUris).toContain("spotify:track:aaa");
     expect(removedUris).toContain("spotify:track:ccc");
     expect(removedUris).toContain("spotify:track:eee");
@@ -275,7 +275,7 @@ describe("playlist-remove", () => {
   test("combines direct URIs with --match and --index", async () => {
     mockGetPlaylistTracks.mockResolvedValue(makeFakePlaylistResponse(SAMPLE_TRACKS));
     await playlistRemoveCommand(args([PLAYLIST_ID, "spotify:track:aaa"], { match: "Sandman", index: "3" }, {}));
-    const removedUris = mockRemoveTracksFromPlaylist.mock.calls[0]![1] as string[];
+    const removedUris = (mockRemoveTracksFromPlaylist.mock.calls[0]?.[1] ?? []) as string[];
     expect(removedUris).toContain("spotify:track:aaa");
     expect(removedUris).toContain("spotify:track:ccc");
     expect(removedUris).toContain("spotify:track:ddd");
@@ -285,7 +285,7 @@ describe("playlist-remove", () => {
   test("deduplicates URIs when match and direct URI overlap", async () => {
     mockGetPlaylistTracks.mockResolvedValue(makeFakePlaylistResponse(SAMPLE_TRACKS));
     await playlistRemoveCommand(args([PLAYLIST_ID, "spotify:track:ccc"], { match: "Hotel California" }, {}));
-    const removedUris = mockRemoveTracksFromPlaylist.mock.calls[0]![1] as string[];
+    const removedUris = (mockRemoveTracksFromPlaylist.mock.calls[0]?.[1] ?? []) as string[];
     expect(removedUris).toHaveLength(1);
     expect(removedUris).toContain("spotify:track:ccc");
   });
