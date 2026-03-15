@@ -46,7 +46,7 @@ export function getSavedAlbums(options: { limit?: number | undefined; offset?: n
 /**
  * Saves one or more albums to the current user's library.
  * @param ids - Array of Spotify album IDs to save.
- * @see `PUT /me/albums`
+ * @see `PUT /me/library`
  */
 export function saveAlbums(ids: string[]) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:album:${id}`));

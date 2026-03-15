@@ -49,7 +49,7 @@ export function getFollowedArtists(options: { limit?: number | undefined; after?
 /**
  * Follows one or more artists.
  * @param ids - Array of Spotify artist IDs to follow.
- * @see `PUT /me/following`
+ * @see `PUT /me/library`
  */
 export function followArtists(ids: string[]) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:artist:${id}`));

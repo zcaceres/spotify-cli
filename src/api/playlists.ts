@@ -87,13 +87,12 @@ export function replacePlaylistTracks(id: string, uris: string[]) {
 }
 
 /**
- * Creates a new playlist for a user.
- * @param userId - The Spotify user ID to create the playlist for.
+ * Creates a new playlist for the current user.
  * @param options - Playlist creation options.
  * @param options.name - Name for the new playlist.
  * @param options.description - Optional description.
  * @param options.public - Whether the playlist should be public (defaults to `true`).
- * @see `POST /users/{user_id}/playlists`
+ * @see `POST /me/playlists`
  */
 export function createPlaylist(
   options: {

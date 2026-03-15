@@ -32,7 +32,7 @@ export interface RequestOptions {
  * @typeParam T - Expected shape of the JSON response body.
  * @param path - API path (e.g. `"/me/player"`) or full URL.
  * @param options - HTTP method, query params, and/or JSON body.
- * @returns The parsed JSON response, or `undefined` for 204 No Content.
+ * @returns The parsed JSON response, or `undefined` for 204 / non-JSON responses.
  * @throws `SpotifyCliError` on auth, API, or network errors.
  */
 export async function spotifyFetch<T = unknown>(

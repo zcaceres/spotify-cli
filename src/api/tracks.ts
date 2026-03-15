@@ -32,7 +32,7 @@ export function getSavedTracks(options: { limit?: number | undefined; offset?: n
 /**
  * Saves one or more tracks to the current user's library.
  * @param ids - Array of Spotify track IDs to save.
- * @see `PUT /me/tracks`
+ * @see `PUT /me/library`
  */
 export function saveTracks(ids: string[]) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
@@ -45,7 +45,7 @@ export function saveTracks(ids: string[]) {
 /**
  * Removes one or more tracks from the current user's library.
  * @param ids - Array of Spotify track IDs to remove.
- * @see `DELETE /me/tracks`
+ * @see `DELETE /me/library`
  */
 export function removeTracks(ids: string[]) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
