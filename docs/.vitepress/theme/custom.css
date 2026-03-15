@@ -235,3 +235,55 @@ div[class*='language-'] > span.lang {
 .dark .VPDoc th {
   background: rgba(29, 185, 84, 0.1);
 }
+
+/* ── Command Card Styling ── */
+.VPDoc h3 {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px 8px 0 0;
+  padding: 12px 16px;
+  margin-bottom: 0;
+}
+
+.VPDoc h3 + p,
+.VPDoc h3 + div[class*='language-'] {
+  border-top: none;
+}
+
+/* Category badge on command headings */
+.VPDoc h3 .VPBadge.info {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ── Compact Command Grid ── */
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.compact-grid h3 {
+  border-radius: 8px 8px 0 0;
+}
+
+.compact-grid > h3,
+.compact-grid > p,
+.compact-grid > div[class*='language-'],
+.compact-grid > table {
+  /* Reset grid item spanning */
+}
+
+/* On mobile, stack compact grid */
+@media (max-width: 768px) {
+  .compact-grid {
+    grid-template-columns: 1fr;
+  }
+}

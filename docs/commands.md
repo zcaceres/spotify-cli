@@ -1,6 +1,8 @@
+<Badge type="tip" text="COMMAND REFERENCE" />
+
 # Command Reference
 
-40 commands for your terminal. All output is JSON to stdout; errors go to stderr.
+Control Spotify playback, manage your library, search the catalog, and build automations — all from the command line. Every command returns structured JSON.
 
 ```sh
 $ spotify <command> [options]
@@ -8,9 +10,11 @@ $ spotify <command> [options]
 
 ## Authentication <Badge type="tip" text="3 commands" />
 
-### login
+Manage OAuth tokens and session state. All auth data is stored locally — nothing is sent to third-party servers.
 
-OAuth PKCE login — opens your browser to authorize with Spotify.
+### login <Badge type="info" text="AUTH" />
+
+Authenticate with Spotify using OAuth 2.0 PKCE. Opens browser to authorize, then stores tokens locally.
 
 ```sh
 $ spotify login [--client-id <id>]
@@ -20,11 +24,13 @@ $ spotify login [--client-id <id>]
 |---|---|---|
 | `--client-id` | `string` | Use a custom Spotify app client ID |
 
+**OUTPUT**
+
 ```json
 { "status": "logged_in", "expires_at": 1700000000, "scope": "user-read-playback-state ..." }
 ```
 
-### logout
+### logout <Badge type="info" text="AUTH" />
 
 Clear stored OAuth tokens from disk.
 
@@ -32,23 +38,33 @@ Clear stored OAuth tokens from disk.
 $ spotify logout
 ```
 
-### auth-status
+**OUTPUT**
 
-Show token validity and granted scopes.
+```json
+{ "status": "logged_out" }
+```
+
+### auth-status <Badge type="info" text="AUTH" />
+
+Show current token validity and granted OAuth scopes.
 
 ```sh
 $ spotify auth-status
 ```
 
+**OUTPUT**
+
 ```json
-{ "status": "valid", "expires_at": 1700000000, "scope": ["user-read-playback-state", "..."] }
+{ "status": "valid", "expires_at": 1700000000, "scope": ["user-read-playback-state", "user-modify-playback-state", "..."] }
 ```
 
 ## Player <Badge type="tip" text="14 commands" />
 
-### now
+Control playback, manage the queue, and interact with Spotify Connect devices. Most commands accept an optional `--device` flag to target a specific device.
 
-Currently playing track.
+### now <Badge type="info" text="PLAYER" />
+
+Get the currently playing track with playback state.
 
 ```sh
 $ spotify now
@@ -66,7 +82,7 @@ $ spotify now
 }
 ```
 
-### play
+### play <Badge type="info" text="PLAYER" />
 
 Start or resume playback with optional targeting.
 
@@ -82,31 +98,33 @@ $ spotify play [--uri <uri>] [--context <uri>] [--device <id>] [--offset <n>] [-
 | `--offset` | `integer` | Zero-based track offset within context |
 | `--position` | `integer` | Start position in milliseconds |
 
-### pause
+<div class="compact-grid">
 
-Pause playback.
+### pause <Badge type="info" text="PLAYER" />
+
+Pause playback on the active device.
 
 ```sh
 $ spotify pause [--device <id>]
 ```
 
-### next
+### next <Badge type="info" text="PLAYER" />
 
-Skip to next track.
+Skip to the next track in the queue.
 
 ```sh
 $ spotify next [--device <id>]
 ```
 
-### prev
+### prev <Badge type="info" text="PLAYER" />
 
-Skip to previous track.
+Skip to the previous track.
 
 ```sh
 $ spotify prev [--device <id>]
 ```
 
-### seek
+### seek <Badge type="info" text="PLAYER" />
 
 Seek to a position in the current track.
 
@@ -119,9 +137,9 @@ $ spotify seek <ms> [--device <id>]
 | `<ms>` | `integer` | Position in milliseconds (non-negative) |
 | `--device` | `string` | Target device ID |
 
-### volume
+### volume <Badge type="info" text="PLAYER" />
 
-Set playback volume.
+Set playback volume (0–100).
 
 ```sh
 $ spotify volume <0-100> [--device <id>]
@@ -132,23 +150,25 @@ $ spotify volume <0-100> [--device <id>]
 | `<0-100>` | `integer` | Volume level (0–100) |
 | `--device` | `string` | Target device ID |
 
-### shuffle
+### shuffle <Badge type="info" text="PLAYER" />
 
-Toggle shuffle mode.
+Toggle shuffle mode on or off.
 
 ```sh
 $ spotify shuffle <on|off> [--device <id>]
 ```
 
-### repeat
+### repeat <Badge type="info" text="PLAYER" />
 
-Set repeat mode.
+Set repeat mode: off, track, or context.
 
 ```sh
 $ spotify repeat <off|track|context> [--device <id>]
 ```
 
-### queue
+</div>
+
+### queue <Badge type="info" text="PLAYER" />
 
 Show the current playback queue.
 
@@ -156,7 +176,7 @@ Show the current playback queue.
 $ spotify queue
 ```
 
-### queue-add
+### queue-add <Badge type="info" text="PLAYER" />
 
 Add a track to the end of the playback queue.
 
@@ -164,15 +184,15 @@ Add a track to the end of the playback queue.
 $ spotify queue-add <uri> [--device <id>]
 ```
 
-### devices
+### devices <Badge type="info" text="PLAYER" />
 
-List all available playback devices.
+List all available Spotify Connect devices.
 
 ```sh
 $ spotify devices
 ```
 
-### transfer
+### transfer <Badge type="info" text="PLAYER" />
 
 Transfer playback to a different device.
 
@@ -185,7 +205,7 @@ $ spotify transfer <device_id> [--play]
 | `<device_id>` | `string` | Target device ID |
 | `--play` | `boolean` | Start playback on the new device |
 
-### recent
+### recent <Badge type="info" text="PLAYER" />
 
 Recently played tracks with optional cursor-based pagination.
 
@@ -201,7 +221,9 @@ $ spotify recent [--limit <n>] [--after <timestamp>] [--before <timestamp>]
 
 ## Search <Badge type="tip" text="1 command" />
 
-### search
+Full-text search across the Spotify catalog. Supports tracks, albums, artists, and playlists.
+
+### search <Badge type="info" text="SEARCH" />
 
 Search the Spotify catalog. Defaults to searching for tracks.
 
@@ -216,11 +238,15 @@ $ spotify search <query> [--type <type>] [--limit <n>] [--offset <n>]
 | `--limit` | `integer` | | Number of results to return |
 | `--offset` | `integer` | | Result offset for pagination |
 
+```sh
+$ spotify search "Miles Davis" --type artist --limit 3
+```
+
 ```json
 {
-  "tracks": {
+  "artists": {
     "items": [
-      { "name": "Blinding Lights", "artists": [{ "name": "The Weeknd" }], "uri": "spotify:track:0VjIjW4GlUZAMYd2vXMi3b" }
+      { "name": "Miles Davis", "uri": "spotify:artist:0kbYTNQb1g4...", "popularity": 72 }
     ]
   }
 }
@@ -228,17 +254,19 @@ $ spotify search <query> [--type <type>] [--limit <n>] [--offset <n>]
 
 ## Tracks <Badge type="tip" text="6 commands" />
 
-### track
+Look up individual tracks, analyze audio features, get recommendations, and manage your saved library.
 
-Get track details.
+### track <Badge type="info" text="TRACKS" />
+
+Get detailed track metadata.
 
 ```sh
 $ spotify track <id>
 ```
 
-### audio-features
+### audio-features <Badge type="info" text="TRACKS" />
 
-Track audio analysis features.
+Get audio analysis features for a track.
 
 ```sh
 $ spotify audio-features <id>
@@ -252,15 +280,17 @@ Spotify removed access to the Audio Features API for most apps in November 2024.
 {
   "danceability": 0.735,
   "energy": 0.578,
+  "key": 5,
+  "loudness": -5.883,
   "tempo": 120.08,
   "valence": 0.624,
   "acousticness": 0.014
 }
 ```
 
-### recommendations
+### recommendations <Badge type="info" text="TRACKS" />
 
-Get track recommendations based on seeds. At least one seed type is required.
+Get track recommendations based on seed tracks, artists, or genres. At least one seed type is required.
 
 ```sh
 $ spotify recommendations --seed-tracks <ids> --seed-artists <ids> --seed-genres <genres> [--limit <n>]
@@ -277,7 +307,9 @@ $ spotify recommendations --seed-tracks <ids> --seed-artists <ids> --seed-genres
 Spotify removed access to the Recommendations API for most apps in November 2024. This command may return a 403 or 404 error.
 :::
 
-### saved-tracks
+<div class="compact-grid">
+
+### saved-tracks <Badge type="info" text="TRACKS" />
 
 List saved tracks in your library.
 
@@ -285,7 +317,7 @@ List saved tracks in your library.
 $ spotify saved-tracks [--limit <n>] [--offset <n>]
 ```
 
-### save-tracks
+### save-tracks <Badge type="info" text="TRACKS" />
 
 Save one or more tracks to your library.
 
@@ -293,7 +325,7 @@ Save one or more tracks to your library.
 $ spotify save-tracks <id...>
 ```
 
-### remove-tracks
+### remove-tracks <Badge type="info" text="TRACKS" />
 
 Remove one or more tracks from your library.
 
@@ -301,25 +333,31 @@ Remove one or more tracks from your library.
 $ spotify remove-tracks <id...>
 ```
 
+</div>
+
 ## Albums <Badge type="tip" text="5 commands" />
 
-### album
+Fetch album metadata, list album tracks, and manage your saved album library.
 
-Get album details.
+### album <Badge type="info" text="ALBUMS" />
+
+Get album details and metadata.
 
 ```sh
 $ spotify album <id>
 ```
 
-### album-tracks
+### album-tracks <Badge type="info" text="ALBUMS" />
 
-List tracks in an album.
+List all tracks in an album.
 
 ```sh
 $ spotify album-tracks <id> [--limit <n>] [--offset <n>]
 ```
 
-### saved-albums
+<div class="compact-grid">
+
+### saved-albums <Badge type="info" text="ALBUMS" />
 
 List saved albums in your library.
 
@@ -327,7 +365,7 @@ List saved albums in your library.
 $ spotify saved-albums [--limit <n>] [--offset <n>]
 ```
 
-### save-albums
+### save-albums <Badge type="info" text="ALBUMS" />
 
 Save one or more albums to your library.
 
@@ -335,7 +373,7 @@ Save one or more albums to your library.
 $ spotify save-albums <id...>
 ```
 
-### remove-albums
+### remove-albums <Badge type="info" text="ALBUMS" />
 
 Remove one or more albums from your library.
 
@@ -343,17 +381,21 @@ Remove one or more albums from your library.
 $ spotify remove-albums <id...>
 ```
 
+</div>
+
 ## Playlists <Badge type="tip" text="6 commands" />
 
-### playlist
+Create, modify, and browse playlists. Supports adding and removing tracks by URI, name match, or index position.
 
-Get playlist details.
+### playlist <Badge type="info" text="PLAYLISTS" />
+
+Get playlist details and metadata.
 
 ```sh
 $ spotify playlist <id>
 ```
 
-### playlists
+### playlists <Badge type="info" text="PLAYLISTS" />
 
 List your playlists.
 
@@ -361,7 +403,7 @@ List your playlists.
 $ spotify playlists [--limit <n>] [--offset <n>]
 ```
 
-### playlist-tracks
+### playlist-tracks <Badge type="info" text="PLAYLISTS" />
 
 List tracks in a playlist.
 
@@ -369,7 +411,7 @@ List tracks in a playlist.
 $ spotify playlist-tracks <id> [--limit <n>] [--offset <n>]
 ```
 
-### playlist-add
+### playlist-add <Badge type="info" text="PLAYLISTS" />
 
 Add tracks to a playlist at an optional position.
 
@@ -383,7 +425,7 @@ $ spotify playlist-add <playlist_id> <uri...> [--position <n>]
 | `<uri...>` | `string` | One or more Spotify track URIs |
 | `--position` | `integer` | Zero-based insert position |
 
-### playlist-remove
+### playlist-remove <Badge type="info" text="PLAYLISTS" />
 
 Remove tracks from a playlist by URI, name match, or index.
 
@@ -408,7 +450,7 @@ $ spotify playlist-remove 37i9dQZF1DXcBWIGoYBM5M --match "Bohemian"
 $ spotify playlist-remove 37i9dQZF1DXcBWIGoYBM5M --index 1,3,5
 ```
 
-### playlist-create
+### playlist-create <Badge type="info" text="PLAYLISTS" />
 
 Create a new playlist.
 
@@ -424,15 +466,17 @@ $ spotify playlist-create <name> [--description <text>] [--public]
 
 ## User <Badge type="tip" text="5 commands" />
 
-### me
+View your profile, top listening stats, and manage artist follows.
 
-Current user profile.
+### me <Badge type="info" text="USER" />
+
+Get the current user's profile.
 
 ```sh
 $ spotify me
 ```
 
-### top
+### top <Badge type="info" text="USER" />
 
 Your top artists or tracks over different time ranges.
 
@@ -455,7 +499,7 @@ $ spotify top <artists|tracks> [--time-range <range>] [--limit <n>] [--offset <n
 }
 ```
 
-### following
+### following <Badge type="info" text="USER" />
 
 List followed artists.
 
@@ -468,7 +512,9 @@ $ spotify following [--limit <n>] [--after <artist_id>]
 | `--limit` | `integer` | Number of items |
 | `--after` | `string` | Cursor — last artist ID from previous page |
 
-### follow
+<div class="compact-grid">
+
+### follow <Badge type="info" text="USER" />
 
 Follow one or more artists.
 
@@ -476,7 +522,7 @@ Follow one or more artists.
 $ spotify follow <id...>
 ```
 
-### unfollow
+### unfollow <Badge type="info" text="USER" />
 
 Unfollow one or more artists.
 
@@ -484,18 +530,22 @@ Unfollow one or more artists.
 $ spotify unfollow <id...>
 ```
 
+</div>
+
 ## Exit Codes
+
+All commands use consistent exit codes for scripting and automation.
 
 | Code | Name | Meaning |
 |---|---|---|
 | `0` | `SUCCESS` | Command completed successfully |
-| `1` | `ARGS` | Invalid arguments or usage error |
-| `2` | `AUTH` | Authentication failure (not logged in, token expired) |
-| `3` | `API` | Spotify API returned an error |
+| `1` | `ARGS` | Invalid arguments or missing required options |
+| `2` | `AUTH` | Not logged in or token expired |
+| `3` | `API` | Spotify API returned an error (4xx/5xx) |
 | `4` | `NETWORK` | Network connectivity failure |
 
 Errors are written to stderr as JSON:
 
 ```json
-{ "error": "Not logged in. Run 'spotify login' first." }
+{ "error": "No active device found", "details": { "status": 404 } }
 ```
