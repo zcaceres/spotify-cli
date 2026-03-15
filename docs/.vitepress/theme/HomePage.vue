@@ -6,7 +6,7 @@
         <span class="overline">Open Source CLI</span>
         <h1 class="headline">Control Spotify<br>from your AI Agent</h1>
         <p class="subtitle">
-          Secure, agent-friendly CLI for playback, search, playlists, library management. JSON output. PKCE auth, zero dependencies.
+          Secure, agent-friendly CLI for playback, search, playlists, and library management. JSON output. PKCE auth.
         </p>
       </div>
       <div class="cta-buttons">
