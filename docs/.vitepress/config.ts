@@ -68,6 +68,7 @@ export default defineConfig({
             { text: 'auth/flow', link: '/api/auth/flow' },
             { text: 'auth/token-store', link: '/api/auth/token-store' },
             { text: 'auth/pkce', link: '/api/auth/pkce' },
+            { text: 'auth/server', link: '/api/auth/server' },
           ],
         },
         {

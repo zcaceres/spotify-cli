@@ -1,0 +1,52 @@
+---
+outline: [2, 3]
+---
+
+# API Reference
+
+TypeDoc-generated documentation for all internal modules. Useful if you're contributing to the CLI or building on top of its internals.
+
+## Modules
+
+| Module | Description |
+|--------|-------------|
+| [api/client](/api/api/client) | HTTP client for Spotify Web API |
+| [api/player](/api/api/player) | Playback control endpoints |
+| [api/tracks](/api/api/tracks) | Track and saved-track endpoints |
+| [api/albums](/api/api/albums) | Album and saved-album endpoints |
+| [api/playlists](/api/api/playlists) | Playlist CRUD and track management |
+| [api/search](/api/api/search) | Search across Spotify's catalog |
+| [api/user](/api/api/user) | User profile and top items |
+
+## Auth
+
+| Module | Description |
+|--------|-------------|
+| [auth/flow](/api/auth/flow) | OAuth 2.0 PKCE login flow |
+| [auth/token-store](/api/auth/token-store) | Token persistence and refresh |
+| [auth/pkce](/api/auth/pkce) | PKCE challenge/verifier generation |
+| [auth/server](/api/auth/server) | Local OAuth callback server |
+
+## Schemas
+
+Zod schemas used for Spotify API response validation.
+
+| Module | Description |
+|--------|-------------|
+| [schemas/track](/api/schemas/track) | Track objects |
+| [schemas/album](/api/schemas/album) | Album objects |
+| [schemas/player](/api/schemas/player) | Player state and device objects |
+| [schemas/playlist](/api/schemas/playlist) | Playlist and playlist-track objects |
+| [schemas/search](/api/schemas/search) | Search result objects |
+| [schemas/user](/api/schemas/user) | User profile objects |
+| [schemas/artist](/api/schemas/artist) | Artist objects |
+| [schemas/common](/api/schemas/common) | Shared types (pagination, images) |
+
+## Utilities
+
+| Module | Description |
+|--------|-------------|
+| [errors](/api/errors) | Structured error codes and error classes |
+| [config](/api/config) | CLI configuration and paths |
+| [output](/api/output) | JSON output formatting |
+| [parse](/api/parse) | Argument parsing utilities |
