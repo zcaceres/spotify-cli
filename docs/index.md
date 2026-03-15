@@ -8,6 +8,9 @@ hero:
       text: Get Started
       link: /guide/getting-started
     - theme: alt
+      text: Command Reference
+      link: /commands
+    - theme: alt
       text: API Reference
       link: /api/
 ---
