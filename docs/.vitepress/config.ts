@@ -100,5 +100,9 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zcaceres/spotify-cli' },
     ],
+    footer: {
+      message: 'Open source software. Not affiliated with or endorsed by Spotify AB.',
+      copyright: 'Released under the MIT License.',
+    },
   },
 })
