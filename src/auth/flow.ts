@@ -9,6 +9,7 @@
 
 import { REDIRECT_URI, SCOPES, SPOTIFY_AUTH_URL, SPOTIFY_TOKEN_URL } from "../config.js";
 import { authError, networkError } from "../errors.js";
+import { logError } from "../output.js";
 import { generateCodeChallenge, generateCodeVerifier, generateState } from "./pkce.js";
 import { startCallbackServer } from "./server.js";
 import { getClientId, type StoredTokens, saveClientId, saveTokens } from "./token-store.js";
@@ -56,7 +57,7 @@ export async function login(clientIdFlag?: string): Promise<StoredTokens> {
   const proc = Bun.spawn([opener, authUrl], { stdout: "ignore", stderr: "ignore" });
   await proc.exited;
 
-  console.error(JSON.stringify({ status: "waiting_for_login", url: authUrl }));
+  logError("waiting_for_login", { url: authUrl });
 
   const { code } = await callbackPromise;
 

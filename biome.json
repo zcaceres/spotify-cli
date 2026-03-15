@@ -11,8 +11,6 @@
     "lineWidth": 120
   },
   "files": {
-    "includes": ["src/**"],
-    "excludes": ["src/test/fixtures/**"],
-    "experimentalScannerIgnores": ["dist/", "docs/", "node_modules/"]
+    "includes": ["src/**", "!**/test/fixtures/**"]
   }
 }

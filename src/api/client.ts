@@ -12,6 +12,7 @@ import { refreshAccessToken } from "../auth/flow.js";
 import { isExpired, loadTokens, saveTokens } from "../auth/token-store.js";
 import { SPOTIFY_API_BASE } from "../config.js";
 import { apiError, authError, ErrorCode, networkError } from "../errors.js";
+import { logError } from "../output.js";
 
 /** Options for a Spotify API request. */
 export interface RequestOptions {
@@ -114,7 +115,7 @@ async function fetchWithRetry(url: string, init: RequestInit, retries = 3): Prom
       const retryAfter = response.headers.get("Retry-After");
       const parsed = retryAfter ? parseInt(retryAfter, 10) : NaN;
       const waitMs = !Number.isNaN(parsed) ? parsed * 1000 : 1000 * (attempt + 1);
-      console.error(JSON.stringify({ warning: "rate_limited", retry_after_ms: waitMs }));
+      logError("rate_limited", { retry_after_ms: waitMs });
       await Bun.sleep(waitMs);
       continue;
     }

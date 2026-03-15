@@ -176,6 +176,66 @@ describe("spotifyFetch", () => {
     }
   });
 
+  test("retries on 429 and succeeds", async () => {
+    let attempt = 0;
+    globalThis.fetch = mock(async () => {
+      attempt++;
+      if (attempt === 1) {
+        return new Response("rate limited", {
+          status: 429,
+          headers: { "Retry-After": "0" },
+        });
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }) as unknown as typeof fetch;
+
+    const result = await spotifyFetch("/me");
+    expect(result).toEqual({ ok: true });
+    expect(attempt).toBe(2);
+  });
+
+  test("throws after max retries on repeated 429", async () => {
+    globalThis.fetch = mock(
+      async () =>
+        new Response("rate limited", {
+          status: 429,
+          headers: { "Retry-After": "0" },
+        }),
+    ) as unknown as typeof fetch;
+
+    try {
+      await spotifyFetch("/me");
+      expect.unreachable("should have thrown");
+    } catch (err) {
+      const e = err as SpotifyCliError;
+      expect(e.details.code).toBe(ErrorCode.RATE_LIMITED);
+      expect(e.message).toContain("max retries");
+    }
+  });
+
+  test("uses Retry-After header for wait duration", async () => {
+    let attempt = 0;
+    globalThis.fetch = mock(async () => {
+      attempt++;
+      if (attempt === 1) {
+        return new Response("rate limited", {
+          status: 429,
+          headers: { "Retry-After": "0" },
+        });
+      }
+      return new Response(JSON.stringify({ retried: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }) as unknown as typeof fetch;
+
+    const result = await spotifyFetch("/me");
+    expect(result).toEqual({ retried: true });
+  });
+
   test("throws network error on fetch failure", async () => {
     globalThis.fetch = mock(async () => {
       throw new Error("DNS resolution failed");
