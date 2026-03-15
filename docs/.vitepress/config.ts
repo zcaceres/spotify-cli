@@ -101,8 +101,8 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/zcaceres/spotify-cli' },
     ],
     footer: {
-      message: 'Open source software. Not affiliated with or endorsed by Spotify AB.',
-      copyright: 'Released under the MIT License.',
+      message: 'MIT Licensed. Not affiliated with or endorsed by Spotify AB.',
+      copyright: 'Built by <a href="https://zach.dev" target="_blank">zach.dev</a>',
     },
   },
 })
