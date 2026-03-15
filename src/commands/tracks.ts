@@ -5,8 +5,8 @@
  */
 
 import * as api from "../api/tracks.js";
+import { apiError, argsError, ErrorCode, SpotifyCliError } from "../errors.js";
 import { output } from "../output.js";
-import { argsError, apiError, SpotifyCliError, ErrorCode } from "../errors.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 

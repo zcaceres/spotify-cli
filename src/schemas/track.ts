@@ -5,8 +5,8 @@
  */
 
 import { z } from "zod";
-import { ExternalUrlsSchema, ExternalIdsSchema, ImageSchema } from "./common.js";
 import { SimplifiedArtistSchema } from "./artist.js";
+import { ExternalIdsSchema, ExternalUrlsSchema, ImageSchema } from "./common.js";
 
 /** @internal Minimal album schema used within track objects to avoid circular imports. */
 const SimplifiedAlbumInTrackSchema = z.object({

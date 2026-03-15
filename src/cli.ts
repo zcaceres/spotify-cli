@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 
 import { commands, type ParsedArgs } from "./commands/index.js";
-import { output, handleError } from "./output.js";
 import { argsError, ErrorCode } from "./errors.js";
+import { handleError, output } from "./output.js";
 
 function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
   const raw = argv.slice(2);
@@ -61,7 +61,10 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
 }
 
 function showHelp(): void {
-  output({ usage: "spotify <command> [args] [--flags]", commands: Object.fromEntries([...commands].map(([k, v]) => [k, v.description])) });
+  output({
+    usage: "spotify <command> [args] [--flags]",
+    commands: Object.fromEntries([...commands].map(([k, v]) => [k, v.description])),
+  });
 }
 
 async function main() {
@@ -75,7 +78,10 @@ async function main() {
 
     const cmd = commands.get(command);
     if (!cmd) {
-      throw argsError(`Unknown command: ${command}. Run \`spotify help\` to see available commands.`, ErrorCode.UNKNOWN_COMMAND);
+      throw argsError(
+        `Unknown command: ${command}. Run \`spotify help\` to see available commands.`,
+        ErrorCode.UNKNOWN_COMMAND,
+      );
     }
 
     await cmd.handler(args);

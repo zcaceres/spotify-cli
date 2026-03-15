@@ -5,8 +5,8 @@
  */
 
 import { z } from "zod";
-import { ImageSchema, ExternalUrlsSchema, ExternalIdsSchema, PagingSchema } from "./common.js";
 import { SimplifiedArtistSchema } from "./artist.js";
+import { ExternalIdsSchema, ExternalUrlsSchema, ImageSchema, PagingSchema } from "./common.js";
 import { SimplifiedTrackSchema } from "./track.js";
 
 /** Schema for a simplified album (used in track listings and search results). */

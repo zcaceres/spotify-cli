@@ -5,8 +5,8 @@
  */
 
 import * as api from "../api/search.js";
-import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { output } from "../output.js";
 import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 

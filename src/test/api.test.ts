@@ -1,4 +1,4 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { beforeEach, describe, expect, mock, test } from "bun:test";
 import { fixtures } from "./fixtures/index.js";
 
 // Mock the client's spotifyFetch to return fixtures instead of hitting the real API

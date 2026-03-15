@@ -7,11 +7,11 @@
  * @module
  */
 
-import { SPOTIFY_AUTH_URL, SPOTIFY_TOKEN_URL, REDIRECT_URI, SCOPES } from "../config.js";
-import { generateCodeVerifier, generateCodeChallenge, generateState } from "./pkce.js";
-import { startCallbackServer } from "./server.js";
-import { saveTokens, getClientId, saveClientId, type StoredTokens } from "./token-store.js";
+import { REDIRECT_URI, SCOPES, SPOTIFY_AUTH_URL, SPOTIFY_TOKEN_URL } from "../config.js";
 import { authError, networkError } from "../errors.js";
+import { generateCodeChallenge, generateCodeVerifier, generateState } from "./pkce.js";
+import { startCallbackServer } from "./server.js";
+import { getClientId, type StoredTokens, saveClientId, saveTokens } from "./token-store.js";
 
 /**
  * Performs the full OAuth PKCE login flow.
@@ -51,12 +51,7 @@ export async function login(clientIdFlag?: string): Promise<StoredTokens> {
   const callbackPromise = startCallbackServer(state);
 
   // Open browser
-  const opener =
-    process.platform === "darwin"
-      ? "open"
-      : process.platform === "win32"
-        ? "start"
-        : "xdg-open";
+  const opener = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
 
   const proc = Bun.spawn([opener, authUrl], { stdout: "ignore", stderr: "ignore" });
   await proc.exited;

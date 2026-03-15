@@ -5,11 +5,11 @@
  */
 
 import { z } from "zod";
-import { PagingSchema } from "./common.js";
-import { TrackSchema } from "./track.js";
 import { SimplifiedAlbumSchema } from "./album.js";
 import { ArtistSchema } from "./artist.js";
+import { PagingSchema } from "./common.js";
 import { SimplifiedPlaylistSchema } from "./playlist.js";
+import { TrackSchema } from "./track.js";
 
 /**
  * Schema for the Spotify search endpoint response.

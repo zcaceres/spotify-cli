@@ -7,7 +7,7 @@
  * @module
  */
 
-import { SpotifyCliError, ExitCode } from "./errors.js";
+import { ExitCode, SpotifyCliError } from "./errors.js";
 
 /**
  * Writes a JSON-serialized value to stdout.

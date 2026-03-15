@@ -6,6 +6,8 @@
     "spotify": "./src/cli.ts"
   },
   "scripts": {
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
     "typecheck": "tsc --noEmit",
     "start": "bun run src/cli.ts",
     "cli": "bun run src/cli.ts --",
@@ -24,6 +26,7 @@
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.7",
     "@types/bun": "^1.2.0",
     "typedoc": "^0.28.17",
     "typedoc-plugin-markdown": "^4.10.0",

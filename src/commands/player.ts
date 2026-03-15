@@ -5,9 +5,9 @@
  */
 
 import * as api from "../api/player.js";
-import { output } from "../output.js";
 import { argsError } from "../errors.js";
-import { parseIntFlag, optionalIntFlag } from "../parse.js";
+import { output } from "../output.js";
+import { optionalIntFlag, parseIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 /**

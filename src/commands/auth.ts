@@ -5,9 +5,9 @@
  */
 
 import { login } from "../auth/flow.js";
-import { loadTokens, deleteTokens, isExpired } from "../auth/token-store.js";
-import { output } from "../output.js";
+import { deleteTokens, isExpired, loadTokens } from "../auth/token-store.js";
 import { argsError } from "../errors.js";
+import { output } from "../output.js";
 import type { CommandHandler } from "./index.js";
 
 /**

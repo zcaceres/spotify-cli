@@ -5,8 +5,8 @@
  */
 
 import * as api from "../api/playlists.js";
-import { output } from "../output.js";
 import { argsError } from "../errors.js";
+import { output } from "../output.js";
 import { optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
@@ -63,7 +63,9 @@ export const playlistAddCommand: CommandHandler = async (args) => {
 /**
  * Fetches all tracks from a playlist, paginating through all results.
  */
-async function fetchAllPlaylistTracks(playlistId: string): Promise<Array<{ uri: string; name: string; artists: string }>> {
+async function fetchAllPlaylistTracks(
+  playlistId: string,
+): Promise<Array<{ uri: string; name: string; artists: string }>> {
   const tracks: Array<{ uri: string; name: string; artists: string }> = [];
   let offset = 0;
   const limit = 50;
@@ -114,7 +116,9 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
 
     for (const match of matchValues) {
       const lower = match.toLowerCase();
-      const found = tracks.filter((t) => t.name.toLowerCase().includes(lower) || t.artists.toLowerCase().includes(lower));
+      const found = tracks.filter(
+        (t) => t.name.toLowerCase().includes(lower) || t.artists.toLowerCase().includes(lower),
+      );
       if (found.length === 0) {
         throw argsError(`No tracks matching "${match}" found in playlist`);
       }

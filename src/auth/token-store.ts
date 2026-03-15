@@ -7,8 +7,8 @@
  * @module
  */
 
-import { mkdir, chmod } from "node:fs/promises";
-import { CONFIG_DIR, TOKENS_PATH, CONFIG_PATH } from "../config.js";
+import { chmod, mkdir } from "node:fs/promises";
+import { CONFIG_DIR, CONFIG_PATH, TOKENS_PATH } from "../config.js";
 import { authError, ErrorCode } from "../errors.js";
 
 /**

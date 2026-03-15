@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 
 // We need to test parseArgs, but it's not exported. We'll extract the logic
 // by reimporting the module and testing via the CLI's argv parsing.

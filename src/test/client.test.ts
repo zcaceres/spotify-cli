@@ -1,5 +1,5 @@
-import { describe, test, expect, mock, beforeEach, afterEach } from "bun:test";
-import { SpotifyCliError, ErrorCode, ExitCode } from "../errors.js";
+import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+import { ErrorCode, ExitCode, SpotifyCliError } from "../errors.js";
 
 // Mock token store and auth flow so spotifyFetch can run without real credentials
 const fakeTokens = {
@@ -13,9 +13,13 @@ mock.module("../auth/token-store.js", () => ({
   loadTokens: mock(() => Promise.resolve({ ...fakeTokens })),
   isExpired: mock(() => false),
   saveTokens: mock(() => Promise.resolve()),
+  deleteTokens: mock(() => Promise.resolve()),
+  getClientId: mock(() => Promise.resolve("fake-client-id")),
+  saveClientId: mock(() => Promise.resolve()),
 }));
 
 mock.module("../auth/flow.js", () => ({
+  login: mock(() => Promise.resolve({ ...fakeTokens })),
   refreshAccessToken: mock(() => Promise.resolve({ ...fakeTokens })),
 }));
 
@@ -102,19 +106,25 @@ describe("spotifyFetch", () => {
   });
 
   test("returns undefined for non-JSON success responses", async () => {
-    globalThis.fetch = mock(async () => new Response("snapshot123", {
-      status: 200,
-      headers: { "Content-Type": "text/plain" },
-    })) as unknown as typeof fetch;
+    globalThis.fetch = mock(
+      async () =>
+        new Response("snapshot123", {
+          status: 200,
+          headers: { "Content-Type": "text/plain" },
+        }),
+    ) as unknown as typeof fetch;
     const result = await spotifyFetch("/me/player/seek");
     expect(result).toBeUndefined();
   });
 
   test("throws auth error on 401", async () => {
-    globalThis.fetch = mock(async () => new Response('{"error":"expired"}', {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    })) as unknown as typeof fetch;
+    globalThis.fetch = mock(
+      async () =>
+        new Response('{"error":"expired"}', {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }),
+    ) as unknown as typeof fetch;
 
     try {
       await spotifyFetch("/me");
@@ -128,10 +138,13 @@ describe("spotifyFetch", () => {
   });
 
   test("throws API error with NOT_FOUND code on 404", async () => {
-    globalThis.fetch = mock(async () => new Response('{"error":"not found"}', {
-      status: 404,
-      headers: { "Content-Type": "application/json" },
-    })) as unknown as typeof fetch;
+    globalThis.fetch = mock(
+      async () =>
+        new Response('{"error":"not found"}', {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        }),
+    ) as unknown as typeof fetch;
 
     try {
       await spotifyFetch("/tracks/nonexistent");
@@ -145,10 +158,13 @@ describe("spotifyFetch", () => {
   });
 
   test("throws API error with FORBIDDEN code on 403", async () => {
-    globalThis.fetch = mock(async () => new Response('{"error":"forbidden"}', {
-      status: 403,
-      headers: { "Content-Type": "application/json" },
-    })) as unknown as typeof fetch;
+    globalThis.fetch = mock(
+      async () =>
+        new Response('{"error":"forbidden"}', {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }),
+    ) as unknown as typeof fetch;
 
     try {
       await spotifyFetch("/audio-features/abc");

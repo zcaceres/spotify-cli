@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { ImageSchema, ExternalUrlsSchema, FollowersSchema } from "./common.js";
+import { ExternalUrlsSchema, FollowersSchema, ImageSchema } from "./common.js";
 
 /** Schema for a simplified artist (used in track/album listings). */
 export const SimplifiedArtistSchema = z.object({

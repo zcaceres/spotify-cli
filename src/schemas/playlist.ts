@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { ImageSchema, ExternalUrlsSchema, FollowersSchema } from "./common.js";
+import { ExternalUrlsSchema, FollowersSchema, ImageSchema } from "./common.js";
 import { TrackSchema } from "./track.js";
 
 /** @internal Schema for the playlist owner (a Spotify user). */
@@ -42,10 +42,12 @@ export const SimplifiedPlaylistSchema = z.object({
   collaborative: z.boolean(),
   snapshot_id: z.string(),
   external_urls: ExternalUrlsSchema,
-  items: z.object({
-    href: z.string(),
-    total: z.number(),
-  }).optional(),
+  items: z
+    .object({
+      href: z.string(),
+      total: z.number(),
+    })
+    .optional(),
   primary_color: z.string().nullable().optional(),
 });
 

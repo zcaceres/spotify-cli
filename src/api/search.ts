@@ -16,12 +16,7 @@ import { spotifyFetch } from "./client.js";
  * @param options.offset - Index of the first result to return.
  * @see `GET /search`
  */
-export function search(options: {
-  q: string;
-  type: string;
-  limit?: number | undefined;
-  offset?: number | undefined;
-}) {
+export function search(options: { q: string; type: string; limit?: number | undefined; offset?: number | undefined }) {
   return spotifyFetch("/search", {
     params: options as Record<string, string | number | undefined>,
   });

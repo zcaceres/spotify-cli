@@ -37,10 +37,7 @@ export function getCurrentUserPlaylists(options: { limit?: number | undefined; o
  * @param options.offset - Index of the first track to return.
  * @see `GET /playlists/{id}/items`
  */
-export function getPlaylistTracks(
-  id: string,
-  options: { limit?: number | undefined; offset?: number | undefined },
-) {
+export function getPlaylistTracks(id: string, options: { limit?: number | undefined; offset?: number | undefined }) {
   return spotifyFetch(`/playlists/${id}/items`, {
     params: options as Record<string, number | undefined>,
   });
@@ -94,13 +91,7 @@ export function replacePlaylistTracks(id: string, uris: string[]) {
  * @param options.public - Whether the playlist should be public (defaults to `true`).
  * @see `POST /me/playlists`
  */
-export function createPlaylist(
-  options: {
-    name: string;
-    description?: string;
-    public?: boolean;
-  },
-) {
+export function createPlaylist(options: { name: string; description?: string; public?: boolean }) {
   return spotifyFetch("/me/playlists", {
     method: "POST",
     body: options,

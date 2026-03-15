@@ -89,11 +89,22 @@ export const fixtures = {
         {
           album: {
             album_type: "album",
-            artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" }, href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un", id: "711MCceyCBcFnzjGY4Q7Un", name: "AC/DC", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+            artists: [
+              {
+                external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" },
+                href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un",
+                id: "711MCceyCBcFnzjGY4Q7Un",
+                name: "AC/DC",
+                type: "artist",
+                uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+              },
+            ],
             external_urls: { spotify: "https://open.spotify.com/album/4vu7F6h90Br1ZtYYaqfITy" },
             href: "https://api.spotify.com/v1/albums/4vu7F6h90Br1ZtYYaqfITy",
             id: "4vu7F6h90Br1ZtYYaqfITy",
-            images: [{ height: 640, width: 640, url: "https://i.scdn.co/image/ab67616d0000b2739a9b1cc067e4460da04adce2" }],
+            images: [
+              { height: 640, width: 640, url: "https://i.scdn.co/image/ab67616d0000b2739a9b1cc067e4460da04adce2" },
+            ],
             is_playable: true,
             name: "The Razors Edge",
             release_date: "1990-09-24",
@@ -102,7 +113,16 @@ export const fixtures = {
             type: "album",
             uri: "spotify:album:4vu7F6h90Br1ZtYYaqfITy",
           },
-          artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" }, href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un", id: "711MCceyCBcFnzjGY4Q7Un", name: "AC/DC", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+          artists: [
+            {
+              external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" },
+              href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un",
+              id: "711MCceyCBcFnzjGY4Q7Un",
+              name: "AC/DC",
+              type: "artist",
+              uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+            },
+          ],
           disc_number: 1,
           duration_ms: 292333,
           explicit: false,
@@ -156,7 +176,16 @@ export const fixtures = {
     href: "https://api.spotify.com/v1/albums/4vu7F6h90Br1ZtYYaqfITy/tracks?offset=0&limit=2",
     items: [
       {
-        artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" }, href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un", id: "711MCceyCBcFnzjGY4Q7Un", name: "AC/DC", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+        artists: [
+          {
+            external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" },
+            href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un",
+            id: "711MCceyCBcFnzjGY4Q7Un",
+            name: "AC/DC",
+            type: "artist",
+            uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+          },
+        ],
         disc_number: 1,
         duration_ms: 292333,
         explicit: false,
@@ -170,7 +199,16 @@ export const fixtures = {
         is_local: false,
       },
       {
-        artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" }, href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un", id: "711MCceyCBcFnzjGY4Q7Un", name: "AC/DC", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+        artists: [
+          {
+            external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" },
+            href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un",
+            id: "711MCceyCBcFnzjGY4Q7Un",
+            name: "AC/DC",
+            type: "artist",
+            uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+          },
+        ],
         disc_number: 1,
         duration_ms: 173753,
         explicit: false,
@@ -233,11 +271,27 @@ export const fixtures = {
         item: {
           album: {
             album_type: "album",
-            artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" }, href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un", id: "711MCceyCBcFnzjGY4Q7Un", name: "AC/DC", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+            artists: [
+              {
+                external_urls: { spotify: "https://open.spotify.com/artist/711MCceyCBcFnzjGY4Q7Un" },
+                href: "https://api.spotify.com/v1/artists/711MCceyCBcFnzjGY4Q7Un",
+                id: "711MCceyCBcFnzjGY4Q7Un",
+                name: "AC/DC",
+                type: "artist",
+                uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+              },
+            ],
             name: "The Razors Edge",
             type: "album",
           },
-          artists: [{ name: "AC/DC", id: "711MCceyCBcFnzjGY4Q7Un", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+          artists: [
+            {
+              name: "AC/DC",
+              id: "711MCceyCBcFnzjGY4Q7Un",
+              type: "artist",
+              uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un",
+            },
+          ],
           duration_ms: 292333,
           id: "57bgtoPSgt236HzfBOd8kj",
           name: "Thunderstruck",
@@ -261,13 +315,32 @@ export const fixtures = {
         track: {
           album: {
             album_type: "album",
-            artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt" }, href: "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt", id: "12eNUx8BvR5qmpFssq8Vkt", name: "Soneros De Verdad", type: "artist", uri: "spotify:artist:12eNUx8BvR5qmpFssq8Vkt" }],
+            artists: [
+              {
+                external_urls: { spotify: "https://open.spotify.com/artist/12eNUx8BvR5qmpFssq8Vkt" },
+                href: "https://api.spotify.com/v1/artists/12eNUx8BvR5qmpFssq8Vkt",
+                id: "12eNUx8BvR5qmpFssq8Vkt",
+                name: "Soneros De Verdad",
+                type: "artist",
+                uri: "spotify:artist:12eNUx8BvR5qmpFssq8Vkt",
+              },
+            ],
             name: "A Buena Vista: Barrio De La Habana",
             type: "album",
           },
           artists: [
-            { name: "Soneros De Verdad", id: "12eNUx8BvR5qmpFssq8Vkt", type: "artist", uri: "spotify:artist:12eNUx8BvR5qmpFssq8Vkt" },
-            { name: "Luis Frank", id: "3NOoOH3WZuJRNe5cvmW7ic", type: "artist", uri: "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic" },
+            {
+              name: "Soneros De Verdad",
+              id: "12eNUx8BvR5qmpFssq8Vkt",
+              type: "artist",
+              uri: "spotify:artist:12eNUx8BvR5qmpFssq8Vkt",
+            },
+            {
+              name: "Luis Frank",
+              id: "3NOoOH3WZuJRNe5cvmW7ic",
+              type: "artist",
+              uri: "spotify:artist:3NOoOH3WZuJRNe5cvmW7ic",
+            },
           ],
           duration_ms: 193693,
           id: "6K4iVISawI285iTxyvBIEB",
@@ -310,11 +383,27 @@ export const fixtures = {
         track: {
           album: {
             album_type: "album",
-            artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt" }, href: "https://api.spotify.com/v1/artists/0gxyHStUsqpMadRV0Di1Qt", id: "0gxyHStUsqpMadRV0Di1Qt", name: "Rick Astley", type: "artist", uri: "spotify:artist:0gxyHStUsqpMadRV0Di1Qt" }],
+            artists: [
+              {
+                external_urls: { spotify: "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt" },
+                href: "https://api.spotify.com/v1/artists/0gxyHStUsqpMadRV0Di1Qt",
+                id: "0gxyHStUsqpMadRV0Di1Qt",
+                name: "Rick Astley",
+                type: "artist",
+                uri: "spotify:artist:0gxyHStUsqpMadRV0Di1Qt",
+              },
+            ],
             name: "Whenever You Need Somebody",
             type: "album",
           },
-          artists: [{ name: "Rick Astley", id: "0gxyHStUsqpMadRV0Di1Qt", type: "artist", uri: "spotify:artist:0gxyHStUsqpMadRV0Di1Qt" }],
+          artists: [
+            {
+              name: "Rick Astley",
+              id: "0gxyHStUsqpMadRV0Di1Qt",
+              type: "artist",
+              uri: "spotify:artist:0gxyHStUsqpMadRV0Di1Qt",
+            },
+          ],
           duration_ms: 213573,
           id: "4PTG3Z6ehGkBFwjybzWkR8",
           name: "Never Gonna Give You Up",
@@ -336,11 +425,27 @@ export const fixtures = {
       {
         album: {
           album_type: "album",
-          artists: [{ external_urls: { spotify: "https://open.spotify.com/artist/6qxpnaukVayrQn6ViNvu9I" }, href: "https://api.spotify.com/v1/artists/6qxpnaukVayrQn6ViNvu9I", id: "6qxpnaukVayrQn6ViNvu9I", name: "BigXthaPlug", type: "artist", uri: "spotify:artist:6qxpnaukVayrQn6ViNvu9I" }],
+          artists: [
+            {
+              external_urls: { spotify: "https://open.spotify.com/artist/6qxpnaukVayrQn6ViNvu9I" },
+              href: "https://api.spotify.com/v1/artists/6qxpnaukVayrQn6ViNvu9I",
+              id: "6qxpnaukVayrQn6ViNvu9I",
+              name: "BigXthaPlug",
+              type: "artist",
+              uri: "spotify:artist:6qxpnaukVayrQn6ViNvu9I",
+            },
+          ],
           name: "AMAR",
           type: "album",
         },
-        artists: [{ name: "BigXthaPlug", id: "6qxpnaukVayrQn6ViNvu9I", type: "artist", uri: "spotify:artist:6qxpnaukVayrQn6ViNvu9I" }],
+        artists: [
+          {
+            name: "BigXthaPlug",
+            id: "6qxpnaukVayrQn6ViNvu9I",
+            type: "artist",
+            uri: "spotify:artist:6qxpnaukVayrQn6ViNvu9I",
+          },
+        ],
         duration_ms: 146133,
         id: "7j7ud2oFTJ8BjmeI8bjkQm",
         name: "Texas",
@@ -368,7 +473,9 @@ export const fixtures = {
           external_urls: { spotify: "https://open.spotify.com/artist/00n4Vljc6N9pvJ26SKPphh" },
           href: "https://api.spotify.com/v1/artists/00n4Vljc6N9pvJ26SKPphh",
           id: "00n4Vljc6N9pvJ26SKPphh",
-          images: [{ url: "https://i.scdn.co/image/e6ba16e3b34581a4fcfb8bd11fac7bbf7bb40f77", height: 1477, width: 1000 }],
+          images: [
+            { url: "https://i.scdn.co/image/e6ba16e3b34581a4fcfb8bd11fac7bbf7bb40f77", height: 1477, width: 1000 },
+          ],
           name: "Ruben Gonzalez",
           type: "artist",
           uri: "spotify:artist:00n4Vljc6N9pvJ26SKPphh",
@@ -401,11 +508,15 @@ export const fixtures = {
     item: {
       album: {
         album_type: "album",
-        artists: [{ name: "AC/DC", id: "711MCceyCBcFnzjGY4Q7Un", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+        artists: [
+          { name: "AC/DC", id: "711MCceyCBcFnzjGY4Q7Un", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" },
+        ],
         name: "The Razors Edge",
         type: "album",
       },
-      artists: [{ name: "AC/DC", id: "711MCceyCBcFnzjGY4Q7Un", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" }],
+      artists: [
+        { name: "AC/DC", id: "711MCceyCBcFnzjGY4Q7Un", type: "artist", uri: "spotify:artist:711MCceyCBcFnzjGY4Q7Un" },
+      ],
       duration_ms: 292333,
       id: "57bgtoPSgt236HzfBOd8kj",
       name: "Thunderstruck",
