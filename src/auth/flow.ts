@@ -1,9 +1,32 @@
-import { SPOTIFY_AUTH_URL, SPOTIFY_TOKEN_URL, REDIRECT_URI, SCOPES } from "../config.js";
-import { generateCodeVerifier, generateCodeChallenge, generateState } from "./pkce.js";
-import { startCallbackServer } from "./server.js";
-import { saveTokens, getClientId, saveClientId, type StoredTokens } from "./token-store.js";
-import { authError, networkError } from "../errors.js";
+/**
+ * OAuth 2.0 authorization code flow with PKCE for Spotify.
+ *
+ * Handles the full login flow (browser-based authorization, code exchange)
+ * and token refresh.
+ *
+ * @module
+ */
 
+import { REDIRECT_URI, SCOPES, SPOTIFY_AUTH_URL, SPOTIFY_TOKEN_URL } from "../config.js";
+import { authError, networkError } from "../errors.js";
+import { generateCodeChallenge, generateCodeVerifier, generateState } from "./pkce.js";
+import { startCallbackServer } from "./server.js";
+import { getClientId, type StoredTokens, saveClientId, saveTokens } from "./token-store.js";
+
+/**
+ * Performs the full OAuth PKCE login flow.
+ *
+ * 1. Resolves the client ID (from flag, env var, or stored config).
+ * 2. Generates PKCE code verifier/challenge and a random state.
+ * 3. Opens the user's browser to the Spotify authorization page.
+ * 4. Starts a local callback server to receive the authorization code.
+ * 5. Exchanges the code for access and refresh tokens.
+ * 6. Persists the tokens to disk.
+ *
+ * @param clientIdFlag - Optional client ID passed via the `--client-id` flag.
+ * @returns The stored tokens after successful login.
+ * @throws `SpotifyCliError` on network or auth errors.
+ */
 export async function login(clientIdFlag?: string): Promise<StoredTokens> {
   const clientId = await getClientId(clientIdFlag);
   await saveClientId(clientId);
@@ -28,12 +51,7 @@ export async function login(clientIdFlag?: string): Promise<StoredTokens> {
   const callbackPromise = startCallbackServer(state);
 
   // Open browser
-  const opener =
-    process.platform === "darwin"
-      ? "open"
-      : process.platform === "win32"
-        ? "start"
-        : "xdg-open";
+  const opener = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
 
   const proc = Bun.spawn([opener, authUrl], { stdout: "ignore", stderr: "ignore" });
   await proc.exited;
@@ -80,6 +98,17 @@ export async function login(clientIdFlag?: string): Promise<StoredTokens> {
   return tokens;
 }
 
+/**
+ * Refreshes an expired access token using the stored refresh token.
+ *
+ * The new tokens are persisted to disk. If Spotify issues a new refresh
+ * token, it replaces the old one; otherwise the existing refresh token
+ * is preserved.
+ *
+ * @param tokens - The current (expired) stored tokens.
+ * @returns Updated tokens with a fresh access token.
+ * @throws `SpotifyCliError` on network or auth errors.
+ */
 export async function refreshAccessToken(tokens: StoredTokens): Promise<StoredTokens> {
   const clientId = await getClientId();
 

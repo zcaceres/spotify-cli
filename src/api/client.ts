@@ -1,18 +1,41 @@
-import { SPOTIFY_API_BASE } from "../config.js";
-import { loadTokens, isExpired, saveTokens } from "../auth/token-store.js";
-import { refreshAccessToken } from "../auth/flow.js";
-import { apiError, networkError, authError } from "../errors.js";
+/**
+ * Low-level HTTP client for the Spotify Web API.
+ *
+ * Handles authentication headers, token refresh, rate-limit retries,
+ * and JSON response parsing. All other `api/*` modules delegate to
+ * {@link spotifyFetch}.
+ *
+ * @module
+ */
 
+import { refreshAccessToken } from "../auth/flow.js";
+import { isExpired, loadTokens, saveTokens } from "../auth/token-store.js";
+import { SPOTIFY_API_BASE } from "../config.js";
+import { apiError, authError, ErrorCode, networkError } from "../errors.js";
+
+/** Options for a Spotify API request. */
 export interface RequestOptions {
+  /** HTTP method (defaults to `"GET"`). */
   method?: string;
+  /** Query parameters appended to the URL. `undefined` values are skipped. */
   params?: Record<string, string | number | boolean | undefined>;
+  /** Request body, serialized as JSON. */
   body?: unknown;
 }
 
-export async function spotifyFetch<T = unknown>(
-  path: string,
-  options: RequestOptions = {},
-): Promise<T> {
+/**
+ * Makes an authenticated request to the Spotify Web API.
+ *
+ * Automatically refreshes expired tokens before the request and retries
+ * on `429 Too Many Requests` up to 3 times.
+ *
+ * @typeParam T - Expected shape of the JSON response body.
+ * @param path - API path (e.g. `"/me/player"`) or full URL.
+ * @param options - HTTP method, query params, and/or JSON body.
+ * @returns The parsed JSON response, or `undefined` for 204 / non-JSON responses.
+ * @throws `SpotifyCliError` on auth, API, or network errors.
+ */
+export async function spotifyFetch<T = unknown>(path: string, options: RequestOptions = {}): Promise<T> {
   let tokens = await loadTokens();
 
   if (isExpired(tokens)) {
@@ -44,21 +67,32 @@ export async function spotifyFetch<T = unknown>(
   if (!response.ok) {
     const body = await response.text().catch(() => "");
     if (response.status === 401) {
-      throw authError(`Unauthorized (token may be expired): ${body}`);
+      throw authError(`Unauthorized (token may be expired): ${body}`, ErrorCode.TOKEN_EXPIRED);
     }
+    const code =
+      response.status === 404
+        ? ErrorCode.NOT_FOUND
+        : response.status === 403
+          ? ErrorCode.FORBIDDEN
+          : response.status === 429
+            ? ErrorCode.RATE_LIMITED
+            : ErrorCode.API_ERROR;
     throw apiError(`Spotify API error ${response.status}: ${body}`, {
+      code,
       status: response.status,
       path,
     });
   }
 
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) {
+    return undefined as T;
+  }
+
   return response.json() as Promise<T>;
 }
 
-function buildUrl(
-  path: string,
-  params?: Record<string, string | number | boolean | undefined>,
-): string {
+function buildUrl(path: string, params?: Record<string, string | number | boolean | undefined>): string {
   const url = new URL(path.startsWith("/") ? `${SPOTIFY_API_BASE}${path}` : path);
   if (params) {
     for (const [key, value] of Object.entries(params)) {
@@ -70,11 +104,7 @@ function buildUrl(
   return url.toString();
 }
 
-async function fetchWithRetry(
-  url: string,
-  init: RequestInit,
-  retries = 3,
-): Promise<Response> {
+async function fetchWithRetry(url: string, init: RequestInit, retries = 3): Promise<Response> {
   for (let attempt = 0; attempt < retries; attempt++) {
     const response = await fetch(url, init).catch((err) => {
       throw networkError(`Network error: ${err.message}`);
@@ -83,7 +113,7 @@ async function fetchWithRetry(
     if (response.status === 429) {
       const retryAfter = response.headers.get("Retry-After");
       const parsed = retryAfter ? parseInt(retryAfter, 10) : NaN;
-      const waitMs = !isNaN(parsed) ? parsed * 1000 : 1000 * (attempt + 1);
+      const waitMs = !Number.isNaN(parsed) ? parsed * 1000 : 1000 * (attempt + 1);
       console.error(JSON.stringify({ warning: "rate_limited", retry_after_ms: waitMs }));
       await Bun.sleep(waitMs);
       continue;
@@ -92,5 +122,5 @@ async function fetchWithRetry(
     return response;
   }
 
-  throw apiError("Rate limited after max retries");
+  throw apiError("Rate limited after max retries", { code: ErrorCode.RATE_LIMITED });
 }

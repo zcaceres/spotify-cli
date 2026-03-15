@@ -6,14 +6,31 @@
     "spotify": "./src/cli.ts"
   },
   "scripts": {
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
     "typecheck": "tsc --noEmit",
-    "start": "bun run src/cli.ts"
+    "start": "bun run src/cli.ts",
+    "cli": "bun run src/cli.ts --",
+    "build": "bun run build:darwin-arm64 && bun run build:darwin-x64 && bun run build:linux-x64 && bun run build:linux-arm64 && bun run build:windows-x64",
+    "build:darwin-arm64": "bun build --compile --target=bun-darwin-arm64 src/cli.ts --outfile dist/spotify-darwin-arm64",
+    "build:darwin-x64": "bun build --compile --target=bun-darwin-x64 src/cli.ts --outfile dist/spotify-darwin-x64",
+    "build:linux-x64": "bun build --compile --target=bun-linux-x64 src/cli.ts --outfile dist/spotify-linux-x64",
+    "build:linux-arm64": "bun build --compile --target=bun-linux-arm64 src/cli.ts --outfile dist/spotify-linux-arm64",
+    "build:windows-x64": "bun build --compile --target=bun-windows-x64 src/cli.ts --outfile dist/spotify-windows-x64.exe",
+    "docs:api": "typedoc && cp docs/_api-index.md docs/api/index.md",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "bun run docs:api && vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.7",
     "@types/bun": "^1.2.0",
-    "typescript": "^5.7.0"
+    "typedoc": "^0.28.17",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typescript": "^5.7.0",
+    "vitepress": "^1.6.4"
   }
 }

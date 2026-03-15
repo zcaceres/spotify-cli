@@ -1,19 +1,20 @@
 #!/usr/bin/env bun
 
 import { commands, type ParsedArgs } from "./commands/index.js";
-import { output, handleError } from "./output.js";
-import { argsError } from "./errors.js";
+import { argsError, ErrorCode } from "./errors.js";
+import { handleError, output } from "./output.js";
 
 function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
   const raw = argv.slice(2);
   const command = raw[0];
 
   if (!command) {
-    throw argsError("No command provided. Run `spotify help` to see available commands.");
+    throw argsError("No command provided. Run `spotify help` to see available commands.", ErrorCode.MISSING_ARGUMENT);
   }
 
   const positional: string[] = [];
   const flags: Record<string, string> = {};
+  const multiFlags: Record<string, string[]> = {};
   let restArePositional = false;
 
   for (let i = 1; i < raw.length; i++) {
@@ -30,29 +31,40 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
     }
 
     if (arg.startsWith("--")) {
+      let key: string;
+      let value: string;
       const eqIdx = arg.indexOf("=");
       if (eqIdx !== -1) {
-        flags[arg.slice(2, eqIdx)] = arg.slice(eqIdx + 1);
+        key = arg.slice(2, eqIdx);
+        value = arg.slice(eqIdx + 1);
       } else {
-        const key = arg.slice(2);
+        key = arg.slice(2);
         const next = raw[i + 1];
         if (next !== undefined && !next.startsWith("-")) {
-          flags[key] = next;
+          value = next;
           i++;
         } else {
-          flags[key] = "";
+          value = "";
         }
       }
+      if (key in flags) {
+        if (!multiFlags[key]) multiFlags[key] = [flags[key]!];
+        multiFlags[key]!.push(value);
+      }
+      flags[key] = value;
     } else {
       positional.push(arg);
     }
   }
 
-  return { command, args: { positional, flags } };
+  return { command, args: { positional, flags, multiFlags } };
 }
 
 function showHelp(): void {
-  output({ usage: "spotify <command> [args] [--flags]", commands: Object.fromEntries([...commands].map(([k, v]) => [k, v.description])) });
+  output({
+    usage: "spotify <command> [args] [--flags]",
+    commands: Object.fromEntries([...commands].map(([k, v]) => [k, v.description])),
+  });
 }
 
 async function main() {
@@ -66,7 +78,10 @@ async function main() {
 
     const cmd = commands.get(command);
     if (!cmd) {
-      throw argsError(`Unknown command: ${command}. Run \`spotify help\` to see available commands.`);
+      throw argsError(
+        `Unknown command: ${command}. Run \`spotify help\` to see available commands.`,
+        ErrorCode.UNKNOWN_COMMAND,
+      );
     }
 
     await cmd.handler(args);

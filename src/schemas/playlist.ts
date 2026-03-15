@@ -1,7 +1,14 @@
+/**
+ * Zod schemas for Spotify playlist objects.
+ *
+ * @module
+ */
+
 import { z } from "zod";
-import { ImageSchema, ExternalUrlsSchema, FollowersSchema } from "./common.js";
+import { ExternalUrlsSchema, FollowersSchema, ImageSchema } from "./common.js";
 import { TrackSchema } from "./track.js";
 
+/** @internal Schema for the playlist owner (a Spotify user). */
 const PlaylistOwnerSchema = z.object({
   id: z.string(),
   display_name: z.string().nullable().optional(),
@@ -11,6 +18,7 @@ const PlaylistOwnerSchema = z.object({
   external_urls: ExternalUrlsSchema,
 });
 
+/** Schema for a single item in a playlist (track with metadata about when/who added it). */
 export const PlaylistItemSchema = z.object({
   added_at: z.string().nullable(),
   added_by: PlaylistOwnerSchema.nullable().optional(),
@@ -20,6 +28,7 @@ export const PlaylistItemSchema = z.object({
   video_thumbnail: z.object({ url: z.string().nullable() }).nullable().optional(),
 });
 
+/** Schema for a simplified playlist (used in listings and search results). */
 export const SimplifiedPlaylistSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -33,13 +42,16 @@ export const SimplifiedPlaylistSchema = z.object({
   collaborative: z.boolean(),
   snapshot_id: z.string(),
   external_urls: ExternalUrlsSchema,
-  items: z.object({
-    href: z.string(),
-    total: z.number(),
-  }).optional(),
+  items: z
+    .object({
+      href: z.string(),
+      total: z.number(),
+    })
+    .optional(),
   primary_color: z.string().nullable().optional(),
 });
 
+/** Schema for a full playlist object (includes followers and full track listing). */
 export const PlaylistSchema = SimplifiedPlaylistSchema.extend({
   followers: FollowersSchema,
   items: z.object({
@@ -53,6 +65,11 @@ export const PlaylistSchema = SimplifiedPlaylistSchema.extend({
   }),
 });
 
+/** A full Spotify playlist with track listing and followers. */
 export type Playlist = z.infer<typeof PlaylistSchema>;
+
+/** A simplified playlist (no full track listing). */
 export type SimplifiedPlaylist = z.infer<typeof SimplifiedPlaylistSchema>;
+
+/** A single item in a playlist. */
 export type PlaylistItem = z.infer<typeof PlaylistItemSchema>;

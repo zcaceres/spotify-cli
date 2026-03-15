@@ -1,64 +1,76 @@
+/**
+ * Command registry for the Spotify CLI.
+ *
+ * Maps command names (e.g. `"play"`, `"search"`) to their handler
+ * functions and descriptions. This is the single source of truth
+ * for all available CLI commands.
+ *
+ * @module
+ */
+
+/** Parsed CLI arguments passed to each command handler. */
 export interface ParsedArgs {
+  /** Non-flag arguments in the order they were provided. */
   positional: string[];
+  /** Flag values keyed by name (without `--` prefix). Boolean flags have an empty string value. */
   flags: Record<string, string>;
+  /** Flags that appeared more than once. All values collected in order. */
+  multiFlags: Record<string, string[]>;
 }
 
+/** A function that handles a CLI command. */
 export type CommandHandler = (args: ParsedArgs) => Promise<void>;
 
+/** @internal */
 interface CommandDef {
   handler: CommandHandler;
   description: string;
 }
 
-import { loginCommand, logoutCommand, authStatusCommand } from "./auth.js";
-import {
-  nowCommand,
-  playCommand,
-  pauseCommand,
-  nextCommand,
-  prevCommand,
-  seekCommand,
-  volumeCommand,
-  shuffleCommand,
-  repeatCommand,
-  queueCommand,
-  queueAddCommand,
-  devicesCommand,
-  transferCommand,
-  recentCommand,
-} from "./player.js";
-import { searchCommand } from "./search.js";
-import {
-  trackCommand,
-  savedTracksCommand,
-  saveTracksCommand,
-  removeTracksCommand,
-  audioFeaturesCommand,
-  recommendationsCommand,
-} from "./tracks.js";
 import {
   albumCommand,
   albumTracksCommand,
-  savedAlbumsCommand,
-  saveAlbumsCommand,
   removeAlbumsCommand,
+  saveAlbumsCommand,
+  savedAlbumsCommand,
 } from "./albums.js";
+import { authStatusCommand, loginCommand, logoutCommand } from "./auth.js";
 import {
+  devicesCommand,
+  nextCommand,
+  nowCommand,
+  pauseCommand,
+  playCommand,
+  prevCommand,
+  queueAddCommand,
+  queueCommand,
+  recentCommand,
+  repeatCommand,
+  seekCommand,
+  shuffleCommand,
+  transferCommand,
+  volumeCommand,
+} from "./player.js";
+import {
+  playlistAddCommand,
   playlistCommand,
+  playlistCreateCommand,
+  playlistRemoveCommand,
   playlistsCommand,
   playlistTracksCommand,
-  playlistAddCommand,
-  playlistRemoveCommand,
-  playlistCreateCommand,
 } from "./playlists.js";
+import { searchCommand } from "./search.js";
 import {
-  meCommand,
-  topCommand,
-  followingCommand,
-  followCommand,
-  unfollowCommand,
-} from "./user.js";
+  audioFeaturesCommand,
+  recommendationsCommand,
+  removeTracksCommand,
+  savedTracksCommand,
+  saveTracksCommand,
+  trackCommand,
+} from "./tracks.js";
+import { followCommand, followingCommand, meCommand, topCommand, unfollowCommand } from "./user.js";
 
+/** Registry of all CLI commands, keyed by command name. */
 export const commands = new Map<string, CommandDef>([
   // Auth
   ["login", { handler: loginCommand, description: "OAuth PKCE login (opens browser)" }],

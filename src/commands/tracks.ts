@@ -5,8 +5,8 @@
  */
 
 import * as api from "../api/tracks.js";
+import { apiError, argsError, ErrorCode, SpotifyCliError } from "../errors.js";
 import { output } from "../output.js";
-import { argsError } from "../errors.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
@@ -60,8 +60,18 @@ export const removeTracksCommand: CommandHandler = async (args) => {
 export const audioFeaturesCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) throw argsError("Usage: spotify audio-features <id>");
-  const data = await api.getAudioFeatures(id);
-  output(data);
+  try {
+    const data = await api.getAudioFeatures(id);
+    output(data);
+  } catch (err) {
+    if (err instanceof SpotifyCliError && err.details.status === 403) {
+      throw apiError(
+        "Audio Features API is restricted. Spotify removed access for most apps in November 2024. See: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api",
+        { code: ErrorCode.DEPRECATED, status: 403, deprecated: true },
+      );
+    }
+    throw err;
+  }
 };
 
 /**
@@ -82,11 +92,21 @@ export const recommendationsCommand: CommandHandler = async (args) => {
     );
   }
 
-  const data = await api.getRecommendations({
-    seed_tracks: seedTracks,
-    seed_artists: seedArtists,
-    seed_genres: seedGenres,
-    limit,
-  });
-  output(data);
+  try {
+    const data = await api.getRecommendations({
+      seed_tracks: seedTracks,
+      seed_artists: seedArtists,
+      seed_genres: seedGenres,
+      limit,
+    });
+    output(data);
+  } catch (err) {
+    if (err instanceof SpotifyCliError && [403, 404].includes(err.details.status ?? 0)) {
+      throw apiError(
+        "Recommendations API is no longer available. Spotify removed access in November 2024. See: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api",
+        { code: ErrorCode.DEPRECATED, status: err.details.status ?? 0, deprecated: true },
+      );
+    }
+    throw err;
+  }
 };
