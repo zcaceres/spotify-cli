@@ -5,7 +5,6 @@
  */
 
 import * as api from "../api/playlists.js";
-import { getCurrentUser } from "../api/user.js";
 import { output } from "../output.js";
 import { argsError } from "../errors.js";
 import { optionalIntFlag } from "../parse.js";
@@ -144,7 +143,6 @@ export const playlistCreateCommand: CommandHandler = async (args) => {
   const name = args.positional[0];
   if (!name) throw argsError("Usage: spotify playlist-create <name> [--description ...] [--public]");
 
-  const user = (await getCurrentUser()) as { id: string };
   const description = args.flags["description"];
   const isPublic = args.flags["public"] !== undefined ? true : undefined;
 
@@ -152,6 +150,6 @@ export const playlistCreateCommand: CommandHandler = async (args) => {
   if (description !== undefined) opts.description = description;
   if (isPublic !== undefined) opts.public = isPublic;
 
-  const data = await api.createPlaylist(user.id, opts);
+  const data = await api.createPlaylist(opts);
   output(data);
 };

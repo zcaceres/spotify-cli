@@ -52,22 +52,22 @@ export function getFollowedArtists(options: { limit?: number | undefined; after?
  * @see `PUT /me/following`
  */
 export function followArtists(ids: string[]) {
-  return spotifyFetch("/me/following", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:artist:${id}`));
+  return spotifyFetch("/me/library", {
     method: "PUT",
-    params: { type: "artist" },
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }
 
 /**
  * Unfollows one or more artists.
  * @param ids - Array of Spotify artist IDs to unfollow.
- * @see `DELETE /me/following`
+ * @see `DELETE /me/library`
  */
 export function unfollowArtists(ids: string[]) {
-  return spotifyFetch("/me/following", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:artist:${id}`));
+  return spotifyFetch("/me/library", {
     method: "DELETE",
-    params: { type: "artist" },
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }

@@ -35,9 +35,10 @@ export function getSavedTracks(options: { limit?: number | undefined; offset?: n
  * @see `PUT /me/tracks`
  */
 export function saveTracks(ids: string[]) {
-  return spotifyFetch("/me/tracks", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
+  return spotifyFetch("/me/library", {
     method: "PUT",
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }
 
@@ -47,9 +48,10 @@ export function saveTracks(ids: string[]) {
  * @see `DELETE /me/tracks`
  */
 export function removeTracks(ids: string[]) {
-  return spotifyFetch("/me/tracks", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
+  return spotifyFetch("/me/library", {
     method: "DELETE",
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }
 

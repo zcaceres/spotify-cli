@@ -49,20 +49,22 @@ export function getSavedAlbums(options: { limit?: number | undefined; offset?: n
  * @see `PUT /me/albums`
  */
 export function saveAlbums(ids: string[]) {
-  return spotifyFetch("/me/albums", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:album:${id}`));
+  return spotifyFetch("/me/library", {
     method: "PUT",
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }
 
 /**
  * Removes one or more albums from the current user's library.
  * @param ids - Array of Spotify album IDs to remove.
- * @see `DELETE /me/albums`
+ * @see `DELETE /me/library`
  */
 export function removeAlbums(ids: string[]) {
-  return spotifyFetch("/me/albums", {
+  const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:album:${id}`));
+  return spotifyFetch("/me/library", {
     method: "DELETE",
-    body: { ids },
+    params: { uris: uris.join(",") },
   });
 }

@@ -96,14 +96,13 @@ export function replacePlaylistTracks(id: string, uris: string[]) {
  * @see `POST /users/{user_id}/playlists`
  */
 export function createPlaylist(
-  userId: string,
   options: {
     name: string;
     description?: string;
     public?: boolean;
   },
 ) {
-  return spotifyFetch(`/users/${userId}/playlists`, {
+  return spotifyFetch("/me/playlists", {
     method: "POST",
     body: options,
   });

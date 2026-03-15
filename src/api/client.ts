@@ -78,6 +78,11 @@ export async function spotifyFetch<T = unknown>(
     });
   }
 
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) {
+    return undefined as T;
+  }
+
   return response.json() as Promise<T>;
 }
 
