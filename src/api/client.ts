@@ -11,7 +11,7 @@
 import { SPOTIFY_API_BASE } from "../config.js";
 import { loadTokens, isExpired, saveTokens } from "../auth/token-store.js";
 import { refreshAccessToken } from "../auth/flow.js";
-import { apiError, networkError, authError } from "../errors.js";
+import { apiError, networkError, authError, ErrorCode } from "../errors.js";
 
 /** Options for a Spotify API request. */
 export interface RequestOptions {
@@ -70,9 +70,15 @@ export async function spotifyFetch<T = unknown>(
   if (!response.ok) {
     const body = await response.text().catch(() => "");
     if (response.status === 401) {
-      throw authError(`Unauthorized (token may be expired): ${body}`);
+      throw authError(`Unauthorized (token may be expired): ${body}`, ErrorCode.TOKEN_EXPIRED);
     }
+    const code =
+      response.status === 404 ? ErrorCode.NOT_FOUND :
+      response.status === 403 ? ErrorCode.FORBIDDEN :
+      response.status === 429 ? ErrorCode.RATE_LIMITED :
+      ErrorCode.API_ERROR;
     throw apiError(`Spotify API error ${response.status}: ${body}`, {
+      code,
       status: response.status,
       path,
     });
@@ -123,5 +129,5 @@ async function fetchWithRetry(
     return response;
   }
 
-  throw apiError("Rate limited after max retries");
+  throw apiError("Rate limited after max retries", { code: ErrorCode.RATE_LIMITED });
 }

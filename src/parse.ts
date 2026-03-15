@@ -4,7 +4,7 @@
  * @module
  */
 
-import { argsError } from "./errors.js";
+import { argsError, ErrorCode } from "./errors.js";
 
 /**
  * Parses a string as a base-10 integer or throws an {@link argsError}.
@@ -15,7 +15,7 @@ import { argsError } from "./errors.js";
  */
 export function parseIntFlag(value: string, name: string): number {
   const n = parseInt(value, 10);
-  if (isNaN(n)) throw argsError(`${name} must be a number, got "${value}"`);
+  if (isNaN(n)) throw argsError(`${name} must be a number, got "${value}"`, ErrorCode.INVALID_ARGUMENT);
   return n;
 }
 

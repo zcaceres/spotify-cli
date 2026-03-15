@@ -9,7 +9,7 @@
 
 import { mkdir, chmod } from "node:fs/promises";
 import { CONFIG_DIR, TOKENS_PATH, CONFIG_PATH } from "../config.js";
-import { authError } from "../errors.js";
+import { authError, ErrorCode } from "../errors.js";
 
 /**
  * OAuth tokens persisted to disk.
@@ -43,13 +43,13 @@ export async function saveTokens(tokens: StoredTokens): Promise<void> {
 export async function loadTokens(): Promise<StoredTokens> {
   const file = Bun.file(TOKENS_PATH);
   if (!(await file.exists())) {
-    throw authError("Not logged in. Run `spotify login` first.");
+    throw authError("Not logged in. Run `spotify login` first.", ErrorCode.NOT_LOGGED_IN);
   }
   let data: unknown;
   try {
     data = await file.json();
   } catch {
-    throw authError("Corrupted tokens file. Run `spotify login` to re-authenticate.");
+    throw authError("Corrupted tokens file. Run `spotify login` to re-authenticate.", ErrorCode.TOKEN_CORRUPTED);
   }
   const tokens = data as Record<string, unknown>;
   if (
@@ -57,7 +57,7 @@ export async function loadTokens(): Promise<StoredTokens> {
     typeof tokens["refresh_token"] !== "string" ||
     typeof tokens["expires_at"] !== "number"
   ) {
-    throw authError("Invalid tokens file. Run `spotify login` to re-authenticate.");
+    throw authError("Invalid tokens file. Run `spotify login` to re-authenticate.", ErrorCode.TOKEN_CORRUPTED);
   }
   return tokens as unknown as StoredTokens;
 }
@@ -105,6 +105,7 @@ export async function getClientId(flagValue?: string): Promise<string> {
 
   throw authError(
     "No client ID found. Provide --client-id, set SPOTIFY_CLIENT_ID, or save to ~/.spotify-cli/config.json",
+    ErrorCode.MISSING_CLIENT_ID,
   );
 }
 

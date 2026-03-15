@@ -22,7 +22,7 @@ export function output(data: unknown): void {
  * @param message - Error message string.
  * @param details - Optional additional context included in the JSON output.
  */
-export function logError(message: string, details?: unknown): void {
+export function logError(message: string, details?: Record<string, unknown>): void {
   const obj: Record<string, unknown> = { error: message };
   if (details !== undefined) obj["details"] = details;
   console.error(JSON.stringify(obj));

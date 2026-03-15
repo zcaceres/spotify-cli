@@ -2,14 +2,14 @@
 
 import { commands, type ParsedArgs } from "./commands/index.js";
 import { output, handleError } from "./output.js";
-import { argsError } from "./errors.js";
+import { argsError, ErrorCode } from "./errors.js";
 
 function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
   const raw = argv.slice(2);
   const command = raw[0];
 
   if (!command) {
-    throw argsError("No command provided. Run `spotify help` to see available commands.");
+    throw argsError("No command provided. Run `spotify help` to see available commands.", ErrorCode.MISSING_ARGUMENT);
   }
 
   const positional: string[] = [];
@@ -75,7 +75,7 @@ async function main() {
 
     const cmd = commands.get(command);
     if (!cmd) {
-      throw argsError(`Unknown command: ${command}. Run \`spotify help\` to see available commands.`);
+      throw argsError(`Unknown command: ${command}. Run \`spotify help\` to see available commands.`, ErrorCode.UNKNOWN_COMMAND);
     }
 
     await cmd.handler(args);

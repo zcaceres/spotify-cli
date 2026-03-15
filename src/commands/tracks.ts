@@ -6,7 +6,7 @@
 
 import * as api from "../api/tracks.js";
 import { output } from "../output.js";
-import { argsError, apiError, SpotifyCliError } from "../errors.js";
+import { argsError, apiError, SpotifyCliError, ErrorCode } from "../errors.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
@@ -64,10 +64,10 @@ export const audioFeaturesCommand: CommandHandler = async (args) => {
     const data = await api.getAudioFeatures(id);
     output(data);
   } catch (err) {
-    if (err instanceof SpotifyCliError && (err.details as { status?: number })?.status === 403) {
+    if (err instanceof SpotifyCliError && err.details.status === 403) {
       throw apiError(
         "Audio Features API is restricted. Spotify removed access for most apps in November 2024. See: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api",
-        { status: 403, deprecated: true },
+        { code: ErrorCode.DEPRECATED, status: 403, deprecated: true },
       );
     }
     throw err;
@@ -101,10 +101,10 @@ export const recommendationsCommand: CommandHandler = async (args) => {
     });
     output(data);
   } catch (err) {
-    if (err instanceof SpotifyCliError && [403, 404].includes((err.details as { status?: number })?.status ?? 0)) {
+    if (err instanceof SpotifyCliError && [403, 404].includes(err.details.status ?? 0)) {
       throw apiError(
         "Recommendations API is no longer available. Spotify removed access in November 2024. See: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api",
-        { status: (err.details as { status?: number })?.status, deprecated: true },
+        { code: ErrorCode.DEPRECATED, status: err.details.status ?? 0, deprecated: true },
       );
     }
     throw err;
