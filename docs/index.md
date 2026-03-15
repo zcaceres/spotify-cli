@@ -13,4 +13,7 @@ hero:
     - theme: alt
       text: API Reference
       link: /api/
+    - theme: alt
+      text: Download
+      link: /releases
 ---
