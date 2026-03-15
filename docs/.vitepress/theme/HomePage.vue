@@ -4,7 +4,7 @@
     <section class="hero">
       <div class="hero-content">
         <span class="overline">Open Source CLI</span>
-        <h1 class="headline">Control Spotify<br>from your terminal</h1>
+        <h1 class="headline">Control Spotify<br>from your AI Agent</h1>
         <p class="subtitle">
           40 commands for playback, search, playlists, and library management. JSON output, PKCE auth, zero dependencies.
         </p>
