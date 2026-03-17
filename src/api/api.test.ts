@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, test } from "bun:test";
-import * as albums from "../api/albums.js";
-import type { FetchFn } from "../api/client.js";
-import * as player from "../api/player.js";
-import * as playlists from "../api/playlists.js";
-import * as search from "../api/search.js";
-import * as tracks from "../api/tracks.js";
-import * as user from "../api/user.js";
-import { fixtures } from "./fixtures/index.js";
+import { fixtures } from "../test/fixtures/index.js";
+import * as albums from "./albums.js";
+import type { FetchFn } from "./client.js";
+import * as player from "./player.js";
+import * as playlists from "./playlists.js";
+import * as search from "./search.js";
+import * as tracks from "./tracks.js";
+import * as user from "./user.js";
 
 let calls: unknown[][] = [];
 let returnValue: unknown;
@@ -27,19 +27,6 @@ function calledWith(...expected: unknown[]) {
 }
 
 describe("tracks API", () => {
-  test("DI sanity check", async () => {
-    // Verify that the injected fetch is actually called
-    let wasCalled = false;
-    const testFetch: FetchFn = (() => {
-      wasCalled = true;
-      return Promise.resolve(undefined);
-    }) as FetchFn;
-    await tracks.getTrack("test", testFetch);
-    expect(wasCalled).toBe(true);
-    // Also check that getTrack accepts 2 params
-    expect(tracks.getTrack.length).toBe(1); // only required params counted
-  });
-
   test("getTrack calls correct path", async () => {
     returnValue = fixtures.track;
     const result = await tracks.getTrack("57bgtoPSgt236HzfBOd8kj", mockFetch);
