@@ -2,15 +2,15 @@ import { beforeEach, describe, expect, mock, test } from "bun:test";
 import { fixtures } from "./fixtures/index.js";
 
 // Mock the client's spotifyFetch to return fixtures instead of hitting the real API
-let mockFetch: ReturnType<typeof mock>;
+const mockFetch = mock();
 
 beforeEach(() => {
-  mockFetch = mock();
+  mockFetch.mockReset();
 });
 
 // We mock at the spotifyFetch level so we test the API modules' request construction
 mock.module("../api/client.js", () => ({
-  spotifyFetch: (...args: unknown[]) => mockFetch(...args),
+  spotifyFetch: mockFetch,
 }));
 
 // Import API modules after mocking
