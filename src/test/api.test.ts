@@ -27,6 +27,19 @@ function calledWith(...expected: unknown[]) {
 }
 
 describe("tracks API", () => {
+  test("DI sanity check", async () => {
+    // Verify that the injected fetch is actually called
+    let wasCalled = false;
+    const testFetch: FetchFn = (() => {
+      wasCalled = true;
+      return Promise.resolve(undefined);
+    }) as FetchFn;
+    await tracks.getTrack("test", testFetch);
+    expect(wasCalled).toBe(true);
+    // Also check that getTrack accepts 2 params
+    expect(tracks.getTrack.length).toBe(1); // only required params counted
+  });
+
   test("getTrack calls correct path", async () => {
     returnValue = fixtures.track;
     const result = await tracks.getTrack("57bgtoPSgt236HzfBOd8kj", mockFetch);
