@@ -318,7 +318,7 @@ describe("queue command", () => {
   });
 });
 
-describe("queue-add command", () => {
+describe("queue add command", () => {
   beforeEach(() => {
     captured = undefined;
     mockAddToQueue.mockClear();

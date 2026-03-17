@@ -19,13 +19,13 @@ export const albumCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify album-tracks <id> [--limit N] [--offset N]`.
+ * Handles `spotify album tracks <id> [--limit N] [--offset N]`.
  *
  * Lists tracks in an album with optional pagination.
  */
 export const albumTracksCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify album-tracks <id>");
+  if (!id) throw argsError("Usage: spotify album tracks <id>");
   const limit = optionalIntFlag(args.flags, "limit");
   const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getAlbumTracks(id, { limit, offset });
@@ -33,7 +33,7 @@ export const albumTracksCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify saved-albums [--limit N] [--offset N]`.
+ * Handles `spotify album saved [--limit N] [--offset N]`.
  *
  * Lists the current user's saved albums.
  */
@@ -45,23 +45,23 @@ export const savedAlbumsCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify save-albums <id...>`.
+ * Handles `spotify album save <id...>`.
  *
  * Saves one or more albums to the current user's library.
  */
 export const saveAlbumsCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify save-albums <id...>");
+  const ids = requireIds(args.positional, "spotify album save <id...>");
   await api.saveAlbums(ids);
   output({ status: "saved", ids });
 };
 
 /**
- * Handles `spotify remove-albums <id...>`.
+ * Handles `spotify album remove <id...>`.
  *
  * Removes one or more albums from the current user's library.
  */
 export const removeAlbumsCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify remove-albums <id...>");
+  const ids = requireIds(args.positional, "spotify album remove <id...>");
   await api.removeAlbums(ids);
   output({ status: "removed", ids });
 };

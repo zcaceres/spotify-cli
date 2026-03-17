@@ -4,12 +4,36 @@ import { commands, type ParsedArgs } from "./commands/index.js";
 import { argsError, ErrorCode } from "./errors.js";
 import { handleError, output } from "./output.js";
 
-function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
-  const raw = argv.slice(2);
-  const command = raw[0];
+/** Collect subcommands for a given parent command prefix. */
+function getSubcommands(parent: string): Record<string, string> {
+  const prefix = `${parent} `;
+  const subs: Record<string, string> = {};
+  for (const [key, def] of commands) {
+    if (key.startsWith(prefix)) {
+      subs[key.slice(prefix.length)] = def.description;
+    }
+  }
+  return subs;
+}
 
-  if (!command) {
+export function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
+  const raw = argv.slice(2);
+  const first = raw[0];
+
+  if (!first) {
     throw argsError("No command provided. Run `spotify help` to see available commands.", ErrorCode.MISSING_ARGUMENT);
+  }
+
+  // Try two-word subcommand first (e.g. "playlist create")
+  const second = raw[1];
+  let command: string;
+  let argStart: number;
+  if (second && !second.startsWith("-") && commands.has(`${first} ${second}`)) {
+    command = `${first} ${second}`;
+    argStart = 2;
+  } else {
+    command = first;
+    argStart = 1;
   }
 
   const positional: string[] = [];
@@ -17,7 +41,7 @@ function parseArgs(argv: string[]): { command: string; args: ParsedArgs } {
   const multiFlags: Record<string, string[]> = {};
   let restArePositional = false;
 
-  for (let i = 1; i < raw.length; i++) {
+  for (let i = argStart; i < raw.length; i++) {
     const arg = raw[i];
     if (arg === undefined) continue;
 
@@ -69,6 +93,19 @@ function showHelp(): void {
   });
 }
 
+function showCommandHelp(command: string, cmd: { description: string; usage?: string }): void {
+  const subcommands = getSubcommands(command);
+  const result: Record<string, unknown> = {
+    command,
+    description: cmd.description,
+    usage: cmd.usage ?? `spotify ${command}`,
+  };
+  if (Object.keys(subcommands).length > 0) {
+    result.subcommands = subcommands;
+  }
+  output(result);
+}
+
 async function main() {
   try {
     const { command, args } = parseArgs(process.argv);
@@ -79,11 +116,27 @@ async function main() {
     }
 
     const cmd = commands.get(command);
+
     if (!cmd) {
+      // Check if this is a parent with subcommands (e.g. "auth" has "auth status")
+      const subs = getSubcommands(command);
+      if (Object.keys(subs).length > 0) {
+        output({
+          command,
+          usage: `spotify ${command} <subcommand>`,
+          subcommands: subs,
+        });
+        return;
+      }
       throw argsError(
         `Unknown command: ${command}. Run \`spotify help\` to see available commands.`,
         ErrorCode.UNKNOWN_COMMAND,
       );
+    }
+
+    if (args.flags.help !== undefined || args.positional.includes("--help")) {
+      showCommandHelp(command, cmd);
+      return;
     }
 
     await cmd.handler(args);
@@ -92,4 +145,6 @@ async function main() {
   }
 }
 
-main();
+if (import.meta.main) {
+  main();
+}

@@ -83,7 +83,7 @@ describe("logout command", () => {
   });
 });
 
-describe("auth-status command", () => {
+describe("auth status command", () => {
   beforeEach(() => {
     captured = undefined;
     mockLoadTokens.mockClear();

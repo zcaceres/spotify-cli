@@ -68,7 +68,7 @@ spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
 
 ## Known limitations
 
-- `audio-features` and `recommendations` are restricted for Spotify apps created after November 2024 unless you have extended quota mode approval.
+- `track features` and `track recommendations` are restricted for Spotify apps created after November 2024 unless you have extended quota mode approval.
 - Queue and playback state schemas handle tracks only, not podcast episodes.
 
 ## License

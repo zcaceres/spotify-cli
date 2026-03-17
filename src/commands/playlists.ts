@@ -19,7 +19,7 @@ export const playlistCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify playlists [--limit N] [--offset N]`.
+ * Handles `spotify playlist list [--limit N] [--offset N]`.
  *
  * Lists the current user's playlists.
  */
@@ -31,13 +31,13 @@ export const playlistsCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify playlist-tracks <id> [--limit N] [--offset N]`.
+ * Handles `spotify playlist tracks <id> [--limit N] [--offset N]`.
  *
  * Lists the tracks in a playlist with optional pagination.
  */
 export const playlistTracksCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify playlist-tracks <id>");
+  if (!id) throw argsError("Usage: spotify playlist tracks <id>");
   const limit = optionalIntFlag(args.flags, "limit");
   const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getPlaylistTracks(id, { limit, offset });
@@ -45,7 +45,7 @@ export const playlistTracksCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify playlist-add <playlist_id> <uri...> [--position N]`.
+ * Handles `spotify playlist add <playlist_id> <uri...> [--position N]`.
  *
  * Adds one or more tracks to a playlist at an optional position.
  */
@@ -53,7 +53,7 @@ export const playlistAddCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   const uris = args.positional.slice(1);
   if (!id || uris.length === 0) {
-    throw argsError("Usage: spotify playlist-add <playlist_id> <uri...>");
+    throw argsError("Usage: spotify playlist add <playlist_id> <uri...>");
   }
   const position = optionalIntFlag(args.flags, "position");
   const data = await api.addTracksToPlaylist(id, uris, position);
@@ -90,7 +90,7 @@ async function fetchAllPlaylistTracks(
 }
 
 /**
- * Handles `spotify playlist-remove <playlist_id> [uri...] [--match name] [--index N]`.
+ * Handles `spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]`.
  *
  * Removes tracks by URI, name substring match, or 1-based index.
  * --match and --index can be repeated. URIs can also be passed as positional args.
@@ -98,7 +98,7 @@ async function fetchAllPlaylistTracks(
 export const playlistRemoveCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
   if (!id) {
-    throw argsError("Usage: spotify playlist-remove <playlist_id> [uri...] [--match name] [--index N]");
+    throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
   }
 
   const directUris = args.positional.slice(1);
@@ -106,7 +106,7 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
   const indexValues = args.multiFlags.index ?? (args.flags.index !== undefined ? [args.flags.index] : []);
 
   if (directUris.length === 0 && matchValues.length === 0 && indexValues.length === 0) {
-    throw argsError("Usage: spotify playlist-remove <playlist_id> [uri...] [--match name] [--index N]");
+    throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
   }
 
   const urisToRemove = new Set<string>(directUris);
@@ -140,13 +140,13 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify playlist-create <name> [--description ...] [--public]`.
+ * Handles `spotify playlist create <name> [--description ...] [--public]`.
  *
  * Creates a new playlist for the current user.
  */
 export const playlistCreateCommand: CommandHandler = async (args) => {
   const name = args.positional[0];
-  if (!name) throw argsError("Usage: spotify playlist-create <name> [--description ...] [--public]");
+  if (!name) throw argsError("Usage: spotify playlist create <name> [--description ...] [--public]");
 
   const description = args.flags.description;
   const isPublic = args.flags.public !== undefined ? true : undefined;

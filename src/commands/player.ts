@@ -118,13 +118,13 @@ export const queueCommand: CommandHandler = async () => {
 };
 
 /**
- * Handles `spotify queue-add <uri> [--device <id>]`.
+ * Handles `spotify queue add <uri> [--device <id>]`.
  *
  * Adds a track to the end of the playback queue.
  */
 export const queueAddCommand: CommandHandler = async (args) => {
   const uri = args.positional[0];
-  if (!uri) throw argsError("Usage: spotify queue-add <uri>");
+  if (!uri) throw argsError("Usage: spotify queue add <uri>");
   await api.addToQueue(uri, args.flags.device);
   output({ status: "added_to_queue", uri });
 };

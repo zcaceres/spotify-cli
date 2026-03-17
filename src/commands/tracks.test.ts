@@ -60,7 +60,7 @@ describe("track command", () => {
   });
 });
 
-describe("saved-tracks command", () => {
+describe("track saved command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetSavedTracks.mockClear();
@@ -78,7 +78,7 @@ describe("saved-tracks command", () => {
   });
 });
 
-describe("save-tracks command", () => {
+describe("track save command", () => {
   beforeEach(() => {
     captured = undefined;
     mockSaveTracks.mockClear();
@@ -100,7 +100,7 @@ describe("save-tracks command", () => {
   });
 });
 
-describe("remove-tracks command", () => {
+describe("track remove command", () => {
   beforeEach(() => {
     captured = undefined;
     mockRemoveTracks.mockClear();
@@ -117,7 +117,7 @@ describe("remove-tracks command", () => {
   });
 });
 
-describe("audio-features command", () => {
+describe("track features command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetAudioFeatures.mockClear();
@@ -162,7 +162,7 @@ describe("audio-features command", () => {
   });
 });
 
-describe("recommendations command", () => {
+describe("track recommendations command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetRecommendations.mockClear();

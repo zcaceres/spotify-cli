@@ -36,7 +36,7 @@ export const logoutCommand: CommandHandler = async () => {
 };
 
 /**
- * Handles `spotify auth-status`.
+ * Handles `spotify auth status`.
  *
  * Reports whether the stored tokens are valid, expired, or missing.
  */

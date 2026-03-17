@@ -109,9 +109,9 @@ describe("playlists command", () => {
   });
 });
 
-// --- playlist-tracks command ---
+// --- playlist tracks command ---
 
-describe("playlist-tracks command", () => {
+describe("playlist tracks command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetPlaylistTracks.mockClear();
@@ -134,9 +134,9 @@ describe("playlist-tracks command", () => {
   });
 });
 
-// --- playlist-add command ---
+// --- playlist add command ---
 
-describe("playlist-add command", () => {
+describe("playlist add command", () => {
   beforeEach(() => {
     captured = undefined;
     mockAddTracksToPlaylist.mockClear();
@@ -165,9 +165,9 @@ describe("playlist-add command", () => {
   });
 });
 
-// --- playlist-create command ---
+// --- playlist create command ---
 
-describe("playlist-create command", () => {
+describe("playlist create command", () => {
   beforeEach(() => {
     captured = undefined;
     mockCreatePlaylist.mockClear();
@@ -209,9 +209,9 @@ describe("playlist-create command", () => {
   });
 });
 
-// --- playlist-remove command (existing tests) ---
+// --- playlist remove command ---
 
-describe("playlist-remove", () => {
+describe("playlist remove", () => {
   beforeEach(() => {
     mockGetPlaylistTracks.mockReset();
     mockRemoveTracksFromPlaylist.mockReset();

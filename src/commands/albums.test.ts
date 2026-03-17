@@ -48,7 +48,7 @@ describe("album command", () => {
   });
 });
 
-describe("album-tracks command", () => {
+describe("album tracks command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetAlbumTracks.mockClear();
@@ -69,7 +69,7 @@ describe("album-tracks command", () => {
   });
 });
 
-describe("saved-albums command", () => {
+describe("album saved command", () => {
   beforeEach(() => {
     captured = undefined;
     mockGetSavedAlbums.mockClear();
@@ -86,7 +86,7 @@ describe("saved-albums command", () => {
   });
 });
 
-describe("save-albums command", () => {
+describe("album save command", () => {
   beforeEach(() => {
     captured = undefined;
     mockSaveAlbums.mockClear();
@@ -108,7 +108,7 @@ describe("save-albums command", () => {
   });
 });
 
-describe("remove-albums command", () => {
+describe("album remove command", () => {
   beforeEach(() => {
     captured = undefined;
     mockRemoveAlbums.mockClear();

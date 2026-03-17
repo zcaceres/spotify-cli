@@ -1,95 +1,218 @@
 import { describe, expect, test } from "bun:test";
+import { parseArgs } from "./cli.js";
 
-// We need to test parseArgs, but it's not exported. We'll extract the logic
-// by reimporting the module and testing via the CLI's argv parsing.
-// Instead, let's just inline the parse logic for unit testing.
-
-function parseArgs(argv: string[]) {
-  const raw = argv.slice(2);
-  const command = raw[0];
-
-  const positional: string[] = [];
-  const flags: Record<string, string> = {};
-  const multiFlags: Record<string, string[]> = {};
-  let restArePositional = false;
-
-  for (let i = 1; i < raw.length; i++) {
-    const arg = raw[i];
-    if (arg === undefined) continue;
-
-    if (restArePositional) {
-      positional.push(arg);
-      continue;
-    }
-
-    if (arg === "--") {
-      restArePositional = true;
-      continue;
-    }
-
-    if (arg.startsWith("--")) {
-      let key: string;
-      let value: string;
-      const eqIdx = arg.indexOf("=");
-      if (eqIdx !== -1) {
-        key = arg.slice(2, eqIdx);
-        value = arg.slice(eqIdx + 1);
-      } else {
-        key = arg.slice(2);
-        const next = raw[i + 1];
-        if (next !== undefined && !next.startsWith("-")) {
-          value = next;
-          i++;
-        } else {
-          value = "";
-        }
-      }
-      if (key in flags) {
-        const existing = flags[key];
-        if (!multiFlags[key] && existing !== undefined) multiFlags[key] = [existing];
-        multiFlags[key]?.push(value);
-      }
-      flags[key] = value;
-    } else {
-      positional.push(arg);
-    }
-  }
-
-  return { command, args: { positional, flags, multiFlags } };
+/** Helper: build a fake argv array as if invoked as `bun cli.ts ...args`. */
+function argv(...args: string[]) {
+  return ["bun", "cli.ts", ...args];
 }
+
+// --- subcommand resolution ---
+
+describe("subcommand resolution", () => {
+  test("resolves a two-word subcommand", () => {
+    const result = parseArgs(argv("playlist", "create", "My Playlist"));
+    expect(result.command).toBe("playlist create");
+    expect(result.args.positional).toEqual(["My Playlist"]);
+  });
+
+  test("resolves single-word command when no subcommand matches", () => {
+    const result = parseArgs(argv("playlist", "abc123"));
+    expect(result.command).toBe("playlist");
+    expect(result.args.positional).toEqual(["abc123"]);
+  });
+
+  test("resolves queue add subcommand", () => {
+    const result = parseArgs(argv("queue", "add", "spotify:track:123"));
+    expect(result.command).toBe("queue add");
+    expect(result.args.positional).toEqual(["spotify:track:123"]);
+  });
+
+  test("resolves queue without subcommand", () => {
+    const result = parseArgs(argv("queue"));
+    expect(result.command).toBe("queue");
+    expect(result.args.positional).toEqual([]);
+  });
+
+  test("resolves auth status subcommand", () => {
+    const result = parseArgs(argv("auth", "status"));
+    expect(result.command).toBe("auth status");
+    expect(result.args.positional).toEqual([]);
+  });
+
+  test("resolves track save subcommand", () => {
+    const result = parseArgs(argv("track", "save", "id1", "id2"));
+    expect(result.command).toBe("track save");
+    expect(result.args.positional).toEqual(["id1", "id2"]);
+  });
+
+  test("resolves track remove subcommand", () => {
+    const result = parseArgs(argv("track", "remove", "id1"));
+    expect(result.command).toBe("track remove");
+    expect(result.args.positional).toEqual(["id1"]);
+  });
+
+  test("resolves track saved subcommand", () => {
+    const result = parseArgs(argv("track", "saved"));
+    expect(result.command).toBe("track saved");
+    expect(result.args.positional).toEqual([]);
+  });
+
+  test("resolves track features subcommand", () => {
+    const result = parseArgs(argv("track", "features", "abc123"));
+    expect(result.command).toBe("track features");
+    expect(result.args.positional).toEqual(["abc123"]);
+  });
+
+  test("resolves track recommendations subcommand", () => {
+    const result = parseArgs(argv("track", "recommendations", "--seed-tracks", "id1"));
+    expect(result.command).toBe("track recommendations");
+    expect(result.args.flags["seed-tracks"]).toBe("id1");
+  });
+
+  test("resolves album tracks subcommand", () => {
+    const result = parseArgs(argv("album", "tracks", "abc123"));
+    expect(result.command).toBe("album tracks");
+    expect(result.args.positional).toEqual(["abc123"]);
+  });
+
+  test("resolves album saved subcommand", () => {
+    const result = parseArgs(argv("album", "saved", "--limit", "10"));
+    expect(result.command).toBe("album saved");
+    expect(result.args.flags.limit).toBe("10");
+  });
+
+  test("resolves album save subcommand", () => {
+    const result = parseArgs(argv("album", "save", "id1"));
+    expect(result.command).toBe("album save");
+    expect(result.args.positional).toEqual(["id1"]);
+  });
+
+  test("resolves album remove subcommand", () => {
+    const result = parseArgs(argv("album", "remove", "id1"));
+    expect(result.command).toBe("album remove");
+    expect(result.args.positional).toEqual(["id1"]);
+  });
+
+  test("resolves playlist list subcommand", () => {
+    const result = parseArgs(argv("playlist", "list"));
+    expect(result.command).toBe("playlist list");
+    expect(result.args.positional).toEqual([]);
+  });
+
+  test("resolves playlist tracks subcommand", () => {
+    const result = parseArgs(argv("playlist", "tracks", "abc123"));
+    expect(result.command).toBe("playlist tracks");
+    expect(result.args.positional).toEqual(["abc123"]);
+  });
+
+  test("resolves playlist add subcommand", () => {
+    const result = parseArgs(argv("playlist", "add", "abc123", "spotify:track:aaa"));
+    expect(result.command).toBe("playlist add");
+    expect(result.args.positional).toEqual(["abc123", "spotify:track:aaa"]);
+  });
+
+  test("resolves playlist remove subcommand", () => {
+    const result = parseArgs(argv("playlist", "remove", "abc123", "--match", "foo"));
+    expect(result.command).toBe("playlist remove");
+    expect(result.args.positional).toEqual(["abc123"]);
+    expect(result.args.flags.match).toBe("foo");
+  });
+
+  test("does not treat flag as subcommand", () => {
+    const result = parseArgs(argv("playlist", "--help"));
+    expect(result.command).toBe("playlist");
+    expect(result.args.flags.help).toBe("");
+  });
+
+  test("falls back to single command for unknown second word", () => {
+    const result = parseArgs(argv("play", "--uri", "spotify:track:abc"));
+    expect(result.command).toBe("play");
+    expect(result.args.flags.uri).toBe("spotify:track:abc");
+  });
+});
+
+// --- subcommand flags and positional args ---
+
+describe("subcommand flags and positional args", () => {
+  test("subcommand with flags parses correctly", () => {
+    const result = parseArgs(argv("playlist", "tracks", "abc123", "--limit", "50", "--offset", "10"));
+    expect(result.command).toBe("playlist tracks");
+    expect(result.args.positional).toEqual(["abc123"]);
+    expect(result.args.flags.limit).toBe("50");
+    expect(result.args.flags.offset).toBe("10");
+  });
+
+  test("subcommand with -- separator", () => {
+    const result = parseArgs(argv("playlist", "add", "abc123", "--", "--not-a-flag"));
+    expect(result.command).toBe("playlist add");
+    expect(result.args.positional).toEqual(["abc123", "--not-a-flag"]);
+  });
+
+  test("subcommand with repeated flags", () => {
+    const result = parseArgs(argv("playlist", "remove", "abc123", "--match", "foo", "--match", "bar"));
+    expect(result.command).toBe("playlist remove");
+    expect(result.args.multiFlags.match).toEqual(["foo", "bar"]);
+  });
+});
+
+// --- help flag ---
+
+describe("--help flag", () => {
+  test("--help is captured as a flag for commands", () => {
+    const result = parseArgs(argv("playlist", "--help"));
+    expect(result.command).toBe("playlist");
+    expect(result.args.flags.help).toBe("");
+  });
+
+  test("--help is captured as a flag for subcommands", () => {
+    const result = parseArgs(argv("playlist", "create", "--help"));
+    expect(result.command).toBe("playlist create");
+    expect(result.args.flags.help).toBe("");
+  });
+});
+
+// --- error cases ---
+
+describe("parseArgs errors", () => {
+  test("throws on empty argv", () => {
+    expect(() => parseArgs(argv())).toThrow(/No command provided/);
+  });
+});
+
+// --- original multiFlags tests ---
 
 describe("parseArgs multiFlags", () => {
   test("single flag does not appear in multiFlags", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "--match", "foo"]);
+    const result = parseArgs(argv("cmd", "--match", "foo"));
     expect(result.args.flags.match).toBe("foo");
     expect(result.args.multiFlags.match).toBeUndefined();
   });
 
   test("repeated flags collected in multiFlags", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "--match", "foo", "--match", "bar"]);
+    const result = parseArgs(argv("cmd", "--match", "foo", "--match", "bar"));
     expect(result.args.flags.match).toBe("bar");
     expect(result.args.multiFlags.match).toEqual(["foo", "bar"]);
   });
 
   test("three repeated flags all collected", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "--match", "a", "--match", "b", "--match", "c"]);
+    const result = parseArgs(argv("cmd", "--match", "a", "--match", "b", "--match", "c"));
     expect(result.args.multiFlags.match).toEqual(["a", "b", "c"]);
   });
 
   test("different flags tracked independently", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "--match", "foo", "--index", "1", "--match", "bar"]);
+    const result = parseArgs(argv("cmd", "--match", "foo", "--index", "1", "--match", "bar"));
     expect(result.args.multiFlags.match).toEqual(["foo", "bar"]);
     expect(result.args.multiFlags.index).toBeUndefined();
     expect(result.args.flags.index).toBe("1");
   });
 
   test("repeated flags with = syntax", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "--match=foo", "--match=bar"]);
+    const result = parseArgs(argv("cmd", "--match=foo", "--match=bar"));
     expect(result.args.multiFlags.match).toEqual(["foo", "bar"]);
   });
 
   test("positional args still work alongside repeated flags", () => {
-    const result = parseArgs(["bun", "cli.ts", "cmd", "pos1", "--match", "foo", "pos2", "--match", "bar"]);
+    const result = parseArgs(argv("cmd", "pos1", "--match", "foo", "pos2", "--match", "bar"));
     expect(result.args.positional).toEqual(["pos1", "pos2"]);
     expect(result.args.multiFlags.match).toEqual(["foo", "bar"]);
   });

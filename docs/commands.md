@@ -44,12 +44,12 @@ $ spotify logout
 { "status": "logged_out" }
 ```
 
-### auth-status <Badge type="info" text="AUTH" />
+### auth status <Badge type="info" text="AUTH" />
 
 Show current token validity and granted OAuth scopes.
 
 ```sh
-$ spotify auth-status
+$ spotify auth status
 ```
 
 **OUTPUT**
@@ -176,12 +176,12 @@ Show the current playback queue.
 $ spotify queue
 ```
 
-### queue-add <Badge type="info" text="PLAYER" />
+### queue add <Badge type="info" text="PLAYER" />
 
 Add a track to the end of the playback queue.
 
 ```sh
-$ spotify queue-add <uri> [--device <id>]
+$ spotify queue add <uri> [--device <id>]
 ```
 
 ### devices <Badge type="info" text="PLAYER" />
@@ -264,12 +264,12 @@ Get detailed track metadata.
 $ spotify track <id>
 ```
 
-### audio-features <Badge type="info" text="TRACKS" />
+### track features <Badge type="info" text="TRACKS" />
 
 Get audio analysis features for a track.
 
 ```sh
-$ spotify audio-features <id>
+$ spotify track features <id>
 ```
 
 ::: warning Deprecated
@@ -288,12 +288,12 @@ Spotify removed access to the Audio Features API for most apps in November 2024.
 }
 ```
 
-### recommendations <Badge type="info" text="TRACKS" />
+### track recommendations <Badge type="info" text="TRACKS" />
 
 Get track recommendations based on seed tracks, artists, or genres. At least one seed type is required.
 
 ```sh
-$ spotify recommendations --seed-tracks <ids> --seed-artists <ids> --seed-genres <genres> [--limit <n>]
+$ spotify track recommendations --seed-tracks <ids> --seed-artists <ids> --seed-genres <genres> [--limit <n>]
 ```
 
 | Option | Type | Description |
@@ -309,28 +309,28 @@ Spotify removed access to the Recommendations API for most apps in November 2024
 
 <div class="compact-grid">
 
-### saved-tracks <Badge type="info" text="TRACKS" />
+### track saved <Badge type="info" text="TRACKS" />
 
 List saved tracks in your library.
 
 ```sh
-$ spotify saved-tracks [--limit <n>] [--offset <n>]
+$ spotify track saved [--limit <n>] [--offset <n>]
 ```
 
-### save-tracks <Badge type="info" text="TRACKS" />
+### track save <Badge type="info" text="TRACKS" />
 
 Save one or more tracks to your library.
 
 ```sh
-$ spotify save-tracks <id...>
+$ spotify track save <id...>
 ```
 
-### remove-tracks <Badge type="info" text="TRACKS" />
+### track remove <Badge type="info" text="TRACKS" />
 
 Remove one or more tracks from your library.
 
 ```sh
-$ spotify remove-tracks <id...>
+$ spotify track remove <id...>
 ```
 
 </div>
@@ -347,38 +347,38 @@ Get album details and metadata.
 $ spotify album <id>
 ```
 
-### album-tracks <Badge type="info" text="ALBUMS" />
+### album tracks <Badge type="info" text="ALBUMS" />
 
 List all tracks in an album.
 
 ```sh
-$ spotify album-tracks <id> [--limit <n>] [--offset <n>]
+$ spotify album tracks <id> [--limit <n>] [--offset <n>]
 ```
 
 <div class="compact-grid">
 
-### saved-albums <Badge type="info" text="ALBUMS" />
+### album saved <Badge type="info" text="ALBUMS" />
 
 List saved albums in your library.
 
 ```sh
-$ spotify saved-albums [--limit <n>] [--offset <n>]
+$ spotify album saved [--limit <n>] [--offset <n>]
 ```
 
-### save-albums <Badge type="info" text="ALBUMS" />
+### album save <Badge type="info" text="ALBUMS" />
 
 Save one or more albums to your library.
 
 ```sh
-$ spotify save-albums <id...>
+$ spotify album save <id...>
 ```
 
-### remove-albums <Badge type="info" text="ALBUMS" />
+### album remove <Badge type="info" text="ALBUMS" />
 
 Remove one or more albums from your library.
 
 ```sh
-$ spotify remove-albums <id...>
+$ spotify album remove <id...>
 ```
 
 </div>
@@ -395,28 +395,28 @@ Get playlist details and metadata.
 $ spotify playlist <id>
 ```
 
-### playlists <Badge type="info" text="PLAYLISTS" />
+### playlist list <Badge type="info" text="PLAYLISTS" />
 
 List your playlists.
 
 ```sh
-$ spotify playlists [--limit <n>] [--offset <n>]
+$ spotify playlist list [--limit <n>] [--offset <n>]
 ```
 
-### playlist-tracks <Badge type="info" text="PLAYLISTS" />
+### playlist tracks <Badge type="info" text="PLAYLISTS" />
 
 List tracks in a playlist.
 
 ```sh
-$ spotify playlist-tracks <id> [--limit <n>] [--offset <n>]
+$ spotify playlist tracks <id> [--limit <n>] [--offset <n>]
 ```
 
-### playlist-add <Badge type="info" text="PLAYLISTS" />
+### playlist add <Badge type="info" text="PLAYLISTS" />
 
 Add tracks to a playlist at an optional position.
 
 ```sh
-$ spotify playlist-add <playlist_id> <uri...> [--position <n>]
+$ spotify playlist add <playlist_id> <uri...> [--position <n>]
 ```
 
 | Option | Type | Description |
@@ -425,12 +425,12 @@ $ spotify playlist-add <playlist_id> <uri...> [--position <n>]
 | `<uri...>` | `string` | One or more Spotify track URIs |
 | `--position` | `integer` | Zero-based insert position |
 
-### playlist-remove <Badge type="info" text="PLAYLISTS" />
+### playlist remove <Badge type="info" text="PLAYLISTS" />
 
 Remove tracks from a playlist by URI, name match, or index.
 
 ```sh
-$ spotify playlist-remove <playlist_id> [uri...] [--match <name>] [--index <n>]
+$ spotify playlist remove <playlist_id> [uri...] [--match <name>] [--index <n>]
 ```
 
 | Option | Type | Description |
@@ -444,18 +444,18 @@ At least one of `uri`, `--match`, or `--index` is required.
 
 ```sh
 # Remove by name match
-$ spotify playlist-remove 37i9dQZF1DXcBWIGoYBM5M --match "Bohemian"
+$ spotify playlist remove 37i9dQZF1DXcBWIGoYBM5M --match "Bohemian"
 
 # Remove by index
-$ spotify playlist-remove 37i9dQZF1DXcBWIGoYBM5M --index 1,3,5
+$ spotify playlist remove 37i9dQZF1DXcBWIGoYBM5M --index 1,3,5
 ```
 
-### playlist-create <Badge type="info" text="PLAYLISTS" />
+### playlist create <Badge type="info" text="PLAYLISTS" />
 
 Create a new playlist.
 
 ```sh
-$ spotify playlist-create <name> [--description <text>] [--public]
+$ spotify playlist create <name> [--description <text>] [--public]
 ```
 
 | Option | Type | Description |

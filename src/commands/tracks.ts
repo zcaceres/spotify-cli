@@ -19,7 +19,7 @@ export const trackCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify saved-tracks [--limit N] [--offset N]`.
+ * Handles `spotify track saved [--limit N] [--offset N]`.
  *
  * Lists the current user's saved tracks.
  */
@@ -31,35 +31,35 @@ export const savedTracksCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify save-tracks <id...>`.
+ * Handles `spotify track save <id...>`.
  *
  * Saves one or more tracks to the current user's library.
  */
 export const saveTracksCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify save-tracks <id...>");
+  const ids = requireIds(args.positional, "spotify track save <id...>");
   await api.saveTracks(ids);
   output({ status: "saved", ids });
 };
 
 /**
- * Handles `spotify remove-tracks <id...>`.
+ * Handles `spotify track remove <id...>`.
  *
  * Removes one or more tracks from the current user's library.
  */
 export const removeTracksCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify remove-tracks <id...>");
+  const ids = requireIds(args.positional, "spotify track remove <id...>");
   await api.removeTracks(ids);
   output({ status: "removed", ids });
 };
 
 /**
- * Handles `spotify audio-features <id>`.
+ * Handles `spotify track features <id>`.
  *
  * Outputs audio analysis features (danceability, energy, tempo, etc.) for a track.
  */
 export const audioFeaturesCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify audio-features <id>");
+  if (!id) throw argsError("Usage: spotify track features <id>");
   try {
     const data = await api.getAudioFeatures(id);
     output(data);
@@ -75,7 +75,7 @@ export const audioFeaturesCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify recommendations --seed-tracks <ids> | --seed-artists <ids> | --seed-genres <genres> [--limit N]`.
+ * Handles `spotify track recommendations --seed-tracks <ids> | --seed-artists <ids> | --seed-genres <genres> [--limit N]`.
  *
  * Gets track recommendations based on seed tracks, artists, and/or genres.
  * At least one seed type is required.
@@ -88,7 +88,7 @@ export const recommendationsCommand: CommandHandler = async (args) => {
 
   if (!seedTracks && !seedArtists && !seedGenres) {
     throw argsError(
-      "Usage: spotify recommendations --seed-tracks <ids> | --seed-artists <ids> | --seed-genres <genres>",
+      "Usage: spotify track recommendations --seed-tracks <ids> | --seed-artists <ids> | --seed-genres <genres>",
     );
   }
 

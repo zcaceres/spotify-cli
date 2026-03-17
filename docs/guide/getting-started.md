@@ -67,7 +67,7 @@ Browse your saved library:
 
 ```bash
 spotify liked --limit 5
-spotify playlists
+spotify playlist list
 ```
 
 Control playback:
