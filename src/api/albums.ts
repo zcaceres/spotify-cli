@@ -5,15 +5,15 @@
  * @module
  */
 
-import { spotifyFetch } from "./client.js";
+import { spotifyFetch as defaultFetch, type FetchFn } from "./client.js";
 
 /**
  * Fetches details for a single album.
  * @param id - The Spotify album ID.
  * @see `GET /albums/{id}`
  */
-export function getAlbum(id: string) {
-  return spotifyFetch(`/albums/${id}`);
+export function getAlbum(id: string, fetch: FetchFn = defaultFetch) {
+  return fetch(`/albums/${id}`);
 }
 
 /**
@@ -24,8 +24,12 @@ export function getAlbum(id: string) {
  * @param options.offset - Index of the first track to return.
  * @see `GET /albums/{id}/tracks`
  */
-export function getAlbumTracks(id: string, options: { limit?: number | undefined; offset?: number | undefined }) {
-  return spotifyFetch(`/albums/${id}/tracks`, {
+export function getAlbumTracks(
+  id: string,
+  options: { limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch(`/albums/${id}/tracks`, {
     params: options as Record<string, number | undefined>,
   });
 }
@@ -37,8 +41,11 @@ export function getAlbumTracks(id: string, options: { limit?: number | undefined
  * @param options.offset - Index of the first album to return.
  * @see `GET /me/albums`
  */
-export function getSavedAlbums(options: { limit?: number | undefined; offset?: number | undefined }) {
-  return spotifyFetch("/me/albums", {
+export function getSavedAlbums(
+  options: { limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/albums", {
     params: options as Record<string, number | undefined>,
   });
 }
@@ -48,9 +55,9 @@ export function getSavedAlbums(options: { limit?: number | undefined; offset?: n
  * @param ids - Array of Spotify album IDs to save.
  * @see `PUT /me/library`
  */
-export function saveAlbums(ids: string[]) {
+export function saveAlbums(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:album:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "PUT",
     params: { uris: uris.join(",") },
   });
@@ -61,9 +68,9 @@ export function saveAlbums(ids: string[]) {
  * @param ids - Array of Spotify album IDs to remove.
  * @see `DELETE /me/library`
  */
-export function removeAlbums(ids: string[]) {
+export function removeAlbums(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:album:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "DELETE",
     params: { uris: uris.join(",") },
   });

@@ -36,6 +36,9 @@ export interface RequestOptions {
  * @returns The parsed JSON response, or `undefined` for 204 / non-JSON responses.
  * @throws `SpotifyCliError` on auth, API, or network errors.
  */
+/** Function signature matching {@link spotifyFetch}, used for dependency injection in tests. */
+export type FetchFn = typeof spotifyFetch;
+
 export async function spotifyFetch<T = unknown>(path: string, options: RequestOptions = {}): Promise<T> {
   let tokens = await loadTokens();
 

@@ -5,14 +5,14 @@
  * @module
  */
 
-import { spotifyFetch } from "./client.js";
+import { spotifyFetch as defaultFetch, type FetchFn } from "./client.js";
 
 /**
  * Gets the current user's profile.
  * @see `GET /me`
  */
-export function getCurrentUser() {
-  return spotifyFetch("/me");
+export function getCurrentUser(fetch: FetchFn = defaultFetch) {
+  return fetch("/me");
 }
 
 /**
@@ -27,8 +27,9 @@ export function getCurrentUser() {
 export function getTopItems(
   type: "artists" | "tracks",
   options: { time_range?: string | undefined; limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
 ) {
-  return spotifyFetch(`/me/top/${type}`, {
+  return fetch(`/me/top/${type}`, {
     params: options as Record<string, string | number | undefined>,
   });
 }
@@ -40,8 +41,11 @@ export function getTopItems(
  * @param options.after - The last artist ID from the previous page (cursor).
  * @see `GET /me/following`
  */
-export function getFollowedArtists(options: { limit?: number | undefined; after?: string | undefined }) {
-  return spotifyFetch("/me/following", {
+export function getFollowedArtists(
+  options: { limit?: number | undefined; after?: string | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/following", {
     params: { type: "artist", ...options } as Record<string, string | number | undefined>,
   });
 }
@@ -51,9 +55,9 @@ export function getFollowedArtists(options: { limit?: number | undefined; after?
  * @param ids - Array of Spotify artist IDs to follow.
  * @see `PUT /me/library`
  */
-export function followArtists(ids: string[]) {
+export function followArtists(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:artist:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "PUT",
     params: { uris: uris.join(",") },
   });
@@ -64,9 +68,9 @@ export function followArtists(ids: string[]) {
  * @param ids - Array of Spotify artist IDs to unfollow.
  * @see `DELETE /me/library`
  */
-export function unfollowArtists(ids: string[]) {
+export function unfollowArtists(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:artist:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "DELETE",
     params: { uris: uris.join(",") },
   });

@@ -5,22 +5,22 @@
  * @module
  */
 
-import { spotifyFetch } from "./client.js";
+import { spotifyFetch as defaultFetch, type FetchFn } from "./client.js";
 
 /**
  * Gets the current playback state (device, track, progress, etc.).
  * @see `GET /me/player`
  */
-export function getPlaybackState() {
-  return spotifyFetch("/me/player");
+export function getPlaybackState(fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player");
 }
 
 /**
  * Gets the currently playing track (lighter than full playback state).
  * @see `GET /me/player/currently-playing`
  */
-export function getCurrentlyPlaying() {
-  return spotifyFetch("/me/player/currently-playing");
+export function getCurrentlyPlaying(fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/currently-playing");
 }
 
 /**
@@ -33,17 +33,20 @@ export function getCurrentlyPlaying() {
  * @param options.position_ms - Position in milliseconds to seek to.
  * @see `PUT /me/player/play`
  */
-export function startPlayback(options: {
-  device_id?: string;
-  context_uri?: string;
-  uris?: string[];
-  offset?: { position: number } | { uri: string };
-  position_ms?: number;
-}) {
+export function startPlayback(
+  options: {
+    device_id?: string;
+    context_uri?: string;
+    uris?: string[];
+    offset?: { position: number } | { uri: string };
+    position_ms?: number;
+  },
+  fetch: FetchFn = defaultFetch,
+) {
   const { device_id, ...body } = options;
   const params: Record<string, string | undefined> = { device_id };
   const hasBody = Object.keys(body).length > 0;
-  return spotifyFetch("/me/player/play", {
+  return fetch("/me/player/play", {
     method: "PUT",
     params,
     body: hasBody ? body : undefined,
@@ -55,8 +58,8 @@ export function startPlayback(options: {
  * @param device_id - Optional target device ID.
  * @see `PUT /me/player/pause`
  */
-export function pausePlayback(device_id?: string) {
-  return spotifyFetch("/me/player/pause", {
+export function pausePlayback(device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/pause", {
     method: "PUT",
     params: { device_id },
   });
@@ -67,8 +70,8 @@ export function pausePlayback(device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `POST /me/player/next`
  */
-export function skipToNext(device_id?: string) {
-  return spotifyFetch("/me/player/next", {
+export function skipToNext(device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/next", {
     method: "POST",
     params: { device_id },
   });
@@ -79,8 +82,8 @@ export function skipToNext(device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `POST /me/player/previous`
  */
-export function skipToPrevious(device_id?: string) {
-  return spotifyFetch("/me/player/previous", {
+export function skipToPrevious(device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/previous", {
     method: "POST",
     params: { device_id },
   });
@@ -92,8 +95,8 @@ export function skipToPrevious(device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `PUT /me/player/seek`
  */
-export function seekToPosition(position_ms: number, device_id?: string) {
-  return spotifyFetch("/me/player/seek", {
+export function seekToPosition(position_ms: number, device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/seek", {
     method: "PUT",
     params: { position_ms, device_id },
   });
@@ -105,8 +108,8 @@ export function seekToPosition(position_ms: number, device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `PUT /me/player/volume`
  */
-export function setVolume(volume_percent: number, device_id?: string) {
-  return spotifyFetch("/me/player/volume", {
+export function setVolume(volume_percent: number, device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/volume", {
     method: "PUT",
     params: { volume_percent, device_id },
   });
@@ -118,8 +121,8 @@ export function setVolume(volume_percent: number, device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `PUT /me/player/shuffle`
  */
-export function setShuffle(state: boolean, device_id?: string) {
-  return spotifyFetch("/me/player/shuffle", {
+export function setShuffle(state: boolean, device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/shuffle", {
     method: "PUT",
     params: { state, device_id },
   });
@@ -131,8 +134,8 @@ export function setShuffle(state: boolean, device_id?: string) {
  * @param device_id - Optional target device ID.
  * @see `PUT /me/player/repeat`
  */
-export function setRepeat(state: "off" | "track" | "context", device_id?: string) {
-  return spotifyFetch("/me/player/repeat", {
+export function setRepeat(state: "off" | "track" | "context", device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/repeat", {
     method: "PUT",
     params: { state, device_id },
   });
@@ -142,8 +145,8 @@ export function setRepeat(state: "off" | "track" | "context", device_id?: string
  * Gets the user's playback queue.
  * @see `GET /me/player/queue`
  */
-export function getQueue() {
-  return spotifyFetch("/me/player/queue");
+export function getQueue(fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/queue");
 }
 
 /**
@@ -152,8 +155,8 @@ export function getQueue() {
  * @param device_id - Optional target device ID.
  * @see `POST /me/player/queue`
  */
-export function addToQueue(uri: string, device_id?: string) {
-  return spotifyFetch("/me/player/queue", {
+export function addToQueue(uri: string, device_id?: string, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/queue", {
     method: "POST",
     params: { uri, device_id },
   });
@@ -163,8 +166,8 @@ export function addToQueue(uri: string, device_id?: string) {
  * Lists all available playback devices.
  * @see `GET /me/player/devices`
  */
-export function getDevices() {
-  return spotifyFetch("/me/player/devices");
+export function getDevices(fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player/devices");
 }
 
 /**
@@ -173,8 +176,8 @@ export function getDevices() {
  * @param play - If `true`, start playback on the new device.
  * @see `PUT /me/player`
  */
-export function transferPlayback(device_id: string, play?: boolean) {
-  return spotifyFetch("/me/player", {
+export function transferPlayback(device_id: string, play?: boolean, fetch: FetchFn = defaultFetch) {
+  return fetch("/me/player", {
     method: "PUT",
     body: { device_ids: [device_id], play },
   });
@@ -188,12 +191,15 @@ export function transferPlayback(device_id: string, play?: boolean) {
  * @param options.before - Unix timestamp in ms — return items before this point.
  * @see `GET /me/player/recently-played`
  */
-export function getRecentlyPlayed(options: {
-  limit?: number | undefined;
-  after?: number | undefined;
-  before?: number | undefined;
-}) {
-  return spotifyFetch("/me/player/recently-played", {
+export function getRecentlyPlayed(
+  options: {
+    limit?: number | undefined;
+    after?: number | undefined;
+    before?: number | undefined;
+  },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/player/recently-played", {
     params: options as Record<string, number | undefined>,
   });
 }

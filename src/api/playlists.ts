@@ -5,15 +5,15 @@
  * @module
  */
 
-import { spotifyFetch } from "./client.js";
+import { spotifyFetch as defaultFetch, type FetchFn } from "./client.js";
 
 /**
  * Fetches details for a single playlist.
  * @param id - The Spotify playlist ID.
  * @see `GET /playlists/{id}`
  */
-export function getPlaylist(id: string) {
-  return spotifyFetch(`/playlists/${id}`);
+export function getPlaylist(id: string, fetch: FetchFn = defaultFetch) {
+  return fetch(`/playlists/${id}`);
 }
 
 /**
@@ -23,8 +23,11 @@ export function getPlaylist(id: string) {
  * @param options.offset - Index of the first playlist to return.
  * @see `GET /me/playlists`
  */
-export function getCurrentUserPlaylists(options: { limit?: number | undefined; offset?: number | undefined }) {
-  return spotifyFetch("/me/playlists", {
+export function getCurrentUserPlaylists(
+  options: { limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/playlists", {
     params: options as Record<string, number | undefined>,
   });
 }
@@ -37,8 +40,12 @@ export function getCurrentUserPlaylists(options: { limit?: number | undefined; o
  * @param options.offset - Index of the first track to return.
  * @see `GET /playlists/{id}/items`
  */
-export function getPlaylistTracks(id: string, options: { limit?: number | undefined; offset?: number | undefined }) {
-  return spotifyFetch(`/playlists/${id}/items`, {
+export function getPlaylistTracks(
+  id: string,
+  options: { limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch(`/playlists/${id}/items`, {
     params: options as Record<string, number | undefined>,
   });
 }
@@ -50,8 +57,8 @@ export function getPlaylistTracks(id: string, options: { limit?: number | undefi
  * @param position - Zero-based position to insert tracks at. Appends if omitted.
  * @see `POST /playlists/{id}/items`
  */
-export function addTracksToPlaylist(id: string, uris: string[], position?: number) {
-  return spotifyFetch(`/playlists/${id}/items`, {
+export function addTracksToPlaylist(id: string, uris: string[], position?: number, fetch: FetchFn = defaultFetch) {
+  return fetch(`/playlists/${id}/items`, {
     method: "POST",
     body: { uris, position },
   });
@@ -63,8 +70,8 @@ export function addTracksToPlaylist(id: string, uris: string[], position?: numbe
  * @param uris - Array of Spotify track URIs to remove.
  * @see `DELETE /playlists/{id}/items`
  */
-export function removeTracksFromPlaylist(id: string, uris: string[]) {
-  return spotifyFetch(`/playlists/${id}/items`, {
+export function removeTracksFromPlaylist(id: string, uris: string[], fetch: FetchFn = defaultFetch) {
+  return fetch(`/playlists/${id}/items`, {
     method: "DELETE",
     body: { items: uris.map((uri) => ({ uri })) },
   });
@@ -76,8 +83,8 @@ export function removeTracksFromPlaylist(id: string, uris: string[]) {
  * @param uris - Ordered array of Spotify track URIs (max 100 per request).
  * @see `PUT /playlists/{id}/tracks`
  */
-export function replacePlaylistTracks(id: string, uris: string[]) {
-  return spotifyFetch(`/playlists/${id}/items`, {
+export function replacePlaylistTracks(id: string, uris: string[], fetch: FetchFn = defaultFetch) {
+  return fetch(`/playlists/${id}/items`, {
     method: "PUT",
     body: { uris },
   });
@@ -91,8 +98,11 @@ export function replacePlaylistTracks(id: string, uris: string[]) {
  * @param options.public - Whether the playlist should be public (defaults to `true`).
  * @see `POST /me/playlists`
  */
-export function createPlaylist(options: { name: string; description?: string; public?: boolean }) {
-  return spotifyFetch("/me/playlists", {
+export function createPlaylist(
+  options: { name: string; description?: string; public?: boolean },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/playlists", {
     method: "POST",
     body: options,
   });

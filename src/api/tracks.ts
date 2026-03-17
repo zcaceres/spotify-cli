@@ -5,15 +5,15 @@
  * @module
  */
 
-import { spotifyFetch } from "./client.js";
+import { spotifyFetch as defaultFetch, type FetchFn } from "./client.js";
 
 /**
  * Fetches details for a single track.
  * @param id - The Spotify track ID.
  * @see `GET /tracks/{id}`
  */
-export function getTrack(id: string) {
-  return spotifyFetch(`/tracks/${id}`);
+export function getTrack(id: string, fetch: FetchFn = defaultFetch) {
+  return fetch(`/tracks/${id}`);
 }
 
 /**
@@ -23,8 +23,11 @@ export function getTrack(id: string) {
  * @param options.offset - Index of the first track to return.
  * @see `GET /me/tracks`
  */
-export function getSavedTracks(options: { limit?: number | undefined; offset?: number | undefined }) {
-  return spotifyFetch("/me/tracks", {
+export function getSavedTracks(
+  options: { limit?: number | undefined; offset?: number | undefined },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/me/tracks", {
     params: options as Record<string, number | undefined>,
   });
 }
@@ -34,9 +37,9 @@ export function getSavedTracks(options: { limit?: number | undefined; offset?: n
  * @param ids - Array of Spotify track IDs to save.
  * @see `PUT /me/library`
  */
-export function saveTracks(ids: string[]) {
+export function saveTracks(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "PUT",
     params: { uris: uris.join(",") },
   });
@@ -47,9 +50,9 @@ export function saveTracks(ids: string[]) {
  * @param ids - Array of Spotify track IDs to remove.
  * @see `DELETE /me/library`
  */
-export function removeTracks(ids: string[]) {
+export function removeTracks(ids: string[], fetch: FetchFn = defaultFetch) {
   const uris = ids.map((id) => (id.startsWith("spotify:") ? id : `spotify:track:${id}`));
-  return spotifyFetch("/me/library", {
+  return fetch("/me/library", {
     method: "DELETE",
     params: { uris: uris.join(",") },
   });
@@ -60,8 +63,8 @@ export function removeTracks(ids: string[]) {
  * @param id - The Spotify track ID.
  * @see `GET /audio-features/{id}`
  */
-export function getAudioFeatures(id: string) {
-  return spotifyFetch(`/audio-features/${id}`);
+export function getAudioFeatures(id: string, fetch: FetchFn = defaultFetch) {
+  return fetch(`/audio-features/${id}`);
 }
 
 /**
@@ -73,13 +76,16 @@ export function getAudioFeatures(id: string) {
  * @param options.limit - Maximum number of recommendations to return.
  * @see `GET /recommendations`
  */
-export function getRecommendations(options: {
-  seed_tracks?: string | undefined;
-  seed_artists?: string | undefined;
-  seed_genres?: string | undefined;
-  limit?: number | undefined;
-}) {
-  return spotifyFetch("/recommendations", {
+export function getRecommendations(
+  options: {
+    seed_tracks?: string | undefined;
+    seed_artists?: string | undefined;
+    seed_genres?: string | undefined;
+    limit?: number | undefined;
+  },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch("/recommendations", {
     params: options as Record<string, string | number | undefined>,
   });
 }
