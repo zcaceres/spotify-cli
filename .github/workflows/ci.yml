@@ -27,5 +27,8 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-      - name: Test
-        run: bun test
+      - name: Test (API integration)
+        run: bun test src/api/
+
+      - name: Test (unit)
+        run: bun test src/cli.test.ts src/auth/ src/commands/ src/test/
