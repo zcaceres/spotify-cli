@@ -136,7 +136,7 @@ onMounted(async () => {
 
 <style scoped>
 .releases {
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -243,8 +243,8 @@ onMounted(async () => {
 }
 
 .release-assets {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 16px;
 }
@@ -253,7 +253,8 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 10px 16px;
+  white-space: nowrap;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
@@ -336,7 +337,7 @@ onMounted(async () => {
   }
 
   .release-assets {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }
 </style>
