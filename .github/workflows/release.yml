@@ -69,3 +69,61 @@ jobs:
             dist/spotify-linux-x64 \
             dist/spotify-linux-arm64 \
             dist/spotify-windows-x64.exe
+
+      - name: Update Homebrew formula
+        if: steps.tag_check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          VERSION=$(jq -r .version package.json)
+          SHA_DARWIN_ARM64=$(shasum -a 256 dist/spotify-darwin-arm64 | awk '{print $1}')
+          SHA_DARWIN_X64=$(shasum -a 256 dist/spotify-darwin-x64 | awk '{print $1}')
+          SHA_LINUX_X64=$(shasum -a 256 dist/spotify-linux-x64 | awk '{print $1}')
+          SHA_LINUX_ARM64=$(shasum -a 256 dist/spotify-linux-arm64 | awk '{print $1}')
+
+          cat > /tmp/spotify-cli.rb << FORMULA
+          class SpotifyCli < Formula
+            desc "Agent (and human) friendly CLI for Spotify. JSON output. PKCE auth."
+            homepage "https://spotify-cli.zach.dev"
+            license "MIT"
+            version "${VERSION}"
+
+            on_macos do
+              if Hardware::CPU.arm?
+                url "https://github.com/zcaceres/spotify-cli/releases/download/v#{version}/spotify-darwin-arm64"
+                sha256 "${SHA_DARWIN_ARM64}"
+              else
+                url "https://github.com/zcaceres/spotify-cli/releases/download/v#{version}/spotify-darwin-x64"
+                sha256 "${SHA_DARWIN_X64}"
+              end
+            end
+
+            on_linux do
+              if Hardware::CPU.arm?
+                url "https://github.com/zcaceres/spotify-cli/releases/download/v#{version}/spotify-linux-arm64"
+                sha256 "${SHA_LINUX_ARM64}"
+              else
+                url "https://github.com/zcaceres/spotify-cli/releases/download/v#{version}/spotify-linux-x64"
+                sha256 "${SHA_LINUX_X64}"
+              end
+            end
+
+            def install
+              binary = Dir.glob("spotify-*").first
+              bin.install binary => "spotify"
+            end
+
+            test do
+              assert_match version.to_s, shell_output("#{bin}/spotify --version")
+            end
+          end
+          FORMULA
+
+          # Remove leading whitespace from heredoc
+          sed -i 's/^          //' /tmp/spotify-cli.rb
+
+          gh api repos/zcaceres/homebrew-tap/contents/Formula/spotify-cli.rb \
+            --method PUT \
+            --field message="update spotify-cli to ${VERSION}" \
+            --field content="$(base64 -w0 /tmp/spotify-cli.rb)" \
+            --field sha="$(gh api repos/zcaceres/homebrew-tap/contents/Formula/spotify-cli.rb --jq .sha)"
