@@ -8,6 +8,7 @@ import * as api from "../api/albums.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
+import { resolveInputs, resolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify album <id>`. Outputs album details. */
@@ -50,9 +51,11 @@ export const savedAlbumsCommand: CommandHandler = async (args) => {
  * Saves one or more albums to the current user's library.
  */
 export const saveAlbumsCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify album save <id...>");
+  const rawInputs = requireIds(args.positional, "spotify album save <id...>");
+  const { ids, searched } = await resolveInputs(rawInputs, "album");
   await api.saveAlbums(ids);
-  output({ status: "saved", ids });
+  const items = await resolveItems("album", ids);
+  output({ status: "saved", items, ...(searched.length > 0 && { searched }) });
 };
 
 /**
@@ -61,7 +64,9 @@ export const saveAlbumsCommand: CommandHandler = async (args) => {
  * Removes one or more albums from the current user's library.
  */
 export const removeAlbumsCommand: CommandHandler = async (args) => {
-  const ids = requireIds(args.positional, "spotify album remove <id...>");
+  const rawInputs = requireIds(args.positional, "spotify album remove <id...>");
+  const { ids, searched } = await resolveInputs(rawInputs, "album");
   await api.removeAlbums(ids);
-  output({ status: "removed", ids });
+  const items = await resolveItems("album", ids);
+  output({ status: "removed", items, ...(searched.length > 0 && { searched }) });
 };

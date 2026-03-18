@@ -24,6 +24,16 @@ mock.module("../api/playlists.js", () => ({
   createPlaylist: mockCreatePlaylist,
 }));
 
+const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
+const mockResolveItems = mock((_type: string, ids: string[]) =>
+  Promise.resolve(ids.map((id: string) => ({ type: "track", id, name: "Test", artist: "Artist", album: "Album" }))),
+);
+
+mock.module("../resolve.js", () => ({
+  resolveInputs: mockResolveInputs,
+  resolveItems: mockResolveItems,
+}));
+
 let captured: unknown;
 mock.module("../output.js", () => ({
   output: (data: unknown) => {

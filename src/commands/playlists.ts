@@ -8,6 +8,7 @@ import * as api from "../api/playlists.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
 import { ensureTrackUri, optionalIntFlag } from "../parse.js";
+import { resolveInputs, resolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify playlist <id>`. Outputs playlist details. */
@@ -51,13 +52,16 @@ export const playlistTracksCommand: CommandHandler = async (args) => {
  */
 export const playlistAddCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
-  const uris = args.positional.slice(1);
-  if (!id || uris.length === 0) {
+  const rawTracks = args.positional.slice(1);
+  if (!id || rawTracks.length === 0) {
     throw argsError("Usage: spotify playlist add <playlist_id> <uri...>");
   }
+  const { ids, searched } = await resolveInputs(rawTracks, "track");
+  const trackUris = ids.map(ensureTrackUri);
   const position = optionalIntFlag(args.flags, "position");
-  const data = await api.addTracksToPlaylist(id, uris.map(ensureTrackUri), position);
-  output(data);
+  const data = await api.addTracksToPlaylist(id, trackUris, position);
+  const items = await resolveItems("track", ids);
+  output({ ...((data as object) ?? {}), items, ...(searched.length > 0 && { searched }) });
 };
 
 /**
@@ -109,7 +113,15 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
     throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
   }
 
-  const urisToRemove = new Set<string>(directUris.map(ensureTrackUri));
+  const urisToRemove = new Set<string>();
+  // Resolve direct positional inputs (may be IDs, URIs, or search queries)
+  let searched: Array<{ query: string; match: import("../resolve.js").ItemSummary }> = [];
+  if (directUris.length > 0) {
+    const resolved = await resolveInputs(directUris, "track");
+    const resolvedUris = resolved.ids.map(ensureTrackUri);
+    for (const u of resolvedUris) urisToRemove.add(u);
+    searched = resolved.searched;
+  }
 
   if (matchValues.length > 0 || indexValues.length > 0) {
     const tracks = await fetchAllPlaylistTracks(id);
@@ -135,8 +147,12 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
     }
   }
 
-  const data = await api.removeTracksFromPlaylist(id, [...urisToRemove]);
-  output(data);
+  const uriList = [...urisToRemove];
+  const data = await api.removeTracksFromPlaylist(id, uriList);
+  // Extract IDs from URIs for enrichment
+  const trackIds = uriList.map((u) => u.replace(/^spotify:track:/, ""));
+  const items = await resolveItems("track", trackIds);
+  output({ ...((data as object) ?? {}), items, ...(searched.length > 0 && { searched }) });
 };
 
 /**

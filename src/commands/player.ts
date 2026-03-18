@@ -7,7 +7,8 @@
 import * as api from "../api/player.js";
 import { argsError, ErrorCode } from "../errors.js";
 import { output } from "../output.js";
-import { ensureTrackUri, optionalIntFlag, parseIntFlag } from "../parse.js";
+import { optionalIntFlag, parseIntFlag } from "../parse.js";
+import { resolveInput, resolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /**
@@ -123,11 +124,17 @@ export const queueCommand: CommandHandler = async () => {
  * Adds a track to the end of the playback queue.
  */
 export const queueAddCommand: CommandHandler = async (args) => {
-  const uri = args.positional[0];
-  if (!uri) throw argsError("Usage: spotify queue add <uri>");
-  const resolvedUri = ensureTrackUri(uri);
-  await api.addToQueue(resolvedUri, args.flags.device);
-  output({ status: "added_to_queue", uri: resolvedUri });
+  const input = args.positional[0];
+  if (!input) throw argsError("Usage: spotify queue add <uri>");
+  const { id, searched } = await resolveInput(input, "track");
+  const trackUri = `spotify:track:${id}`;
+  await api.addToQueue(trackUri, args.flags.device);
+  const items = await resolveItems("track", [id]);
+  output({
+    status: "added_to_queue",
+    items,
+    ...(searched && { searched: [searched] }),
+  });
 };
 
 /** Handles `spotify devices`. Lists all available playback devices. */

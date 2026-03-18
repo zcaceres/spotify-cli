@@ -16,6 +16,16 @@ mock.module("../api/albums.js", () => ({
   removeAlbums: mockRemoveAlbums,
 }));
 
+const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
+const mockResolveItems = mock((_type: string, ids: string[]) =>
+  Promise.resolve(ids.map((id: string) => ({ type: "album", id, name: "Test", artist: "Artist" }))),
+);
+
+mock.module("../resolve.js", () => ({
+  resolveInputs: mockResolveInputs,
+  resolveItems: mockResolveItems,
+}));
+
 let captured: unknown;
 mock.module("../output.js", () => ({
   output: (data: unknown) => {
@@ -90,12 +100,17 @@ describe("album save command", () => {
   beforeEach(() => {
     captured = undefined;
     mockSaveAlbums.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("saves single album", async () => {
     await saveAlbumsCommand(args(["abc123"]));
     expect(mockSaveAlbums).toHaveBeenCalledWith(["abc123"]);
-    expect(captured).toEqual({ status: "saved", ids: ["abc123"] });
+    expect(captured).toEqual({
+      status: "saved",
+      items: [{ type: "album", id: "abc123", name: "Test", artist: "Artist" }],
+    });
   });
 
   test("saves multiple albums", async () => {
@@ -112,12 +127,17 @@ describe("album remove command", () => {
   beforeEach(() => {
     captured = undefined;
     mockRemoveAlbums.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("removes single album", async () => {
     await removeAlbumsCommand(args(["abc123"]));
     expect(mockRemoveAlbums).toHaveBeenCalledWith(["abc123"]);
-    expect(captured).toEqual({ status: "removed", ids: ["abc123"] });
+    expect(captured).toEqual({
+      status: "removed",
+      items: [{ type: "album", id: "abc123", name: "Test", artist: "Artist" }],
+    });
   });
 
   test("throws without ids", async () => {

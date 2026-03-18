@@ -16,6 +16,16 @@ mock.module("../api/user.js", () => ({
   unfollowArtists: mockUnfollowArtists,
 }));
 
+const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
+const mockResolveItems = mock((_type: string, ids: string[]) =>
+  Promise.resolve(ids.map((id: string) => ({ type: "artist", id, name: "Test Artist" }))),
+);
+
+mock.module("../resolve.js", () => ({
+  resolveInputs: mockResolveInputs,
+  resolveItems: mockResolveItems,
+}));
+
 let captured: unknown;
 mock.module("../output.js", () => ({
   output: (data: unknown) => {
@@ -116,12 +126,17 @@ describe("follow command", () => {
   beforeEach(() => {
     captured = undefined;
     mockFollowArtists.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("follows single artist", async () => {
     await followCommand(args(["711MCceyCBcFnzjGY4Q7Un"]));
     expect(mockFollowArtists).toHaveBeenCalledWith(["711MCceyCBcFnzjGY4Q7Un"]);
-    expect(captured).toEqual({ status: "followed", ids: ["711MCceyCBcFnzjGY4Q7Un"] });
+    expect(captured).toEqual({
+      status: "followed",
+      items: [{ type: "artist", id: "711MCceyCBcFnzjGY4Q7Un", name: "Test Artist" }],
+    });
   });
 
   test("follows multiple artists", async () => {
@@ -138,12 +153,17 @@ describe("unfollow command", () => {
   beforeEach(() => {
     captured = undefined;
     mockUnfollowArtists.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("unfollows single artist", async () => {
     await unfollowCommand(args(["711MCceyCBcFnzjGY4Q7Un"]));
     expect(mockUnfollowArtists).toHaveBeenCalledWith(["711MCceyCBcFnzjGY4Q7Un"]);
-    expect(captured).toEqual({ status: "unfollowed", ids: ["711MCceyCBcFnzjGY4Q7Un"] });
+    expect(captured).toEqual({
+      status: "unfollowed",
+      items: [{ type: "artist", id: "711MCceyCBcFnzjGY4Q7Un", name: "Test Artist" }],
+    });
   });
 
   test("throws without ids", async () => {

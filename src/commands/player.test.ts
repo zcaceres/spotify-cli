@@ -35,6 +35,20 @@ mock.module("../api/player.js", () => ({
   getRecentlyPlayed: mockGetRecentlyPlayed,
 }));
 
+const mockResolveInput = mock((input: string, _type: string) => {
+  // Mimic real identify: extract ID from URI, pass through bare IDs
+  const uriMatch = /^spotify:[a-z]+:(.+)$/.exec(input);
+  return Promise.resolve({ id: uriMatch ? uriMatch[1] : input });
+});
+const mockResolveItems = mock((_type: string, ids: string[]) =>
+  Promise.resolve(ids.map((id: string) => ({ type: "track", id, name: "Test", artist: "Artist", album: "Album" }))),
+);
+
+mock.module("../resolve.js", () => ({
+  resolveInput: mockResolveInput,
+  resolveItems: mockResolveItems,
+}));
+
 let captured: unknown;
 mock.module("../output.js", () => ({
   output: (data: unknown) => {
@@ -353,12 +367,13 @@ describe("queue add command", () => {
   beforeEach(() => {
     captured = undefined;
     mockAddToQueue.mockClear();
+    mockResolveInput.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("adds track to queue", async () => {
     await queueAddCommand(args(["spotify:track:abc"]));
     expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc", undefined);
-    expect(captured).toEqual({ status: "added_to_queue", uri: "spotify:track:abc" });
   });
 
   test("passes device id", async () => {
@@ -370,10 +385,14 @@ describe("queue add command", () => {
     await expect(queueAddCommand(args())).rejects.toThrow(/Usage/);
   });
 
-  test("auto-converts bare track ID to URI", async () => {
+  test("resolves input and adds to queue", async () => {
     await queueAddCommand(args(["abc123"]));
+    expect(mockResolveInput).toHaveBeenCalledWith("abc123", "track");
     expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc123", undefined);
-    expect(captured).toEqual({ status: "added_to_queue", uri: "spotify:track:abc123" });
+    expect(captured).toEqual({
+      status: "added_to_queue",
+      items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
+    });
   });
 });
 

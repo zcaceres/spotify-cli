@@ -19,6 +19,16 @@ mock.module("../api/tracks.js", () => ({
   getRecommendations: mockGetRecommendations,
 }));
 
+const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
+const mockResolveItems = mock((_type: string, ids: string[]) =>
+  Promise.resolve(ids.map((id: string) => ({ type: "track", id, name: "Test", artist: "Artist", album: "Album" }))),
+);
+
+mock.module("../resolve.js", () => ({
+  resolveInputs: mockResolveInputs,
+  resolveItems: mockResolveItems,
+}));
+
 let captured: unknown;
 mock.module("../output.js", () => ({
   output: (data: unknown) => {
@@ -82,12 +92,18 @@ describe("track save command", () => {
   beforeEach(() => {
     captured = undefined;
     mockSaveTracks.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("saves single track", async () => {
     await saveTracksCommand(args(["abc123"]));
+    expect(mockResolveInputs).toHaveBeenCalledWith(["abc123"], "track");
     expect(mockSaveTracks).toHaveBeenCalledWith(["abc123"]);
-    expect(captured).toEqual({ status: "saved", ids: ["abc123"] });
+    expect(captured).toEqual({
+      status: "saved",
+      items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
+    });
   });
 
   test("saves multiple tracks", async () => {
@@ -104,12 +120,17 @@ describe("track remove command", () => {
   beforeEach(() => {
     captured = undefined;
     mockRemoveTracks.mockClear();
+    mockResolveInputs.mockClear();
+    mockResolveItems.mockClear();
   });
 
   test("removes single track", async () => {
     await removeTracksCommand(args(["abc123"]));
     expect(mockRemoveTracks).toHaveBeenCalledWith(["abc123"]);
-    expect(captured).toEqual({ status: "removed", ids: ["abc123"] });
+    expect(captured).toEqual({
+      status: "removed",
+      items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
+    });
   });
 
   test("throws without ids", async () => {

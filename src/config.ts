@@ -19,6 +19,12 @@ export const TOKENS_PATH = join(CONFIG_DIR, "tokens.json");
 /** Path to the general config file (stores client ID, etc.). */
 export const CONFIG_PATH = join(CONFIG_DIR, "config.json");
 
+/** Path to the metadata cache file. */
+export const CACHE_PATH = join(CONFIG_DIR, "cache.json");
+
+/** Maximum number of entries stored in the metadata cache. */
+export const CACHE_MAX_SIZE = 500;
+
 /** Spotify Accounts authorization endpoint. */
 export const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
 
