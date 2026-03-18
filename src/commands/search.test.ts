@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { ErrorCode, type SpotifyCliError } from "../errors.js";
 import { fixtures } from "../test/fixtures/index.js";
 import type { ParsedArgs } from "./index.js";
 
@@ -80,5 +81,25 @@ describe("search command", () => {
 
   test("throws without query", async () => {
     await expect(searchCommand(args())).rejects.toThrow(/Usage/);
+  });
+
+  test("throws for invalid search type", async () => {
+    try {
+      await searchCommand(args(["rock"], { type: "invalid" }));
+      expect.unreachable("should have thrown");
+    } catch (e) {
+      const err = e as SpotifyCliError;
+      expect(err.details.code).toBe(ErrorCode.INVALID_ARGUMENT);
+      expect(err.message).toContain("invalid");
+    }
+  });
+
+  test("throws for partially invalid comma-separated types", async () => {
+    await expect(searchCommand(args(["rock"], { type: "track,bogus" }))).rejects.toThrow(/bogus/);
+  });
+
+  test("accepts all valid search types", async () => {
+    await searchCommand(args(["test"], { type: "track,album,artist,playlist,show,episode" }));
+    expect(mockSearch).toHaveBeenCalled();
   });
 });
