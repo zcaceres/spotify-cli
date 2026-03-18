@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { ErrorCode, SpotifyCliError } from "../errors.js";
 import { fixtures } from "../test/fixtures/index.js";
 import type { ParsedArgs } from "./index.js";
 
@@ -131,6 +132,20 @@ describe("play command", () => {
     await playCommand(args([], { offset: "", position: "" }));
     expect(mockStartPlayback).toHaveBeenCalledWith({});
   });
+
+  test("accepts positional URI argument", async () => {
+    await playCommand(args(["spotify:track:abc"]));
+    expect(mockStartPlayback).toHaveBeenCalledWith({
+      uris: ["spotify:track:abc"],
+    });
+  });
+
+  test("--uri flag takes precedence over positional", async () => {
+    await playCommand(args(["spotify:track:pos"], { uri: "spotify:track:flag" }));
+    expect(mockStartPlayback).toHaveBeenCalledWith({
+      uris: ["spotify:track:flag"],
+    });
+  });
 });
 
 describe("pause command", () => {
@@ -203,8 +218,14 @@ describe("seek command", () => {
     await expect(seekCommand(args())).rejects.toThrow(/Usage/);
   });
 
-  test("throws for negative position", async () => {
-    await expect(seekCommand(args(["-1"]))).rejects.toThrow(/non-negative/);
+  test("throws for negative position with INVALID_ARGUMENT code", async () => {
+    try {
+      await seekCommand(args(["-1"]));
+      expect.unreachable("should have thrown");
+    } catch (e) {
+      const err = e as SpotifyCliError;
+      expect(err.details.code).toBe(ErrorCode.INVALID_ARGUMENT);
+    }
   });
 
   test("throws for non-numeric position", async () => {
@@ -244,6 +265,16 @@ describe("volume command", () => {
 
   test("throws for volume < 0", async () => {
     await expect(volumeCommand(args(["-1"]))).rejects.toThrow(/0-100/);
+  });
+
+  test("volume error has INVALID_ARGUMENT code", async () => {
+    try {
+      await volumeCommand(args(["101"]));
+      expect.unreachable("should have thrown");
+    } catch (e) {
+      const err = e as SpotifyCliError;
+      expect(err.details.code).toBe(ErrorCode.INVALID_ARGUMENT);
+    }
   });
 });
 
@@ -337,6 +368,12 @@ describe("queue add command", () => {
 
   test("throws without uri", async () => {
     await expect(queueAddCommand(args())).rejects.toThrow(/Usage/);
+  });
+
+  test("auto-converts bare track ID to URI", async () => {
+    await queueAddCommand(args(["abc123"]));
+    expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc123", undefined);
+    expect(captured).toEqual({ status: "added_to_queue", uri: "spotify:track:abc123" });
   });
 });
 

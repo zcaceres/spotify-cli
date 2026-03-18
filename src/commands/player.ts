@@ -5,9 +5,9 @@
  */
 
 import * as api from "../api/player.js";
-import { argsError } from "../errors.js";
+import { argsError, ErrorCode } from "../errors.js";
 import { output } from "../output.js";
-import { optionalIntFlag, parseIntFlag } from "../parse.js";
+import { ensureTrackUri, optionalIntFlag, parseIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 /**
@@ -26,7 +26,7 @@ export const nowCommand: CommandHandler = async () => {
  * Starts or resumes playback, optionally targeting a specific device, URI, or position.
  */
 export const playCommand: CommandHandler = async (args) => {
-  const uri = args.flags.uri;
+  const uri = args.flags.uri ?? args.positional[0];
   const context = args.flags.context;
   const device = args.flags.device;
   const offset = args.flags.offset;
@@ -70,7 +70,7 @@ export const seekCommand: CommandHandler = async (args) => {
   const ms = args.positional[0];
   if (!ms) throw argsError("Usage: spotify seek <ms>");
   const position = parseIntFlag(ms, "position");
-  if (position < 0) throw argsError("Seek position must be non-negative");
+  if (position < 0) throw argsError("Seek position must be non-negative", ErrorCode.INVALID_ARGUMENT);
   await api.seekToPosition(position, args.flags.device);
   output({ status: "seeked", position_ms: position });
 };
@@ -84,7 +84,7 @@ export const volumeCommand: CommandHandler = async (args) => {
   const level = args.positional[0];
   if (!level) throw argsError("Usage: spotify volume <0-100>");
   const vol = parseIntFlag(level, "volume");
-  if (vol < 0 || vol > 100) throw argsError("Volume must be 0-100");
+  if (vol < 0 || vol > 100) throw argsError("Volume must be 0-100", ErrorCode.INVALID_ARGUMENT);
   await api.setVolume(vol, args.flags.device);
   output({ status: "volume_set", volume: vol });
 };
@@ -125,8 +125,9 @@ export const queueCommand: CommandHandler = async () => {
 export const queueAddCommand: CommandHandler = async (args) => {
   const uri = args.positional[0];
   if (!uri) throw argsError("Usage: spotify queue add <uri>");
-  await api.addToQueue(uri, args.flags.device);
-  output({ status: "added_to_queue", uri });
+  const resolvedUri = ensureTrackUri(uri);
+  await api.addToQueue(resolvedUri, args.flags.device);
+  output({ status: "added_to_queue", uri: resolvedUri });
 };
 
 /** Handles `spotify devices`. Lists all available playback devices. */

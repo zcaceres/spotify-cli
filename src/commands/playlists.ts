@@ -7,7 +7,7 @@
 import * as api from "../api/playlists.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
-import { optionalIntFlag } from "../parse.js";
+import { ensureTrackUri, optionalIntFlag } from "../parse.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify playlist <id>`. Outputs playlist details. */
@@ -56,7 +56,7 @@ export const playlistAddCommand: CommandHandler = async (args) => {
     throw argsError("Usage: spotify playlist add <playlist_id> <uri...>");
   }
   const position = optionalIntFlag(args.flags, "position");
-  const data = await api.addTracksToPlaylist(id, uris, position);
+  const data = await api.addTracksToPlaylist(id, uris.map(ensureTrackUri), position);
   output(data);
 };
 
@@ -109,7 +109,7 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
     throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
   }
 
-  const urisToRemove = new Set<string>(directUris);
+  const urisToRemove = new Set<string>(directUris.map(ensureTrackUri));
 
   if (matchValues.length > 0 || indexValues.length > 0) {
     const tracks = await fetchAllPlaylistTracks(id);
@@ -152,7 +152,7 @@ export const playlistCreateCommand: CommandHandler = async (args) => {
   const isPublic = args.flags.public !== undefined ? true : undefined;
 
   const opts: { name: string; description?: string; public?: boolean } = { name };
-  if (description !== undefined) opts.description = description;
+  if (description !== undefined && description !== "") opts.description = description;
   if (isPublic !== undefined) opts.public = isPublic;
 
   const data = await api.createPlaylist(opts);

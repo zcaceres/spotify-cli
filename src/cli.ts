@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 
 import { commands, type ParsedArgs } from "./commands/index.js";
+import { VERSION } from "./config.js";
 import { argsError, ErrorCode } from "./errors.js";
 import { handleError, output } from "./output.js";
 
@@ -109,6 +110,11 @@ function showCommandHelp(command: string, cmd: { description: string; usage?: st
 async function main() {
   try {
     const { command, args } = parseArgs(process.argv);
+
+    if (command === "--version" || command === "-V") {
+      output({ version: VERSION });
+      return;
+    }
 
     if (command === "help" || command === "--help" || command === "-h") {
       showHelp();

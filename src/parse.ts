@@ -32,7 +32,9 @@ export function parseIntFlag(value: string, name: string): number {
 export function optionalIntFlag(flags: Record<string, string>, name: string): number | undefined {
   const val = flags[name];
   if (val === undefined || val === "") return undefined;
-  return parseIntFlag(val, `--${name}`);
+  const n = parseIntFlag(val, `--${name}`);
+  if (n < 0) throw argsError(`--${name} must be non-negative`, ErrorCode.INVALID_ARGUMENT);
+  return n;
 }
 
 /**
@@ -43,6 +45,15 @@ export function optionalIntFlag(flags: Record<string, string>, name: string): nu
  * @returns Array of non-empty ID strings.
  * @throws `SpotifyCliError` if no valid IDs are provided.
  */
+/**
+ * Ensures a string is a full Spotify track URI.
+ * If the input already starts with `spotify:`, it is returned as-is.
+ * Otherwise it is treated as a bare track ID and prefixed with `spotify:track:`.
+ */
+export function ensureTrackUri(id: string): string {
+  return id.startsWith("spotify:") ? id : `spotify:track:${id}`;
+}
+
 export function requireIds(positional: string[], usage: string): string[] {
   const ids = positional.filter((id) => id !== "");
   if (ids.length === 0) throw argsError(`Usage: ${usage}`);

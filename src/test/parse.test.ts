@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { ErrorCode, ExitCode, SpotifyCliError } from "../errors.js";
-import { optionalIntFlag, parseIntFlag, requireIds } from "../parse.js";
+import { ensureTrackUri, optionalIntFlag, parseIntFlag, requireIds } from "../parse.js";
 
 describe("parseIntFlag", () => {
   test("parses a valid integer string", () => {
@@ -87,6 +87,39 @@ describe("optionalIntFlag", () => {
   test("ignores unrelated flags", () => {
     const flags = { other: "5" };
     expect(optionalIntFlag(flags, "limit")).toBeUndefined();
+  });
+});
+
+describe("ensureTrackUri", () => {
+  test("returns full URI unchanged", () => {
+    expect(ensureTrackUri("spotify:track:abc123")).toBe("spotify:track:abc123");
+  });
+
+  test("returns other spotify URIs unchanged", () => {
+    expect(ensureTrackUri("spotify:album:abc123")).toBe("spotify:album:abc123");
+  });
+
+  test("prefixes bare ID with spotify:track:", () => {
+    expect(ensureTrackUri("abc123")).toBe("spotify:track:abc123");
+  });
+});
+
+describe("optionalIntFlag negative values", () => {
+  test("throws for negative limit", () => {
+    const flags = { limit: "-1" };
+    expect(() => optionalIntFlag(flags, "limit")).toThrow(SpotifyCliError);
+    try {
+      optionalIntFlag(flags, "limit");
+    } catch (e) {
+      const err = e as SpotifyCliError;
+      expect(err.details.code).toBe(ErrorCode.INVALID_ARGUMENT);
+      expect(err.message).toContain("non-negative");
+    }
+  });
+
+  test("throws for negative offset", () => {
+    const flags = { offset: "-5" };
+    expect(() => optionalIntFlag(flags, "offset")).toThrow(SpotifyCliError);
   });
 });
 

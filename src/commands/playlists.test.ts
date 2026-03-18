@@ -156,6 +156,15 @@ describe("playlist add command", () => {
     expect(mockAddTracksToPlaylist).toHaveBeenCalledWith("abc123", ["spotify:track:aaa"], 3);
   });
 
+  test("auto-converts bare IDs to track URIs", async () => {
+    await playlistAddCommand(args(["abc123", "trackid1", "trackid2"]));
+    expect(mockAddTracksToPlaylist).toHaveBeenCalledWith(
+      "abc123",
+      ["spotify:track:trackid1", "spotify:track:trackid2"],
+      undefined,
+    );
+  });
+
   test("throws without playlist id", async () => {
     await expect(playlistAddCommand(args())).rejects.toThrow(/Usage/);
   });
@@ -204,6 +213,11 @@ describe("playlist create command", () => {
     });
   });
 
+  test("ignores empty description string", async () => {
+    await playlistCreateCommand(args(["My Playlist"], { description: "" }));
+    expect(mockCreatePlaylist).toHaveBeenCalledWith({ name: "My Playlist" });
+  });
+
   test("throws without name", async () => {
     await expect(playlistCreateCommand(args())).rejects.toThrow(/Usage/);
   });
@@ -222,6 +236,14 @@ describe("playlist remove", () => {
   test("removes by direct URIs without fetching playlist", async () => {
     await playlistRemoveCommand(args([PLAYLIST_ID, "spotify:track:aaa", "spotify:track:bbb"]));
     expect(mockGetPlaylistTracks).not.toHaveBeenCalled();
+    expect(mockRemoveTracksFromPlaylist).toHaveBeenCalledWith(
+      PLAYLIST_ID,
+      expect.arrayContaining(["spotify:track:aaa", "spotify:track:bbb"]),
+    );
+  });
+
+  test("auto-converts bare IDs to track URIs for removal", async () => {
+    await playlistRemoveCommand(args([PLAYLIST_ID, "aaa", "bbb"]));
     expect(mockRemoveTracksFromPlaylist).toHaveBeenCalledWith(
       PLAYLIST_ID,
       expect.arrayContaining(["spotify:track:aaa", "spotify:track:bbb"]),

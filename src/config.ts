@@ -7,6 +7,9 @@
 import { homedir } from "node:os";
 import { join } from "node:path";
 
+/** CLI version, kept in sync with package.json. */
+export const VERSION = "0.1.1";
+
 /** Directory where CLI configuration and tokens are stored (`~/.spotify-cli`). */
 export const CONFIG_DIR = join(homedir(), ".spotify-cli");
 

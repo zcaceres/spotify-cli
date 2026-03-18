@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { VERSION } from "./config.js";
 import { parseArgs } from "./cli.js";
 
 /** Helper: build a fake argv array as if invoked as `bun cli.ts ...args`. */
@@ -172,6 +173,38 @@ describe("--help flag", () => {
 });
 
 // --- error cases ---
+
+describe("--version flag", () => {
+  test("--version is parsed as a command", () => {
+    const result = parseArgs(argv("--version"));
+    expect(result.command).toBe("--version");
+  });
+
+  test("-V is parsed as a command", () => {
+    const result = parseArgs(argv("-V"));
+    expect(result.command).toBe("-V");
+  });
+
+  test("--version outputs version JSON", async () => {
+    const proc = Bun.spawn(["bun", "run", "src/cli.ts", "--version"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const text = await new Response(proc.stdout).text();
+    const result = JSON.parse(text);
+    expect(result).toEqual({ version: VERSION });
+  });
+
+  test("-V outputs version JSON", async () => {
+    const proc = Bun.spawn(["bun", "run", "src/cli.ts", "-V"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const text = await new Response(proc.stdout).text();
+    const result = JSON.parse(text);
+    expect(result).toEqual({ version: VERSION });
+  });
+});
 
 describe("parseArgs errors", () => {
   test("throws on empty argv", () => {
