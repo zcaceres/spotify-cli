@@ -8,7 +8,7 @@ import * as api from "../api/user.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
-import { resolveInputs, resolveItems } from "../resolve.js";
+import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify me`. Outputs the current user's profile. */
@@ -55,8 +55,8 @@ export const followCommand: CommandHandler = async (args) => {
   const rawInputs = requireIds(args.positional, "spotify follow <id...>");
   const { ids, searched } = await resolveInputs(rawInputs, "artist");
   await api.followArtists(ids);
-  const items = await resolveItems("artist", ids);
-  output({ status: "followed", items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("artist", ids);
+  output({ status: "followed", ids, ...(items && { items }), ...(searched.length > 0 && { searched }) });
 };
 
 /**
@@ -68,6 +68,6 @@ export const unfollowCommand: CommandHandler = async (args) => {
   const rawInputs = requireIds(args.positional, "spotify unfollow <id...>");
   const { ids, searched } = await resolveInputs(rawInputs, "artist");
   await api.unfollowArtists(ids);
-  const items = await resolveItems("artist", ids);
-  output({ status: "unfollowed", items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("artist", ids);
+  output({ status: "unfollowed", ids, ...(items && { items }), ...(searched.length > 0 && { searched }) });
 };

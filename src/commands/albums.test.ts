@@ -23,7 +23,7 @@ const mockResolveItems = mock((_type: string, ids: string[]) =>
 
 mock.module("../resolve.js", () => ({
   resolveInputs: mockResolveInputs,
-  resolveItems: mockResolveItems,
+  tryResolveItems: mockResolveItems,
 }));
 
 let captured: unknown;
@@ -109,6 +109,7 @@ describe("album save command", () => {
     expect(mockSaveAlbums).toHaveBeenCalledWith(["abc123"]);
     expect(captured).toEqual({
       status: "saved",
+      ids: ["abc123"],
       items: [{ type: "album", id: "abc123", name: "Test", artist: "Artist" }],
     });
   });
@@ -136,6 +137,7 @@ describe("album remove command", () => {
     expect(mockRemoveAlbums).toHaveBeenCalledWith(["abc123"]);
     expect(captured).toEqual({
       status: "removed",
+      ids: ["abc123"],
       items: [{ type: "album", id: "abc123", name: "Test", artist: "Artist" }],
     });
   });

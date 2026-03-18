@@ -26,7 +26,7 @@ const mockResolveItems = mock((_type: string, ids: string[]) =>
 
 mock.module("../resolve.js", () => ({
   resolveInputs: mockResolveInputs,
-  resolveItems: mockResolveItems,
+  tryResolveItems: mockResolveItems,
 }));
 
 let captured: unknown;
@@ -102,6 +102,7 @@ describe("track save command", () => {
     expect(mockSaveTracks).toHaveBeenCalledWith(["abc123"]);
     expect(captured).toEqual({
       status: "saved",
+      ids: ["abc123"],
       items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
     });
   });
@@ -113,6 +114,23 @@ describe("track save command", () => {
 
   test("throws without ids", async () => {
     await expect(saveTracksCommand(args())).rejects.toThrow(/Usage/);
+  });
+
+  test("still outputs ids when enrichment returns undefined", async () => {
+    mockResolveItems.mockResolvedValueOnce(undefined as never);
+    await saveTracksCommand(args(["abc123"]));
+    expect(mockSaveTracks).toHaveBeenCalledWith(["abc123"]);
+    const result = captured as Record<string, unknown>;
+    expect(result.status).toBe("saved");
+    expect(result.ids).toEqual(["abc123"]);
+    expect(result.items).toBeUndefined();
+  });
+
+  test("always includes ids field for backward compatibility", async () => {
+    await saveTracksCommand(args(["abc123"]));
+    const result = captured as Record<string, unknown>;
+    expect(result.ids).toBeDefined();
+    expect(result.items).toBeDefined();
   });
 });
 
@@ -129,6 +147,7 @@ describe("track remove command", () => {
     expect(mockRemoveTracks).toHaveBeenCalledWith(["abc123"]);
     expect(captured).toEqual({
       status: "removed",
+      ids: ["abc123"],
       items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
     });
   });

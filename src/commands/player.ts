@@ -8,7 +8,7 @@ import * as api from "../api/player.js";
 import { argsError, ErrorCode } from "../errors.js";
 import { output } from "../output.js";
 import { optionalIntFlag, parseIntFlag } from "../parse.js";
-import { resolveInput, resolveItems } from "../resolve.js";
+import { resolveInput, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /**
@@ -126,13 +126,21 @@ export const queueCommand: CommandHandler = async () => {
 export const queueAddCommand: CommandHandler = async (args) => {
   const input = args.positional[0];
   if (!input) throw argsError("Usage: spotify queue add <uri>");
+  // If the input is already a full spotify: URI, pass it through directly
+  // to preserve non-track URI types (episodes, etc.)
+  if (input.startsWith("spotify:")) {
+    await api.addToQueue(input, args.flags.device);
+    output({ status: "added_to_queue", uri: input });
+    return;
+  }
   const { id, searched } = await resolveInput(input, "track");
   const trackUri = `spotify:track:${id}`;
   await api.addToQueue(trackUri, args.flags.device);
-  const items = await resolveItems("track", [id]);
+  const items = await tryResolveItems("track", [id]);
   output({
     status: "added_to_queue",
-    items,
+    uri: trackUri,
+    ...(items && { items }),
     ...(searched && { searched: [searched] }),
   });
 };

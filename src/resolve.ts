@@ -77,6 +77,22 @@ export async function resolveItems(
 }
 
 /**
+ * Best-effort enrichment — returns items on success, undefined on failure.
+ * Never throws. Use this when enrichment should not interfere with core behavior.
+ */
+export async function tryResolveItems(
+  type: "track" | "album" | "artist",
+  ids: string[],
+  deps?: Partial<ResolveDeps>,
+): Promise<ItemSummary[] | undefined> {
+  try {
+    return await resolveItems(type, ids, deps);
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * Resolves a single user input (ID, URI, or search query) to a Spotify ID.
  * Returns the resolved ID and, if a search was performed, what was matched.
  */

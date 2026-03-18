@@ -1,6 +1,6 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { ResolveDeps } from "./resolve.js";
-import { resolveInput, resolveInputs, resolveItems } from "./resolve.js";
+import { resolveInput, resolveInputs, resolveItems, tryResolveItems } from "./resolve.js";
 
 function makeTrackFixture(id: string, name: string) {
   return {
@@ -213,5 +213,22 @@ describe("resolveInputs", () => {
     const deps = makeDeps();
     const result = await resolveInputs(["4uLU6hMCjMI75M1A2tKUQC"], "track", deps);
     expect(result.searched).toEqual([]);
+  });
+});
+
+describe("tryResolveItems", () => {
+  test("returns items on success", async () => {
+    const deps = makeDeps();
+    const items = await tryResolveItems("track", ["t1"], deps);
+    expect(items).toBeDefined();
+    expect(items).toHaveLength(1);
+  });
+
+  test("returns undefined on failure instead of throwing", async () => {
+    const deps = makeDeps({
+      getTracks: mock(() => Promise.reject(new Error("network error"))),
+    });
+    const items = await tryResolveItems("track", ["t1"], deps);
+    expect(items).toBeUndefined();
   });
 });

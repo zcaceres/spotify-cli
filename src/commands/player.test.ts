@@ -46,7 +46,7 @@ const mockResolveItems = mock((_type: string, ids: string[]) =>
 
 mock.module("../resolve.js", () => ({
   resolveInput: mockResolveInput,
-  resolveItems: mockResolveItems,
+  tryResolveItems: mockResolveItems,
 }));
 
 let captured: unknown;
@@ -371,12 +371,20 @@ describe("queue add command", () => {
     mockResolveItems.mockClear();
   });
 
-  test("adds track to queue", async () => {
+  test("passes full URI through directly without resolving", async () => {
     await queueAddCommand(args(["spotify:track:abc"]));
     expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc", undefined);
+    expect(captured).toEqual({ status: "added_to_queue", uri: "spotify:track:abc" });
+    expect(mockResolveInput).not.toHaveBeenCalled();
   });
 
-  test("passes device id", async () => {
+  test("preserves non-track URI types", async () => {
+    await queueAddCommand(args(["spotify:episode:ep1"]));
+    expect(mockAddToQueue).toHaveBeenCalledWith("spotify:episode:ep1", undefined);
+    expect(captured).toEqual({ status: "added_to_queue", uri: "spotify:episode:ep1" });
+  });
+
+  test("passes device id with full URI", async () => {
     await queueAddCommand(args(["spotify:track:abc"], { device: "d1" }));
     expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc", "d1");
   });
@@ -385,12 +393,13 @@ describe("queue add command", () => {
     await expect(queueAddCommand(args())).rejects.toThrow(/Usage/);
   });
 
-  test("resolves input and adds to queue", async () => {
+  test("resolves bare ID and adds to queue", async () => {
     await queueAddCommand(args(["abc123"]));
     expect(mockResolveInput).toHaveBeenCalledWith("abc123", "track");
     expect(mockAddToQueue).toHaveBeenCalledWith("spotify:track:abc123", undefined);
     expect(captured).toEqual({
       status: "added_to_queue",
+      uri: "spotify:track:abc123",
       items: [{ type: "track", id: "abc123", name: "Test", artist: "Artist", album: "Album" }],
     });
   });

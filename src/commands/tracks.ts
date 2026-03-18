@@ -8,7 +8,7 @@ import * as api from "../api/tracks.js";
 import { apiError, argsError, ErrorCode, SpotifyCliError } from "../errors.js";
 import { output } from "../output.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
-import { resolveInputs, resolveItems } from "../resolve.js";
+import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify track <id>`. Outputs track details. */
@@ -40,8 +40,8 @@ export const saveTracksCommand: CommandHandler = async (args) => {
   const rawInputs = requireIds(args.positional, "spotify track save <id...>");
   const { ids, searched } = await resolveInputs(rawInputs, "track");
   await api.saveTracks(ids);
-  const items = await resolveItems("track", ids);
-  output({ status: "saved", items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("track", ids);
+  output({ status: "saved", ids, ...(items && { items }), ...(searched.length > 0 && { searched }) });
 };
 
 /**
@@ -53,8 +53,8 @@ export const removeTracksCommand: CommandHandler = async (args) => {
   const rawInputs = requireIds(args.positional, "spotify track remove <id...>");
   const { ids, searched } = await resolveInputs(rawInputs, "track");
   await api.removeTracks(ids);
-  const items = await resolveItems("track", ids);
-  output({ status: "removed", items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("track", ids);
+  output({ status: "removed", ids, ...(items && { items }), ...(searched.length > 0 && { searched }) });
 };
 
 /**

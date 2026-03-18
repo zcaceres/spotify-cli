@@ -23,7 +23,7 @@ const mockResolveItems = mock((_type: string, ids: string[]) =>
 
 mock.module("../resolve.js", () => ({
   resolveInputs: mockResolveInputs,
-  resolveItems: mockResolveItems,
+  tryResolveItems: mockResolveItems,
 }));
 
 let captured: unknown;
@@ -135,6 +135,7 @@ describe("follow command", () => {
     expect(mockFollowArtists).toHaveBeenCalledWith(["711MCceyCBcFnzjGY4Q7Un"]);
     expect(captured).toEqual({
       status: "followed",
+      ids: ["711MCceyCBcFnzjGY4Q7Un"],
       items: [{ type: "artist", id: "711MCceyCBcFnzjGY4Q7Un", name: "Test Artist" }],
     });
   });
@@ -162,6 +163,7 @@ describe("unfollow command", () => {
     expect(mockUnfollowArtists).toHaveBeenCalledWith(["711MCceyCBcFnzjGY4Q7Un"]);
     expect(captured).toEqual({
       status: "unfollowed",
+      ids: ["711MCceyCBcFnzjGY4Q7Un"],
       items: [{ type: "artist", id: "711MCceyCBcFnzjGY4Q7Un", name: "Test Artist" }],
     });
   });

@@ -8,7 +8,7 @@ import * as api from "../api/playlists.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
 import { ensureTrackUri, optionalIntFlag } from "../parse.js";
-import { resolveInputs, resolveItems } from "../resolve.js";
+import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify playlist <id>`. Outputs playlist details. */
@@ -60,8 +60,8 @@ export const playlistAddCommand: CommandHandler = async (args) => {
   const trackUris = ids.map(ensureTrackUri);
   const position = optionalIntFlag(args.flags, "position");
   const data = await api.addTracksToPlaylist(id, trackUris, position);
-  const items = await resolveItems("track", ids);
-  output({ ...((data as object) ?? {}), items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("track", ids);
+  output({ ...((data as object) ?? {}), ids, ...(items && { items }), ...(searched.length > 0 && { searched }) });
 };
 
 /**
@@ -151,8 +151,13 @@ export const playlistRemoveCommand: CommandHandler = async (args) => {
   const data = await api.removeTracksFromPlaylist(id, uriList);
   // Extract IDs from URIs for enrichment
   const trackIds = uriList.map((u) => u.replace(/^spotify:track:/, ""));
-  const items = await resolveItems("track", trackIds);
-  output({ ...((data as object) ?? {}), items, ...(searched.length > 0 && { searched }) });
+  const items = await tryResolveItems("track", trackIds);
+  output({
+    ...((data as object) ?? {}),
+    ids: trackIds,
+    ...(items && { items }),
+    ...(searched.length > 0 && { searched }),
+  });
 };
 
 /**

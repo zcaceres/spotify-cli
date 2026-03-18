@@ -31,7 +31,7 @@ const mockResolveItems = mock((_type: string, ids: string[]) =>
 
 mock.module("../resolve.js", () => ({
   resolveInputs: mockResolveInputs,
-  resolveItems: mockResolveItems,
+  tryResolveItems: mockResolveItems,
 }));
 
 let captured: unknown;
