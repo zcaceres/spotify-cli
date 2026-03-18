@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, mock, test } from "bun:test";
-import { ErrorCode, SpotifyCliError } from "../errors.js";
+import { ErrorCode, type SpotifyCliError } from "../errors.js";
 import { fixtures } from "../test/fixtures/index.js";
 import type { ParsedArgs } from "./index.js";
 

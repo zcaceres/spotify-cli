@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { VERSION } from "./config.js";
 import { parseArgs } from "./cli.js";
+import { VERSION } from "./config.js";
 
 /** Helper: build a fake argv array as if invoked as `bun cli.ts ...args`. */
 function argv(...args: string[]) {
