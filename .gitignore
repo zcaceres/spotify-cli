@@ -4,3 +4,4 @@ dist/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 docs/api/
+.playwright-mcp/
