@@ -5,6 +5,7 @@
  */
 
 import { argsError, ErrorCode } from "./errors.js";
+import { identify } from "./identify.js";
 
 /**
  * Parses a string as a base-10 integer or throws an {@link argsError}.
@@ -58,4 +59,19 @@ export function requireIds(positional: string[], usage: string): string[] {
   const ids = positional.filter((id) => id !== "");
   if (ids.length === 0) throw argsError(`Usage: ${usage}`);
   return ids;
+}
+
+/**
+ * Extracts a Spotify ID from user input that may be a full URI or a bare ID.
+ * For detail/read commands that take a single `<id>` argument.
+ */
+/**
+ * Extracts a Spotify ID from user input that may be a full URI or a bare ID.
+ * For detail/read commands that take a single `<id>` argument.
+ */
+export function extractId(input: string): string {
+  const result = identify(input);
+  if (result.kind === "uri") return result.id;
+  if (result.kind === "id") return result.id;
+  return input;
 }

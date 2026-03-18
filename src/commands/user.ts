@@ -5,7 +5,7 @@
  */
 
 import * as api from "../api/user.js";
-import { argsError } from "../errors.js";
+import { argsError, ErrorCode } from "../errors.js";
 import { output } from "../output.js";
 import { optionalIntFlag, requireIds } from "../parse.js";
 import { resolveInputs, tryResolveItems } from "../resolve.js";
@@ -25,7 +25,7 @@ export const meCommand: CommandHandler = async () => {
 export const topCommand: CommandHandler = async (args) => {
   const type = args.positional[0];
   if (type !== "artists" && type !== "tracks") {
-    throw argsError("Usage: spotify top <artists|tracks> [--time-range ...] [--limit N]");
+    throw argsError("Usage: spotify top <artists|tracks> [--time-range ...] [--limit N]", ErrorCode.INVALID_ARGUMENT);
   }
   const time_range = args.flags["time-range"];
   const limit = optionalIntFlag(args.flags, "limit");

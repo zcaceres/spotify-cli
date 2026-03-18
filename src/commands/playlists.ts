@@ -7,15 +7,15 @@
 import * as api from "../api/playlists.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
-import { ensureTrackUri, optionalIntFlag } from "../parse.js";
+import { ensureTrackUri, extractId, optionalIntFlag } from "../parse.js";
 import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify playlist <id>`. Outputs playlist details. */
 export const playlistCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify playlist <id>");
-  const data = await api.getPlaylist(id);
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify playlist <id>");
+  const data = await api.getPlaylist(extractId(raw));
   output(data);
 };
 
@@ -37,8 +37,9 @@ export const playlistsCommand: CommandHandler = async (args) => {
  * Lists the tracks in a playlist with optional pagination.
  */
 export const playlistTracksCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify playlist tracks <id>");
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify playlist tracks <id>");
+  const id = extractId(raw);
   const limit = optionalIntFlag(args.flags, "limit");
   const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getPlaylistTracks(id, { limit, offset });

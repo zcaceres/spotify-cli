@@ -66,7 +66,10 @@ export function parseArgs(argv: string[]): { command: string; args: ParsedArgs }
       } else {
         key = arg.slice(2);
         const next = raw[i + 1];
-        if (next !== undefined && !next.startsWith("-")) {
+        // Consume the next token as the flag value unless it looks like another flag.
+        // A single "-" followed by a digit (e.g. "-5") is a negative number, not a flag.
+        const isNextFlag = next !== undefined && next.startsWith("-") && !/^-\d/.test(next);
+        if (next !== undefined && !isNextFlag) {
           value = next;
           i++;
         } else {
@@ -127,6 +130,14 @@ async function main() {
       // Check if this is a parent with subcommands (e.g. "auth" has "auth status")
       const subs = getSubcommands(command);
       if (Object.keys(subs).length > 0) {
+        // If the user passed an argument that isn't a valid subcommand, error
+        const attempted = args.positional[0];
+        if (attempted) {
+          throw argsError(
+            `Unknown subcommand: ${command} ${attempted}. Available: ${Object.keys(subs).join(", ")}`,
+            ErrorCode.UNKNOWN_COMMAND,
+          );
+        }
         output({
           command,
           usage: `spotify ${command} <subcommand>`,
@@ -140,7 +151,7 @@ async function main() {
       );
     }
 
-    if (args.flags.help !== undefined || args.positional.includes("--help")) {
+    if (args.flags.help !== undefined) {
       showCommandHelp(command, cmd);
       return;
     }

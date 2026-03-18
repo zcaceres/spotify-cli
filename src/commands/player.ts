@@ -6,6 +6,7 @@
 
 import * as api from "../api/player.js";
 import { argsError, ErrorCode } from "../errors.js";
+import { identify } from "../identify.js";
 import { output } from "../output.js";
 import { optionalIntFlag, parseIntFlag } from "../parse.js";
 import { resolveInput, tryResolveItems } from "../resolve.js";
@@ -95,7 +96,7 @@ export const volumeCommand: CommandHandler = async (args) => {
  */
 export const shuffleCommand: CommandHandler = async (args) => {
   const state = args.positional[0];
-  if (state !== "on" && state !== "off") throw argsError("Usage: spotify shuffle <on|off>");
+  if (state !== "on" && state !== "off") throw argsError("Usage: spotify shuffle <on|off>", ErrorCode.INVALID_ARGUMENT);
   await api.setShuffle(state === "on", args.flags.device);
   output({ status: "shuffle_set", shuffle: state === "on" });
 };
@@ -106,7 +107,7 @@ export const shuffleCommand: CommandHandler = async (args) => {
 export const repeatCommand: CommandHandler = async (args) => {
   const state = args.positional[0];
   if (state !== "off" && state !== "track" && state !== "context") {
-    throw argsError("Usage: spotify repeat <off|track|context>");
+    throw argsError("Usage: spotify repeat <off|track|context>", ErrorCode.INVALID_ARGUMENT);
   }
   await api.setRepeat(state, args.flags.device);
   output({ status: "repeat_set", repeat: state });
@@ -126,10 +127,11 @@ export const queueCommand: CommandHandler = async () => {
 export const queueAddCommand: CommandHandler = async (args) => {
   const input = args.positional[0];
   if (!input) throw argsError("Usage: spotify queue add <uri>");
-  // If the input is already a full spotify: URI, pass it through directly
+  // If the input is a full spotify: URI, validate and pass it through directly
   // to preserve non-track URI types (episodes, etc.)
   if (input.startsWith("spotify:")) {
-    await api.addToQueue(input, args.flags.device);
+    const identified = identify(input); // throws on malformed URIs
+    await api.addToQueue(identified.kind === "uri" ? identified.uri : input, args.flags.device);
     output({ status: "added_to_queue", uri: input });
     return;
   }

@@ -7,15 +7,15 @@
 import * as api from "../api/albums.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
-import { optionalIntFlag, requireIds } from "../parse.js";
+import { extractId, optionalIntFlag, requireIds } from "../parse.js";
 import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify album <id>`. Outputs album details. */
 export const albumCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify album <id>");
-  const data = await api.getAlbum(id);
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify album <id>");
+  const data = await api.getAlbum(extractId(raw));
   output(data);
 };
 
@@ -25,8 +25,9 @@ export const albumCommand: CommandHandler = async (args) => {
  * Lists tracks in an album with optional pagination.
  */
 export const albumTracksCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify album tracks <id>");
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify album tracks <id>");
+  const id = extractId(raw);
   const limit = optionalIntFlag(args.flags, "limit");
   const offset = optionalIntFlag(args.flags, "offset");
   const data = await api.getAlbumTracks(id, { limit, offset });

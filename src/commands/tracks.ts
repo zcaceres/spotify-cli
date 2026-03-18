@@ -7,15 +7,15 @@
 import * as api from "../api/tracks.js";
 import { apiError, argsError, ErrorCode, SpotifyCliError } from "../errors.js";
 import { output } from "../output.js";
-import { optionalIntFlag, requireIds } from "../parse.js";
+import { extractId, optionalIntFlag, requireIds } from "../parse.js";
 import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
 /** Handles `spotify track <id>`. Outputs track details. */
 export const trackCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify track <id>");
-  const data = await api.getTrack(id);
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify track <id>");
+  const data = await api.getTrack(extractId(raw));
   output(data);
 };
 
@@ -63,8 +63,9 @@ export const removeTracksCommand: CommandHandler = async (args) => {
  * Outputs audio analysis features (danceability, energy, tempo, etc.) for a track.
  */
 export const audioFeaturesCommand: CommandHandler = async (args) => {
-  const id = args.positional[0];
-  if (!id) throw argsError("Usage: spotify track features <id>");
+  const raw = args.positional[0];
+  if (!raw) throw argsError("Usage: spotify track features <id>");
+  const id = extractId(raw);
   try {
     const data = await api.getAudioFeatures(id);
     output(data);
