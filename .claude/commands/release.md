@@ -19,18 +19,24 @@ Create a new release by bumping the version and pushing to main.
    - `package.json` → `"version"` field
    - `README.md` → version badge (`https://img.shields.io/badge/version-X.Y.Z-blue`)
 
-6. Run all checks:
+6. Update `CHANGELOG.md`:
+   - Add a new `## [X.Y.Z] - YYYY-MM-DD` section at the top (below the heading)
+   - Categorize commits since the last tag into sections: `### Added`, `### Changed`, `### Fixed`, `### Removed`
+   - Write concise, user-facing descriptions (not raw commit messages)
+   - Skip docs-only and CI-only changes unless they're significant
+
+7. Run all checks:
    - `bun run lint`
    - `bun run typecheck`
    - `bun test`
 
    If any check fails, stop and report the error. Do NOT commit.
 
-7. Stage only the changed files, commit with message: `release: vX.Y.Z`
+8. Stage only the changed files, commit with message: `release: vX.Y.Z`
 
-8. Push to main. The Release workflow in `.github/workflows/release.yml` will automatically:
+9. Push to main. The Release workflow in `.github/workflows/release.yml` will automatically:
    - Build cross-platform binaries
    - Create a GitHub release with auto-generated notes
    - Upload binaries as release assets
 
-9. Wait for the Release workflow to complete and report the result to the user. Include the release URL.
+10. Wait for the Release workflow to complete and report the result to the user. Include the release URL.
