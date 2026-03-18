@@ -43,6 +43,19 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Extract changelog
+        if: steps.tag_check.outputs.exists == 'false'
+        id: changelog
+        run: |
+          VERSION=$(jq -r .version package.json)
+          # Extract the section for this version from CHANGELOG.md
+          BODY=$(awk "/^## \[${VERSION}\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md)
+          if [ -z "$BODY" ]; then
+            BODY="Release ${VERSION}"
+          fi
+          # Write to file to preserve newlines
+          echo "$BODY" > /tmp/release-notes.md
+
       - name: Create release
         if: steps.tag_check.outputs.exists == 'false'
         env:
@@ -50,7 +63,7 @@ jobs:
         run: |
           gh release create "${{ steps.version.outputs.version }}" \
             --title "${{ steps.version.outputs.version }}" \
-            --generate-notes \
+            --notes-file /tmp/release-notes.md \
             dist/spotify-darwin-arm64 \
             dist/spotify-darwin-x64 \
             dist/spotify-linux-x64 \

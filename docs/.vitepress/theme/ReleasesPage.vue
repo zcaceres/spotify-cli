@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import MarkdownIt from 'markdown-it'
+
+const md = new MarkdownIt({ html: false, linkify: true })
 
 interface Asset {
   name: string
@@ -49,6 +52,10 @@ function formatDate(dateStr: string): string {
     month: 'long',
     day: 'numeric',
   })
+}
+
+function renderMarkdown(text: string): string {
+  return md.render(text)
 }
 
 onMounted(async () => {
@@ -123,7 +130,7 @@ onMounted(async () => {
 
         <details v-if="release.body" class="release-notes">
           <summary>Release notes</summary>
-          <div class="release-notes-body" v-html="release.body" />
+          <div class="release-notes-body" v-html="renderMarkdown(release.body)" />
         </details>
 
         <a :href="release.html_url" class="release-gh-link" target="_blank">
@@ -316,7 +323,31 @@ onMounted(async () => {
   border-radius: 8px;
   font-size: 0.9rem;
   line-height: 1.6;
-  white-space: pre-wrap;
+}
+
+.release-notes-body :deep(h3) {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 12px 0 4px;
+}
+
+.release-notes-body :deep(h4) {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 10px 0 4px;
+}
+
+.release-notes-body :deep(ul) {
+  padding-left: 20px;
+  margin: 4px 0;
+}
+
+.release-notes-body :deep(li) {
+  margin: 2px 0;
+}
+
+.release-notes-body :deep(a) {
+  color: var(--spotify-green);
 }
 
 .release-gh-link {
