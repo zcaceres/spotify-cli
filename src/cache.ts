@@ -74,10 +74,10 @@ export function flushCache(): void {
     const tmp = join(dir, `.cache.${process.pid}.tmp`);
     writeFileSync(tmp, JSON.stringify(cache), "utf-8");
     renameSync(tmp, CACHE_PATH);
+    dirty = false;
   } catch {
-    // Non-critical — cache write failure is acceptable
+    // Non-critical — keep dirty = true so a later flush can retry
   }
-  dirty = false;
 }
 
 /** Reset internal state (for testing). */

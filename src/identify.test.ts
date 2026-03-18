@@ -42,8 +42,19 @@ describe("identify", () => {
     expect(result).toEqual({ kind: "query", query: "this-is-not-a-spotify-id!" });
   });
 
-  test("rejects malformed URI as query", () => {
-    const result = identify("spotify:track:");
-    expect(result.kind).toBe("query");
+  test("throws on malformed URI with missing ID", () => {
+    expect(() => identify("spotify:track:")).toThrow(/Malformed Spotify URI/);
+  });
+
+  test("throws on malformed URI with invalid characters", () => {
+    expect(() => identify("spotify:album:bad!")).toThrow(/Malformed Spotify URI/);
+  });
+
+  test("throws on incomplete URI", () => {
+    expect(() => identify("spotify:")).toThrow(/Malformed Spotify URI/);
+  });
+
+  test("throws on URI with only type", () => {
+    expect(() => identify("spotify:track")).toThrow(/Malformed Spotify URI/);
   });
 });

@@ -19,6 +19,12 @@ export function identify(input: string): Identified {
     return { kind: "uri", type: uriMatch[1], id: uriMatch[2], uri: input };
   }
 
+  // Reject malformed spotify: URIs — don't let them fall through to search,
+  // which could silently resolve to an unrelated item.
+  if (input.startsWith("spotify:")) {
+    throw new Error(`Malformed Spotify URI: ${input}`);
+  }
+
   if (ID_RE.test(input)) {
     return { kind: "id", id: input };
   }
