@@ -23,15 +23,15 @@ const error = ref('')
 
 const REPO = 'zcaceres/spotify-cli'
 
-const platformInfo: Record<string, { label: string; icon: string }> = {
-  'darwin-arm64': { label: 'macOS (Apple Silicon)', icon: '' },
-  'darwin-x64': { label: 'macOS (Intel)', icon: '' },
-  'linux-x64': { label: 'Linux (x64)', icon: '' },
-  'linux-arm64': { label: 'Linux (ARM64)', icon: '' },
-  'windows-x64': { label: 'Windows (x64)', icon: '' },
+const platformInfo: Record<string, { label: string; svg: string }> = {
+  'darwin-arm64': { label: 'macOS (Apple Silicon)', svg: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.15 11.89c-.26.58-.38.84-.72 1.36-.47.72-1.13 1.62-1.95 1.63-.73.01-1.02-.47-1.95-.47-.93 0-1.25.46-1.93.49-.82.03-1.45-.88-1.92-1.6C2.36 11.28 1.3 8.2 2.71 6.13c.51-.74 1.33-1.2 2.2-1.21.78-.01 1.52.53 2 .53.47 0 1.36-.66 2.29-.56.39.02 1.49.16 2.19 1.18-.06.04-1.31.76-1.29 2.28.02 1.81 1.59 2.42 1.61 2.42-.01.04-.25.87-.56 1.12zM9.76 2.8c.36-.46.64-1.11.57-1.77-.55.04-1.2.39-1.57.85-.34.41-.63 1.07-.52 1.7.6.02 1.15-.34 1.52-.78z"/></svg>' },
+  'darwin-x64': { label: 'macOS (Intel)', svg: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.15 11.89c-.26.58-.38.84-.72 1.36-.47.72-1.13 1.62-1.95 1.63-.73.01-1.02-.47-1.95-.47-.93 0-1.25.46-1.93.49-.82.03-1.45-.88-1.92-1.6C2.36 11.28 1.3 8.2 2.71 6.13c.51-.74 1.33-1.2 2.2-1.21.78-.01 1.52.53 2 .53.47 0 1.36-.66 2.29-.56.39.02 1.49.16 2.19 1.18-.06.04-1.31.76-1.29 2.28.02 1.81 1.59 2.42 1.61 2.42-.01.04-.25.87-.56 1.12zM9.76 2.8c.36-.46.64-1.11.57-1.77-.55.04-1.2.39-1.57.85-.34.41-.63 1.07-.52 1.7.6.02 1.15-.34 1.52-.78z"/></svg>' },
+  'linux-x64': { label: 'Linux (x64)', svg: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.79 1 4 2.79 4 5v2.5c0 .83-.67 1.5-1.5 1.5H2v2h1c.17 0 .33.02.5.05C4.07 12.72 5.86 14 8 14s3.93-1.28 4.5-2.95c.17-.03.33-.05.5-.05h1v-2h-.5c-.83 0-1.5-.67-1.5-1.5V5c0-2.21-1.79-4-4-4zm-2 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm-4 3h4c0 1.1-.9 2-2 2s-2-.9-2-2z"/></svg>' },
+  'linux-arm64': { label: 'Linux (ARM64)', svg: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.79 1 4 2.79 4 5v2.5c0 .83-.67 1.5-1.5 1.5H2v2h1c.17 0 .33.02.5.05C4.07 12.72 5.86 14 8 14s3.93-1.28 4.5-2.95c.17-.03.33-.05.5-.05h1v-2h-.5c-.83 0-1.5-.67-1.5-1.5V5c0-2.21-1.79-4-4-4zm-2 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm-4 3h4c0 1.1-.9 2-2 2s-2-.9-2-2z"/></svg>' },
+  'windows-x64': { label: 'Windows (x64)', svg: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.2l5.5-.8v5.3H1V3.2zm0 9.6l5.5.8V8.3H1v4.5zM7.5 2.3L15 1v6.7H7.5V2.3zM15 8.3v6.7l-7.5-1V8.3H15z"/></svg>' },
 }
 
-function getPlatform(name: string): { label: string; icon: string } | null {
+function getPlatform(name: string): { label: string; svg: string } | null {
   for (const [key, info] of Object.entries(platformInfo)) {
     if (name.includes(key)) return info
   }
@@ -96,6 +96,7 @@ onMounted(async () => {
           <h2 :id="release.tag_name">
             <a :href="`#${release.tag_name}`" class="header-anchor">#</a>
             {{ release.name || release.tag_name }}
+            <span v-if="releases.indexOf(release) === 0 && !release.prerelease" class="badge latest-badge">latest</span>
             <span v-if="release.prerelease" class="badge prerelease-badge">pre-release</span>
           </h2>
           <time class="release-date">{{ formatDate(release.published_at) }}</time>
@@ -109,6 +110,7 @@ onMounted(async () => {
             class="asset-card"
           >
             <template v-if="getPlatform(asset.name)">
+              <span class="asset-icon" v-html="getPlatform(asset.name)!.svg" />
               <span class="asset-label">{{ getPlatform(asset.name)!.label }}</span>
               <span class="asset-size">{{ formatSize(asset.size) }}</span>
             </template>
@@ -230,6 +232,11 @@ onMounted(async () => {
   margin-left: 8px;
 }
 
+.latest-badge {
+  background: rgba(29, 185, 84, 0.15);
+  color: #1DB954;
+}
+
 .prerelease-badge {
   background: rgba(234, 179, 8, 0.15);
   color: #eab308;
@@ -266,8 +273,10 @@ onMounted(async () => {
 }
 
 .asset-icon {
-  font-size: 1.2rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--vp-c-text-2);
 }
 
 .asset-label {

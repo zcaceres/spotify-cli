@@ -7,6 +7,7 @@ import { withBase } from 'vitepress'
     <!-- Hero -->
     <section class="hero">
       <div class="hero-content">
+        <img :src="withBase('/logo.svg')" alt="Spotify CLI" class="hero-logo" width="80" height="80" />
         <span class="overline">Open Source CLI</span>
         <h1 class="headline">Control Spotify<br>from your AI Agent</h1>
         <p class="subtitle">
@@ -113,6 +114,11 @@ import { withBase } from 'vitepress'
   flex-direction: column;
   align-items: center;
   gap: 16px;
+}
+
+.hero-logo {
+  width: 80px;
+  height: 80px;
 }
 
 .overline {
