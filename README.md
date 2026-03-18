@@ -2,11 +2,11 @@
 
 [![CI](https://github.com/zcaceres/spotify-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/zcaceres/spotify-cli/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-0.1.1-blue)
 
 Secure, agent (and human) friendly CLI for playback, search, playlists, and library management. JSON output. PKCE auth.
 
-**[Documentation](https://zcaceres.github.io/spotify-cli/)** · **[Command Reference](https://zcaceres.github.io/spotify-cli/commands)** · **[Releases](https://github.com/zcaceres/spotify-cli/releases)**
+**[Documentation](https://docs.zach.dev/spotify-cli/)** · **[Command Reference](https://docs.zach.dev/spotify-cli/commands)** · **[Releases](https://github.com/zcaceres/spotify-cli/releases)**
 
 ## Quick start
 
@@ -53,7 +53,7 @@ spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
 - **40 commands** — playback, search, library, playlists, albums, user profile
 - **JSON to stdout** — pipe to `jq`, scripts, or AI agents
 - **PKCE auth** — no client secret, tokens refresh automatically
-- **Structured errors** — JSON to stderr with [error codes](https://zcaceres.github.io/spotify-cli/commands#exit-codes) and exit codes
+- **Structured errors** — JSON to stderr with [error codes](https://docs.zach.dev/spotify-cli/commands#exit-codes) and exit codes
 - **Zero config** — single binary, no runtime dependencies
 
 ## Exit codes
