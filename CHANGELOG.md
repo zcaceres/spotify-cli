@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.2.0] - 2026-03-18
 
 ### Added
 - **Search-then-act** — mutation commands (`track save`, `queue add`, `follow`, `playlist add`, etc.) now accept human-readable names in place of Spotify IDs. The CLI searches for the top match and acts on it, showing what was matched in the `searched` field.
