@@ -19,10 +19,13 @@ import { withBase } from 'vitepress'
         <a :href="withBase('/api/')" class="btn btn-secondary">API Reference</a>
       </div>
       <div class="code-preview">
-        <div class="code-line code-dim">$ spotify search "Kind of Blue" --type album</div>
-        <div class="code-line code-muted">{ "albums": [{ "name": "Kind of Blue", ... }] }</div>
-        <div class="code-line code-dim" style="padding-top: 8px">$ spotify play --uri spotify:album:1weenld61qoidwYuZ1GESA</div>
-        <div class="code-line code-green">{ "status": "playing" }</div>
+        <div class="code-line code-dim">$ spotify queue add "bohemian rhapsody"</div>
+        <div class="code-line code-muted">{ "status": "added_to_queue",</div>
+        <div class="code-line code-muted">&nbsp;&nbsp;"items": [{ "name": "Bohemian Rhapsody",</div>
+        <div class="code-line code-green">&nbsp;&nbsp;&nbsp;&nbsp;"artist": "Queen", "album": "A Night at the Opera" }] }</div>
+        <div class="code-line code-dim" style="padding-top: 8px">$ spotify track save 4uLU6hMCjMI75M1A2tKUQC</div>
+        <div class="code-line code-muted">{ "status": "saved",</div>
+        <div class="code-line code-green">&nbsp;&nbsp;"items": [{ "name": "Never Gonna Give You Up", "artist": "Rick Astley" }] }</div>
       </div>
     </section>
 
@@ -44,7 +47,16 @@ import { withBase } from 'vitepress'
           <path d="M22 8L26 16L22 24" stroke="#1DB954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M18 6L14 26" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
         </svg>
-        <h3>JSON-First Output</h3>
+        <h3>Enriched Output</h3>
+        <p>Spotify's API returns opaque IDs. We resolve them to names, artists, and albums — readable by both humans and AI agents.</p>
+      </div>
+      <div class="feature-card">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M6 10H26M6 16H20M6 22H24" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="28" cy="22" r="3" stroke="#1DB954" stroke-width="1.5" fill="none" />
+          <path d="M28 20V24M26 22H30" stroke="#1DB954" stroke-width="1" stroke-linecap="round" opacity="0.5" />
+        </svg>
+        <h3>Structured Errors</h3>
         <p>Structured JSON to stdout, errors to stderr. Machine-readable exit codes for every failure type.</p>
       </div>
       <div class="feature-card">
@@ -233,6 +245,7 @@ import { withBase } from 'vitepress'
 /* ── Features ── */
 .features {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   justify-content: center;
   padding: 64px 64px 80px;

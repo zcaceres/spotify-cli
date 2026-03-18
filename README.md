@@ -46,12 +46,14 @@ spotify login --client-id <your-client-id>
 spotify now                                    # what's playing
 spotify search "bohemian rhapsody" --type track # search
 spotify play --uri spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
+spotify track saved --limit 5 | jq '.items[].track.name'  # pipe JSON anywhere
 ```
 
 ## Features
 
 - **40 commands** — playback, search, library, playlists, albums, user profile
+- **Search-then-act** — pass human-readable names where IDs are expected (e.g. `spotify queue add "bohemian rhapsody"`)
+- **Enriched output** — Spotify's API returns opaque IDs for mutations; we resolve them to human/agent-readable names, artists, and albums automatically
 - **JSON to stdout** — pipe to `jq`, scripts, or AI agents
 - **PKCE auth** — no client secret, tokens refresh automatically
 - **Structured errors** — JSON to stderr with [error codes](https://spotify-cli.zach.dev/commands#exit-codes) and exit codes
@@ -70,6 +72,7 @@ spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
 ## Known limitations
 
 - `track features` and `track recommendations` are restricted for Spotify apps created after November 2024 unless you have extended quota mode approval.
+- As of February 2026, Spotify apps in development mode can no longer use batch endpoints. The CLI fetches items individually, which works but is slower for large operations. Apps with extended quota mode are unaffected.
 - Queue and playback state schemas handle tracks only, not podcast episodes.
 
 ## License

@@ -178,11 +178,30 @@ $ spotify queue
 
 ### queue add <Badge type="info" text="PLAYER" />
 
-Add a track to the end of the playback queue.
+Add a track to the end of the playback queue. Accepts a Spotify URI, a track ID, or a human-readable search query.
 
 ```sh
-$ spotify queue add <uri> [--device <id>]
+$ spotify queue add <uri|id|query> [--device <id>]
 ```
+
+```sh
+$ spotify queue add "bohemian rhapsody"
+```
+
+```json
+{
+  "status": "added_to_queue",
+  "uri": "spotify:track:1BvDpRRJj7aYJfYUrxyH5N",
+  "items": [
+    { "type": "track", "id": "1BvDpRRJj7aYJfYUrxyH5N", "name": "Bohemian Rhapsody", "artist": "Queen", "album": "The Best Songs Of All Time" }
+  ],
+  "searched": [
+    { "query": "bohemian rhapsody", "match": { "type": "track", "id": "1BvDpRRJj7aYJfYUrxyH5N", "name": "Bohemian Rhapsody", "artist": "Queen" } }
+  ]
+}
+```
+
+The `searched` field only appears when a search was performed. Full `spotify:` URIs are passed through directly.
 
 ### devices <Badge type="info" text="PLAYER" />
 
@@ -319,18 +338,37 @@ $ spotify track saved [--limit <n>] [--offset <n>]
 
 ### track save <Badge type="info" text="TRACKS" />
 
-Save one or more tracks to your library.
+Save one or more tracks to your library. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify track save <id...>
+$ spotify track save <id|query...>
 ```
+
+```sh
+$ spotify track save "bohemian rhapsody"
+```
+
+```json
+{
+  "status": "saved",
+  "ids": ["4uLU6hMCjMI75M1A2tKUQC"],
+  "items": [
+    { "type": "track", "id": "4uLU6hMCjMI75M1A2tKUQC", "name": "Bohemian Rhapsody", "artist": "Queen", "album": "A Night at the Opera" }
+  ],
+  "searched": [
+    { "query": "bohemian rhapsody", "match": { "type": "track", "id": "4uLU6hMCjMI75M1A2tKUQC", "name": "Bohemian Rhapsody", "artist": "Queen" } }
+  ]
+}
+```
+
+The `items` field enriches Spotify's opaque IDs with human-readable metadata. The `searched` field only appears when a search query was used instead of a direct ID.
 
 ### track remove <Badge type="info" text="TRACKS" />
 
-Remove one or more tracks from your library.
+Remove one or more tracks from your library. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify track remove <id...>
+$ spotify track remove <id|query...>
 ```
 
 </div>
@@ -367,18 +405,18 @@ $ spotify album saved [--limit <n>] [--offset <n>]
 
 ### album save <Badge type="info" text="ALBUMS" />
 
-Save one or more albums to your library.
+Save one or more albums to your library. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify album save <id...>
+$ spotify album save <id|query...>
 ```
 
 ### album remove <Badge type="info" text="ALBUMS" />
 
-Remove one or more albums from your library.
+Remove one or more albums from your library. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify album remove <id...>
+$ spotify album remove <id|query...>
 ```
 
 </div>
@@ -413,16 +451,16 @@ $ spotify playlist tracks <id> [--limit <n>] [--offset <n>]
 
 ### playlist add <Badge type="info" text="PLAYLISTS" />
 
-Add tracks to a playlist at an optional position.
+Add tracks to a playlist at an optional position. Track arguments accept Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify playlist add <playlist_id> <uri...> [--position <n>]
+$ spotify playlist add <playlist_id> <uri|id|query...> [--position <n>]
 ```
 
 | Option | Type | Description |
 |---|---|---|
 | `<playlist_id>` | `string` | Target playlist ID |
-| `<uri...>` | `string` | One or more Spotify track URIs |
+| `<uri\|id\|query...>` | `string` | One or more track URIs, IDs, or search queries |
 | `--position` | `integer` | Zero-based insert position |
 
 ### playlist remove <Badge type="info" text="PLAYLISTS" />
@@ -436,7 +474,7 @@ $ spotify playlist remove <playlist_id> [uri...] [--match <name>] [--index <n>]
 | Option | Type | Description |
 |---|---|---|
 | `<playlist_id>` | `string` | Target playlist ID |
-| `[uri...]` | `string` | Track URIs to remove |
+| `[uri\|id\|query...]` | `string` | Track URIs, IDs, or search queries to remove |
 | `--match` | `string` | Remove tracks matching name or artist name (repeatable) |
 | `--index` | `string` | Remove tracks at 1-based positions (comma-separated, repeatable) |
 
@@ -516,18 +554,18 @@ $ spotify following [--limit <n>] [--after <artist_id>]
 
 ### follow <Badge type="info" text="USER" />
 
-Follow one or more artists.
+Follow one or more artists. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify follow <id...>
+$ spotify follow <id|query...>
 ```
 
 ### unfollow <Badge type="info" text="USER" />
 
-Unfollow one or more artists.
+Unfollow one or more artists. Accepts Spotify IDs, URIs, or human-readable search queries.
 
 ```sh
-$ spotify unfollow <id...>
+$ spotify unfollow <id|query...>
 ```
 
 </div>

@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **Search-then-act** — mutation commands (`track save`, `queue add`, `follow`, `playlist add`, etc.) now accept human-readable names in place of Spotify IDs. The CLI searches for the top match and acts on it, showing what was matched in the `searched` field.
+- **Enriched output** — Spotify's mutation APIs return only opaque IDs. The CLI now resolves them to human/agent-readable metadata (track name, artist, album) in a new `items` field, while preserving the `ids` field for backward compatibility.
+- **Metadata cache** — resolved metadata is cached to `~/.spotify-cli/cache.json` (LRU, max 500 entries) so repeated invocations skip extra API calls.
+- Input identification heuristic: Spotify URIs and 22-char base-62 IDs are used directly; anything else triggers a search. Malformed `spotify:` URIs are rejected with an error.
+
+### Changed
+- Replaced batch API endpoints (`GET /tracks?ids=`, etc.) with individual fetches. Spotify removed batch endpoints for apps in development mode as of February 2026.
+
 ## [0.1.2] - 2026-03-18
 
 ### Fixed

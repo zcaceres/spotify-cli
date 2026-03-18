@@ -69,10 +69,17 @@ spotify search "bohemian rhapsody" --type track
 spotify play --uri spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 ```
 
+Save or queue tracks by name — no need to look up IDs:
+
+```bash
+spotify track save "bohemian rhapsody"
+spotify queue add "never gonna give you up"
+```
+
 Browse your saved library:
 
 ```bash
-spotify liked --limit 5
+spotify track saved --limit 5
 spotify playlist list
 ```
 
@@ -80,7 +87,7 @@ Control playback:
 
 ```bash
 spotify pause
-spotify skip
+spotify next
 spotify volume 80
 ```
 
@@ -90,7 +97,7 @@ All output is JSON to stdout, making it easy to pipe into other tools:
 
 ```bash
 spotify now | jq '.item.name'
-spotify liked --limit 50 | jq '[.items[].track.name]'
+spotify track saved --limit 50 | jq '[.items[].track.name]'
 ```
 
 Errors are written to stderr as JSON with structured [error codes](/commands#exit-codes).
