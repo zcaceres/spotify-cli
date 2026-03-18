@@ -1,3 +1,7 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 <template>
   <div class="home-page">
     <!-- Hero -->
@@ -10,8 +14,8 @@
         </p>
       </div>
       <div class="cta-buttons">
-        <a href="/guide/getting-started" class="btn btn-primary">Get Started</a>
-        <a href="/api/" class="btn btn-secondary">API Reference</a>
+        <a :href="withBase('/guide/getting-started')" class="btn btn-primary">Get Started</a>
+        <a :href="withBase('/api/')" class="btn btn-secondary">API Reference</a>
       </div>
       <div class="code-preview">
         <div class="code-line code-dim">$ spotify search "Kind of Blue" --type album</div>

@@ -11,6 +11,12 @@ chmod +x spotify-darwin-arm64
 sudo mv spotify-darwin-arm64 /usr/local/bin/spotify
 ```
 
+On macOS, you'll need to remove the quarantine flag since the binary isn't signed:
+
+```bash
+xattr -d com.apple.quarantine /usr/local/bin/spotify
+```
+
 Verify the installation:
 
 ```bash

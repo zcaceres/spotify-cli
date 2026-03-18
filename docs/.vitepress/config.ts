@@ -12,7 +12,7 @@ export default defineConfig({
   appearance: 'dark',
   themeConfig: {
     nav: [
-      { text: 'Guide', link: '/guide/getting-started' },
+      { text: 'Getting Started', link: '/guide/getting-started' },
       { text: 'Commands', link: '/commands' },
       { text: 'API Reference', link: '/api/' },
       { text: 'Releases', link: '/releases' },

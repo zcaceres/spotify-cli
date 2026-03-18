@@ -16,6 +16,7 @@ Download the latest binary for your platform from [Releases](https://github.com/
 
 ```bash
 chmod +x spotify-darwin-arm64
+xattr -d com.apple.quarantine spotify-darwin-arm64  # macOS only
 sudo mv spotify-darwin-arm64 /usr/local/bin/spotify
 ```
 

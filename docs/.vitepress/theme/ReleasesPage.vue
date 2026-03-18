@@ -24,11 +24,11 @@ const error = ref('')
 const REPO = 'zcaceres/spotify-cli'
 
 const platformInfo: Record<string, { label: string; icon: string }> = {
-  'darwin-arm64': { label: 'macOS (Apple Silicon)', icon: '🍎' },
-  'darwin-x64': { label: 'macOS (Intel)', icon: '🍎' },
-  'linux-x64': { label: 'Linux (x64)', icon: '🐧' },
-  'linux-arm64': { label: 'Linux (ARM64)', icon: '🐧' },
-  'windows-x64': { label: 'Windows (x64)', icon: '🪟' },
+  'darwin-arm64': { label: 'macOS (Apple Silicon)', icon: '' },
+  'darwin-x64': { label: 'macOS (Intel)', icon: '' },
+  'linux-x64': { label: 'Linux (x64)', icon: '' },
+  'linux-arm64': { label: 'Linux (ARM64)', icon: '' },
+  'windows-x64': { label: 'Windows (x64)', icon: '' },
 }
 
 function getPlatform(name: string): { label: string; icon: string } | null {
@@ -109,12 +109,10 @@ onMounted(async () => {
             class="asset-card"
           >
             <template v-if="getPlatform(asset.name)">
-              <span class="asset-icon">{{ getPlatform(asset.name)!.icon }}</span>
               <span class="asset-label">{{ getPlatform(asset.name)!.label }}</span>
               <span class="asset-size">{{ formatSize(asset.size) }}</span>
             </template>
             <template v-else>
-              <span class="asset-icon">📦</span>
               <span class="asset-label">{{ asset.name }}</span>
               <span class="asset-size">{{ formatSize(asset.size) }}</span>
             </template>
