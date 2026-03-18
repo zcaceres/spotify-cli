@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/spotify-cli/',
+  base: '/',
   title: 'Spotify CLI',
   description: 'A command-line interface for the Spotify API',
   head: [

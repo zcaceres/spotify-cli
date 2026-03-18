@@ -6,7 +6,7 @@
 
 Secure, agent (and human) friendly CLI for playback, search, playlists, and library management. JSON output. PKCE auth.
 
-**[Documentation](https://docs.zach.dev/spotify-cli/)** · **[Command Reference](https://docs.zach.dev/spotify-cli/commands)** · **[Releases](https://github.com/zcaceres/spotify-cli/releases)**
+**[Documentation](https://spotify-cli.zach.dev/)** · **[Command Reference](https://spotify-cli.zach.dev/commands)** · **[Releases](https://github.com/zcaceres/spotify-cli/releases)**
 
 ## Quick start
 
@@ -54,7 +54,7 @@ spotify liked --limit 5 | jq '.[].track.name'  # pipe JSON anywhere
 - **40 commands** — playback, search, library, playlists, albums, user profile
 - **JSON to stdout** — pipe to `jq`, scripts, or AI agents
 - **PKCE auth** — no client secret, tokens refresh automatically
-- **Structured errors** — JSON to stderr with [error codes](https://docs.zach.dev/spotify-cli/commands#exit-codes) and exit codes
+- **Structured errors** — JSON to stderr with [error codes](https://spotify-cli.zach.dev/commands#exit-codes) and exit codes
 - **Zero config** — single binary, no runtime dependencies
 
 ## Exit codes
