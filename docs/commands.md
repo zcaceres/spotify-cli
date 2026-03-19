@@ -93,7 +93,7 @@ $ spotify play [--uri <uri>] [--context <uri>] [--device <id>] [--offset <n>] [-
 | Option | Type | Description |
 |---|---|---|
 | `--uri` | `string` | Spotify URI of a track to play |
-| `--context` | `string` | Context URI (album, playlist, artist) |
+| `--context` | `string` | Context URI (album, playlist, or artist) to play within |
 | `--device` | `string` | Target device ID |
 | `--offset` | `integer` | Zero-based track offset within context |
 | `--position` | `integer` | Start position in milliseconds |
@@ -253,7 +253,7 @@ $ spotify search <query> [--type <type>] [--limit <n>] [--offset <n>]
 | Option | Type | Default | Description |
 |---|---|---|---|
 | `<query>` | `string` | | Search query (multiple words joined) |
-| `--type` | `string` | `track` | Comma-separated types: `track`, `album`, `artist`, `playlist` |
+| `--type` | `string` | `track` | Comma-separated types: `track`, `album`, `artist`, `playlist`, `show`, `episode` |
 | `--limit` | `integer` | | Number of results to return |
 | `--offset` | `integer` | | Result offset for pagination |
 
@@ -277,18 +277,18 @@ Look up individual tracks, analyze audio features, get recommendations, and mana
 
 ### track <Badge type="info" text="TRACKS" />
 
-Get detailed track metadata.
+Get detailed track metadata. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify track <id>
+$ spotify track <id|uri>
 ```
 
 ### track features <Badge type="info" text="TRACKS" />
 
-Get audio analysis features for a track.
+Get audio analysis features for a track. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify track features <id>
+$ spotify track features <id|uri>
 ```
 
 ::: warning Deprecated
@@ -379,18 +379,18 @@ Fetch album metadata, list album tracks, and manage your saved album library.
 
 ### album <Badge type="info" text="ALBUMS" />
 
-Get album details and metadata.
+Get album details and metadata. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify album <id>
+$ spotify album <id|uri>
 ```
 
 ### album tracks <Badge type="info" text="ALBUMS" />
 
-List all tracks in an album.
+List all tracks in an album. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify album tracks <id> [--limit <n>] [--offset <n>]
+$ spotify album tracks <id|uri> [--limit <n>] [--offset <n>]
 ```
 
 <div class="compact-grid">
@@ -427,10 +427,10 @@ Create, modify, and browse playlists. Supports adding and removing tracks by URI
 
 ### playlist <Badge type="info" text="PLAYLISTS" />
 
-Get playlist details and metadata.
+Get playlist details and metadata. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify playlist <id>
+$ spotify playlist <id|uri>
 ```
 
 ### playlist list <Badge type="info" text="PLAYLISTS" />
@@ -443,10 +443,10 @@ $ spotify playlist list [--limit <n>] [--offset <n>]
 
 ### playlist tracks <Badge type="info" text="PLAYLISTS" />
 
-List tracks in a playlist.
+List tracks in a playlist. Accepts a Spotify ID or full URI.
 
 ```sh
-$ spotify playlist tracks <id> [--limit <n>] [--offset <n>]
+$ spotify playlist tracks <id|uri> [--limit <n>] [--offset <n>]
 ```
 
 ### playlist add <Badge type="info" text="PLAYLISTS" />
@@ -585,5 +585,5 @@ All commands use consistent exit codes for scripting and automation.
 Errors are written to stderr as JSON:
 
 ```json
-{ "error": "No active device found", "details": { "status": 404 } }
+{ "error": "No active device found", "details": { "code": "NOT_FOUND", "status": 404, "path": "/me/player/seek" } }
 ```

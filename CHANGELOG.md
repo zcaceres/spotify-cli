@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-03-18
+
+### Fixed
+- Detail commands (`track`, `album`, `playlist`, `album tracks`, `playlist tracks`, `track features`) now accept full Spotify URIs — previously only bare IDs worked, and URIs caused a 400 error.
+- `queue add` validates malformed `spotify:` URIs client-side instead of leaking API 400/500 errors.
+- Flag parser correctly handles negative numbers with space syntax (e.g. `--limit -5` now errors instead of silently corrupting the query).
+- `shuffle`, `repeat`, and `top` commands use `INVALID_ARGUMENT` error code when a value is provided but not valid (was `MISSING_ARGUMENT`).
+- Unknown subcommands (e.g. `auth blah`) now return an error instead of silently showing subcommand help with exit 0.
+- `--help` after the `--` separator is treated as a literal positional argument, not a help trigger.
+
 ## [0.2.0] - 2026-03-18
 
 ### Added
