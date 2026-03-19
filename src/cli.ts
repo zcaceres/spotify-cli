@@ -68,7 +68,7 @@ export function parseArgs(argv: string[]): { command: string; args: ParsedArgs }
         const next = raw[i + 1];
         // Consume the next token as the flag value unless it looks like another flag.
         // A single "-" followed by a digit (e.g. "-5") is a negative number, not a flag.
-        const isNextFlag = next !== undefined && next.startsWith("-") && !/^-\d/.test(next);
+        const isNextFlag = next?.startsWith("-") && !/^-\d/.test(next);
         if (next !== undefined && !isNextFlag) {
           value = next;
           i++;
