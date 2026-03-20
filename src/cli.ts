@@ -113,13 +113,10 @@ function showCommandHelp(command: string, cmd: { description: string; usage?: st
 
 async function main() {
   try {
-    const { command, args } = parseArgs(process.argv);
-
-    // Extract --text flag before dispatching
-    if (args.flags.text !== undefined) {
-      setOutputMode("text");
-      delete args.flags.text;
-    }
+    // Strip --text before parsing so it doesn't consume the next positional arg
+    const argv = process.argv.filter((a) => a !== "--text");
+    if (argv.length < process.argv.length) setOutputMode("text");
+    const { command, args } = parseArgs(argv);
 
     if (command === "--version" || command === "-V") {
       setTextFormatter(formatVersion);

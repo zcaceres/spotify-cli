@@ -146,6 +146,16 @@ describe("formatQueue", () => {
     expect(result).toContain("2. Song C - Artist C");
   });
 
+  test("shows queue is empty when playing but queue is empty", () => {
+    const data = {
+      currently_playing: { name: "Song A", artists: [{ name: "Artist A" }] },
+      queue: [],
+    };
+    const result = formatQueue(data);
+    expect(result).toContain("Now playing: Song A - Artist A");
+    expect(result).toContain("Queue is empty");
+  });
+
   test("handles null data", () => {
     expect(formatQueue(null)).toBe("(empty queue)");
   });

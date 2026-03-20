@@ -212,6 +212,40 @@ describe("parseArgs errors", () => {
   });
 });
 
+// --- --text flag integration ---
+
+describe("--text flag", () => {
+  test("--text does not consume the next positional argument", async () => {
+    const proc = Bun.spawn(["bun", "run", "src/cli.ts", "help", "--text"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const text = await new Response(proc.stdout).text();
+    expect(text).toContain("Commands:");
+    expect(text).not.toContain("{");
+  });
+
+  test("--text before positional arg does not eat it", async () => {
+    const proc = Bun.spawn(["bun", "run", "src/cli.ts", "--version", "--text"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const text = await new Response(proc.stdout).text();
+    expect(text).toContain("spotify-cli v");
+    expect(text).not.toContain("{");
+  });
+
+  test("error output includes error code in text mode", async () => {
+    const proc = Bun.spawn(["bun", "run", "src/cli.ts", "nonexistent", "--text"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const stderr = await new Response(proc.stderr).text();
+    expect(stderr).toContain("Error:");
+    expect(stderr).toContain("[UNKNOWN_COMMAND]");
+  });
+});
+
 // --- original multiFlags tests ---
 
 describe("parseArgs multiFlags", () => {

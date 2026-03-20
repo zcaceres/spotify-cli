@@ -98,7 +98,8 @@ export function output(data: unknown): void {
  */
 export function logError(message: string, details?: Record<string, unknown>): void {
   if (outputMode === "text") {
-    console.error(`Error: ${message}`);
+    const code = details?.code ? ` [${details.code}]` : "";
+    console.error(`Error: ${message}${code}`);
   } else {
     const obj: Record<string, unknown> = { error: message };
     if (details !== undefined) obj.details = details;

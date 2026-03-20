@@ -129,7 +129,7 @@ export function formatQueue(data: unknown): string {
   if (queue && queue.length > 0) {
     lines.push("Queue:");
     lines.push(numberedList(queue, trackLine));
-  } else if (!currently) {
+  } else {
     lines.push("Queue is empty");
   }
   return lines.join("\n");
