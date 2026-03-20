@@ -3,7 +3,8 @@
 import { commands, type ParsedArgs } from "./commands/index.js";
 import { VERSION } from "./config.js";
 import { argsError, ErrorCode } from "./errors.js";
-import { handleError, output } from "./output.js";
+import { formatCommandHelp, formatHelp, formatVersion } from "./formatters.js";
+import { handleError, output, setOutputMode, setTextFormatter } from "./output.js";
 
 /** Collect subcommands for a given parent command prefix. */
 function getSubcommands(parent: string): Record<string, string> {
@@ -114,12 +115,20 @@ async function main() {
   try {
     const { command, args } = parseArgs(process.argv);
 
+    // Extract --text flag before dispatching
+    if (args.flags.text !== undefined) {
+      setOutputMode("text");
+      delete args.flags.text;
+    }
+
     if (command === "--version" || command === "-V") {
+      setTextFormatter(formatVersion);
       output({ version: VERSION });
       return;
     }
 
     if (command === "help" || command === "--help" || command === "-h") {
+      setTextFormatter(formatHelp);
       showHelp();
       return;
     }
@@ -138,6 +147,7 @@ async function main() {
             ErrorCode.UNKNOWN_COMMAND,
           );
         }
+        setTextFormatter(formatCommandHelp);
         output({
           command,
           usage: `spotify ${command} <subcommand>`,
@@ -152,10 +162,12 @@ async function main() {
     }
 
     if (args.flags.help !== undefined) {
+      setTextFormatter(formatCommandHelp);
       showCommandHelp(command, cmd);
       return;
     }
 
+    if (cmd.textFormat) setTextFormatter(cmd.textFormat);
     await cmd.handler(args);
   } catch (err) {
     handleError(err);
