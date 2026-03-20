@@ -120,10 +120,11 @@ async function main() {
     const argv: string[] = [];
     let isTextMode = false;
     for (let i = 0; i < process.argv.length; i++) {
-      if (i < boundary && (process.argv[i] === "--text" || process.argv[i]!.startsWith("--text="))) {
+      const arg = process.argv[i] as string;
+      if (i < boundary && (arg === "--text" || arg.startsWith("--text="))) {
         isTextMode = true;
       } else {
-        argv.push(process.argv[i]!);
+        argv.push(arg);
       }
     }
     if (isTextMode) setOutputMode("text");

@@ -276,7 +276,20 @@ export function formatTrackRemove(data: unknown): string {
 export function formatAudioFeatures(data: unknown): string {
   if (typeof data !== "object" || data === null) return str(data);
   const d = data as Rec;
-  const keys = ["danceability", "energy", "tempo", "valence", "acousticness", "instrumentalness", "liveness", "speechiness", "loudness", "key", "mode", "time_signature"];
+  const keys = [
+    "danceability",
+    "energy",
+    "tempo",
+    "valence",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "speechiness",
+    "loudness",
+    "key",
+    "mode",
+    "time_signature",
+  ];
   const lines: string[] = [];
   for (const k of keys) {
     if (k in d) lines.push(`${k}: ${d[k]}`);

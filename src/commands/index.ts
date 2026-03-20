@@ -30,6 +30,7 @@ export interface CommandDef {
   textFormat: (data: unknown) => string;
 }
 
+import * as fmt from "../formatters.js";
 import {
   albumCommand,
   albumTracksCommand,
@@ -72,7 +73,6 @@ import {
   trackCommand,
 } from "./tracks.js";
 import { followCommand, followingCommand, meCommand, topCommand, unfollowCommand } from "./user.js";
-import * as fmt from "../formatters.js";
 
 /** Registry of all CLI commands, keyed by command name (space-separated for subcommands). */
 export const commands = new Map<string, CommandDef>([
@@ -86,24 +86,93 @@ export const commands = new Map<string, CommandDef>([
       textFormat: fmt.formatLogin,
     },
   ],
-  ["logout", { handler: logoutCommand, description: "Clear stored tokens", usage: "spotify logout", textFormat: fmt.formatLogout }],
+  [
+    "logout",
+    {
+      handler: logoutCommand,
+      description: "Clear stored tokens",
+      usage: "spotify logout",
+      textFormat: fmt.formatLogout,
+    },
+  ],
   [
     "auth status",
-    { handler: authStatusCommand, description: "Show token validity & scopes", usage: "spotify auth status", textFormat: fmt.formatAuthStatus },
+    {
+      handler: authStatusCommand,
+      description: "Show token validity & scopes",
+      usage: "spotify auth status",
+      textFormat: fmt.formatAuthStatus,
+    },
   ],
 
   // Player
-  ["now", { handler: nowCommand, description: "Currently playing track", usage: "spotify now", textFormat: fmt.formatNow }],
+  [
+    "now",
+    { handler: nowCommand, description: "Currently playing track", usage: "spotify now", textFormat: fmt.formatNow },
+  ],
   [
     "play",
-    { handler: playCommand, description: "Start/resume playback", usage: "spotify play [--uri <uri>] [--device <id>]", textFormat: fmt.formatPlay },
+    {
+      handler: playCommand,
+      description: "Start/resume playback",
+      usage: "spotify play [--uri <uri>] [--device <id>]",
+      textFormat: fmt.formatPlay,
+    },
   ],
-  ["pause", { handler: pauseCommand, description: "Pause playback", usage: "spotify pause [--device <id>]", textFormat: fmt.formatPause }],
-  ["next", { handler: nextCommand, description: "Skip to next track", usage: "spotify next [--device <id>]", textFormat: fmt.formatNext }],
-  ["prev", { handler: prevCommand, description: "Skip to previous track", usage: "spotify prev [--device <id>]", textFormat: fmt.formatPrev }],
-  ["seek", { handler: seekCommand, description: "Seek to position (ms)", usage: "spotify seek <ms>", textFormat: fmt.formatSeek }],
-  ["volume", { handler: volumeCommand, description: "Set volume (0-100)", usage: "spotify volume <0-100>", textFormat: fmt.formatVolume }],
-  ["shuffle", { handler: shuffleCommand, description: "Toggle shuffle (on|off)", usage: "spotify shuffle <on|off>", textFormat: fmt.formatShuffle }],
+  [
+    "pause",
+    {
+      handler: pauseCommand,
+      description: "Pause playback",
+      usage: "spotify pause [--device <id>]",
+      textFormat: fmt.formatPause,
+    },
+  ],
+  [
+    "next",
+    {
+      handler: nextCommand,
+      description: "Skip to next track",
+      usage: "spotify next [--device <id>]",
+      textFormat: fmt.formatNext,
+    },
+  ],
+  [
+    "prev",
+    {
+      handler: prevCommand,
+      description: "Skip to previous track",
+      usage: "spotify prev [--device <id>]",
+      textFormat: fmt.formatPrev,
+    },
+  ],
+  [
+    "seek",
+    {
+      handler: seekCommand,
+      description: "Seek to position (ms)",
+      usage: "spotify seek <ms>",
+      textFormat: fmt.formatSeek,
+    },
+  ],
+  [
+    "volume",
+    {
+      handler: volumeCommand,
+      description: "Set volume (0-100)",
+      usage: "spotify volume <0-100>",
+      textFormat: fmt.formatVolume,
+    },
+  ],
+  [
+    "shuffle",
+    {
+      handler: shuffleCommand,
+      description: "Toggle shuffle (on|off)",
+      usage: "spotify shuffle <on|off>",
+      textFormat: fmt.formatShuffle,
+    },
+  ],
   [
     "repeat",
     {
@@ -113,17 +182,46 @@ export const commands = new Map<string, CommandDef>([
       textFormat: fmt.formatRepeat,
     },
   ],
-  ["queue", { handler: queueCommand, description: "Show playback queue", usage: "spotify queue", textFormat: fmt.formatQueue }],
+  [
+    "queue",
+    { handler: queueCommand, description: "Show playback queue", usage: "spotify queue", textFormat: fmt.formatQueue },
+  ],
   [
     "queue add",
-    { handler: queueAddCommand, description: "Add track to queue", usage: "spotify queue add <uri> [--device <id>]", textFormat: fmt.formatQueueAdd },
+    {
+      handler: queueAddCommand,
+      description: "Add track to queue",
+      usage: "spotify queue add <uri> [--device <id>]",
+      textFormat: fmt.formatQueueAdd,
+    },
   ],
-  ["devices", { handler: devicesCommand, description: "List available devices", usage: "spotify devices", textFormat: fmt.formatDevices }],
+  [
+    "devices",
+    {
+      handler: devicesCommand,
+      description: "List available devices",
+      usage: "spotify devices",
+      textFormat: fmt.formatDevices,
+    },
+  ],
   [
     "transfer",
-    { handler: transferCommand, description: "Transfer playback to device", usage: "spotify transfer <device_id>", textFormat: fmt.formatTransfer },
+    {
+      handler: transferCommand,
+      description: "Transfer playback to device",
+      usage: "spotify transfer <device_id>",
+      textFormat: fmt.formatTransfer,
+    },
   ],
-  ["recent", { handler: recentCommand, description: "Recently played tracks", usage: "spotify recent [--limit N]", textFormat: fmt.formatRecent }],
+  [
+    "recent",
+    {
+      handler: recentCommand,
+      description: "Recently played tracks",
+      usage: "spotify recent [--limit N]",
+      textFormat: fmt.formatRecent,
+    },
+  ],
 
   // Search
   [
@@ -137,7 +235,15 @@ export const commands = new Map<string, CommandDef>([
   ],
 
   // Tracks
-  ["track", { handler: trackCommand, description: "Get track details", usage: "spotify track <id>", textFormat: fmt.formatTrack }],
+  [
+    "track",
+    {
+      handler: trackCommand,
+      description: "Get track details",
+      usage: "spotify track <id>",
+      textFormat: fmt.formatTrack,
+    },
+  ],
   [
     "track saved",
     {
@@ -149,15 +255,30 @@ export const commands = new Map<string, CommandDef>([
   ],
   [
     "track save",
-    { handler: saveTracksCommand, description: "Save tracks to library", usage: "spotify track save <id...>", textFormat: fmt.formatTrackSave },
+    {
+      handler: saveTracksCommand,
+      description: "Save tracks to library",
+      usage: "spotify track save <id...>",
+      textFormat: fmt.formatTrackSave,
+    },
   ],
   [
     "track remove",
-    { handler: removeTracksCommand, description: "Remove saved tracks", usage: "spotify track remove <id...>", textFormat: fmt.formatTrackRemove },
+    {
+      handler: removeTracksCommand,
+      description: "Remove saved tracks",
+      usage: "spotify track remove <id...>",
+      textFormat: fmt.formatTrackRemove,
+    },
   ],
   [
     "track features",
-    { handler: audioFeaturesCommand, description: "Track audio features", usage: "spotify track features <id>", textFormat: fmt.formatAudioFeatures },
+    {
+      handler: audioFeaturesCommand,
+      description: "Track audio features",
+      usage: "spotify track features <id>",
+      textFormat: fmt.formatAudioFeatures,
+    },
   ],
   [
     "track recommendations",
@@ -171,7 +292,15 @@ export const commands = new Map<string, CommandDef>([
   ],
 
   // Albums
-  ["album", { handler: albumCommand, description: "Get album details", usage: "spotify album <id>", textFormat: fmt.formatAlbum }],
+  [
+    "album",
+    {
+      handler: albumCommand,
+      description: "Get album details",
+      usage: "spotify album <id>",
+      textFormat: fmt.formatAlbum,
+    },
+  ],
   [
     "album tracks",
     {
@@ -192,15 +321,33 @@ export const commands = new Map<string, CommandDef>([
   ],
   [
     "album save",
-    { handler: saveAlbumsCommand, description: "Save albums to library", usage: "spotify album save <id...>", textFormat: fmt.formatAlbumSave },
+    {
+      handler: saveAlbumsCommand,
+      description: "Save albums to library",
+      usage: "spotify album save <id...>",
+      textFormat: fmt.formatAlbumSave,
+    },
   ],
   [
     "album remove",
-    { handler: removeAlbumsCommand, description: "Remove saved albums", usage: "spotify album remove <id...>", textFormat: fmt.formatAlbumRemove },
+    {
+      handler: removeAlbumsCommand,
+      description: "Remove saved albums",
+      usage: "spotify album remove <id...>",
+      textFormat: fmt.formatAlbumRemove,
+    },
   ],
 
   // Playlists
-  ["playlist", { handler: playlistCommand, description: "Get playlist details", usage: "spotify playlist <id>", textFormat: fmt.formatPlaylist }],
+  [
+    "playlist",
+    {
+      handler: playlistCommand,
+      description: "Get playlist details",
+      usage: "spotify playlist <id>",
+      textFormat: fmt.formatPlaylist,
+    },
+  ],
   [
     "playlist list",
     {
@@ -258,7 +405,31 @@ export const commands = new Map<string, CommandDef>([
       textFormat: fmt.formatTop,
     },
   ],
-  ["following", { handler: followingCommand, description: "Followed artists", usage: "spotify following [--limit N]", textFormat: fmt.formatFollowing }],
-  ["follow", { handler: followCommand, description: "Follow artists", usage: "spotify follow <id...>", textFormat: fmt.formatFollow }],
-  ["unfollow", { handler: unfollowCommand, description: "Unfollow artists", usage: "spotify unfollow <id...>", textFormat: fmt.formatUnfollow }],
+  [
+    "following",
+    {
+      handler: followingCommand,
+      description: "Followed artists",
+      usage: "spotify following [--limit N]",
+      textFormat: fmt.formatFollowing,
+    },
+  ],
+  [
+    "follow",
+    {
+      handler: followCommand,
+      description: "Follow artists",
+      usage: "spotify follow <id...>",
+      textFormat: fmt.formatFollow,
+    },
+  ],
+  [
+    "unfollow",
+    {
+      handler: unfollowCommand,
+      description: "Unfollow artists",
+      usage: "spotify unfollow <id...>",
+      textFormat: fmt.formatUnfollow,
+    },
+  ],
 ]);

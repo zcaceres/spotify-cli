@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import { fixtures } from "./test/fixtures/index.js";
 import {
   formatAlbum,
   formatAlbumRemove,
@@ -23,8 +22,8 @@ import {
   formatPlaylistAdd,
   formatPlaylistCreate,
   formatPlaylistRemove,
-  formatPlaylistTracks,
   formatPlaylists,
+  formatPlaylistTracks,
   formatPrev,
   formatQueue,
   formatQueueAdd,
@@ -45,6 +44,7 @@ import {
   formatVersion,
   formatVolume,
 } from "./formatters.js";
+import { fixtures } from "./test/fixtures/index.js";
 
 // ── Player ──
 
@@ -197,9 +197,7 @@ describe("formatDevices", () => {
 
 describe("formatTransfer", () => {
   test("formats transfer", () => {
-    expect(formatTransfer({ status: "transferred", device_id: "dev123" })).toBe(
-      "Transferred playback to dev123",
-    );
+    expect(formatTransfer({ status: "transferred", device_id: "dev123" })).toBe("Transferred playback to dev123");
   });
 });
 
