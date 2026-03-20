@@ -26,8 +26,8 @@ export interface CommandDef {
   handler: CommandHandler;
   description: string;
   usage?: string;
-  /** Optional text formatter for `--text` output mode. */
-  textFormat?: (data: unknown) => string;
+  /** Text formatter for `--text` output mode. */
+  textFormat: (data: unknown) => string;
 }
 
 import {

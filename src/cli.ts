@@ -167,7 +167,7 @@ async function main() {
       return;
     }
 
-    if (cmd.textFormat) setTextFormatter(cmd.textFormat);
+    setTextFormatter(cmd.textFormat);
     await cmd.handler(args);
   } catch (err) {
     handleError(err);
