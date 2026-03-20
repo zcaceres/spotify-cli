@@ -2,10 +2,32 @@
 
 # Command Reference
 
-Control Spotify playback, manage your library, search the catalog, and build automations — all from the command line. Every command returns structured JSON.
+Control Spotify playback, manage your library, search the catalog, and build automations — all from the command line. By default every command returns structured JSON. Pass `--text` for human-readable plaintext output.
 
 ```sh
 $ spotify <command> [options]
+```
+
+### `--text` flag <Badge type="info" text="GLOBAL" />
+
+Add `--text` to any command for concise, human-readable output instead of JSON. Useful for quick terminal checks and as a token-efficient format for LLM tool use.
+
+```sh
+$ spotify now --text
+Now playing: Thunderstruck - AC/DC
+
+$ spotify devices --text
+1. Living Room Speaker (Speaker) [active]
+2. MacBook Pro (Computer)
+
+$ spotify volume 80 --text
+Volume set to 80
+```
+
+The flag can appear anywhere in the argument list. Errors in text mode include the error code:
+
+```
+Error: Unknown command: foo [UNKNOWN_COMMAND]
 ```
 
 ## Authentication <Badge type="tip" text="3 commands" />
@@ -582,8 +604,13 @@ All commands use consistent exit codes for scripting and automation.
 | `3` | `API` | Spotify API returned an error (4xx/5xx) |
 | `4` | `NETWORK` | Network connectivity failure |
 
-Errors are written to stderr as JSON:
+Errors are written to stderr as JSON (or plaintext with `--text`):
 
 ```json
 { "error": "No active device found", "details": { "code": "NOT_FOUND", "status": 404, "path": "/me/player/seek" } }
+```
+
+```sh
+# With --text
+Error: No active device found [NOT_FOUND]
 ```

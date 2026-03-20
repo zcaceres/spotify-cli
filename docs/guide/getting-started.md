@@ -91,16 +91,26 @@ spotify next
 spotify volume 80
 ```
 
-## JSON output
+## Output formats
 
-All output is JSON to stdout, making it easy to pipe into other tools:
+By default, all output is JSON to stdout, making it easy to pipe into other tools:
 
 ```bash
 spotify now | jq '.item.name'
 spotify track saved --limit 50 | jq '[.items[].track.name]'
 ```
 
-Errors are written to stderr as JSON with structured [error codes](/commands#exit-codes).
+Add `--text` to any command for human-readable plaintext instead:
+
+```bash
+spotify now --text
+# Now playing: Thunderstruck - AC/DC
+
+spotify volume 80 --text
+# Volume set to 80
+```
+
+Errors are written to stderr as JSON (or plaintext with `--text`) with structured [error codes](/commands#exit-codes).
 
 ## Troubleshooting
 
