@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-03-20
+
+### Added
+- **`--text` flag** — pass `--text` to any command for human-readable plaintext output instead of JSON. Each command has a dedicated text formatter for polished output; a generic fallback handles any without one.
+- Text formatters for all 35+ commands covering player, search, albums, tracks, playlists, user, and auth domains.
+- Error output in text mode includes the error code: `Error: <message> [CODE]`.
+
+### Fixed
+- `--text` flag respects the `--` separator — literal `--text` positional args after `--` are no longer stripped.
+- `--text=value` syntax is now recognized (previously silently ignored).
+
+### Changed
+- `textFormat` is now a required field on `CommandDef`, so new commands cannot be added without a text formatter.
+
 ## [0.2.1] - 2026-03-18
 
 ### Fixed
