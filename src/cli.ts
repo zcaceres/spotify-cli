@@ -113,9 +113,20 @@ function showCommandHelp(command: string, cmd: { description: string; usage?: st
 
 async function main() {
   try {
-    // Strip --text before parsing so it doesn't consume the next positional arg
-    const argv = process.argv.filter((a) => a !== "--text");
-    if (argv.length < process.argv.length) setOutputMode("text");
+    // Strip --text / --text=... before parsing so it doesn't consume the next positional arg.
+    // Only strip before the "--" separator so literal positional args are preserved.
+    const ddIdx = process.argv.indexOf("--");
+    const boundary = ddIdx === -1 ? process.argv.length : ddIdx;
+    const argv: string[] = [];
+    let isTextMode = false;
+    for (let i = 0; i < process.argv.length; i++) {
+      if (i < boundary && (process.argv[i] === "--text" || process.argv[i]!.startsWith("--text="))) {
+        isTextMode = true;
+      } else {
+        argv.push(process.argv[i]!);
+      }
+    }
+    if (isTextMode) setOutputMode("text");
     const { command, args } = parseArgs(argv);
 
     if (command === "--version" || command === "-V") {
