@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-05-03
+
+### Added
+- `playlist rename <id> <new_name>` — focused command for changing a playlist's name.
+- `playlist update <id>` — update one or more details of a playlist via flags: `--name`, `--description` (pass `""` to clear), `--public`/`--private`, and `--collaborative`/`--no-collaborative`. At least one field flag is required; mutually-exclusive flag pairs error when both are given.
+
 ## [0.3.0] - 2026-03-20
 
 ### Added
