@@ -14,6 +14,11 @@ const mockGetPlaylistTracks = mock(() =>
 const mockAddTracksToPlaylist = mock(() => Promise.resolve(fixtures.snapshotId));
 const mockRemoveTracksFromPlaylist = mock((_id: string, _uris: string[]) => Promise.resolve(fixtures.snapshotId));
 const mockCreatePlaylist = mock(() => Promise.resolve(fixtures.playlistCreated));
+const mockRenamePlaylist = mock((_id: string, _name: string) => Promise.resolve(undefined));
+const mockUpdatePlaylistDetails = mock(
+  (_id: string, _options: { name?: string; description?: string; public?: boolean; collaborative?: boolean }) =>
+    Promise.resolve(undefined),
+);
 
 mock.module("../api/playlists.js", () => ({
   getPlaylist: mockGetPlaylist,
@@ -22,6 +27,8 @@ mock.module("../api/playlists.js", () => ({
   addTracksToPlaylist: mockAddTracksToPlaylist,
   removeTracksFromPlaylist: mockRemoveTracksFromPlaylist,
   createPlaylist: mockCreatePlaylist,
+  renamePlaylist: mockRenamePlaylist,
+  updatePlaylistDetails: mockUpdatePlaylistDetails,
 }));
 
 const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
@@ -48,6 +55,8 @@ const {
   playlistAddCommand,
   playlistRemoveCommand,
   playlistCreateCommand,
+  playlistRenameCommand,
+  playlistUpdateCommand,
 } = await import("./playlists.js");
 
 function args(
@@ -230,6 +239,117 @@ describe("playlist create command", () => {
 
   test("throws without name", async () => {
     await expect(playlistCreateCommand(args())).rejects.toThrow(/Usage/);
+  });
+});
+
+// --- playlist rename command ---
+
+describe("playlist rename command", () => {
+  beforeEach(() => {
+    captured = undefined;
+    mockRenamePlaylist.mockClear();
+  });
+
+  test("renames playlist with id and new name", async () => {
+    await playlistRenameCommand(args(["abc123", "New Name"]));
+    expect(mockRenamePlaylist).toHaveBeenCalledWith("abc123", "New Name");
+    expect(captured).toEqual({ id: "abc123", name: "New Name" });
+  });
+
+  test("extracts id from playlist URI", async () => {
+    await playlistRenameCommand(args(["spotify:playlist:abc123", "New Name"]));
+    expect(mockRenamePlaylist).toHaveBeenCalledWith("abc123", "New Name");
+    expect(captured).toEqual({ id: "abc123", name: "New Name" });
+  });
+
+  test("throws without id", async () => {
+    await expect(playlistRenameCommand(args())).rejects.toThrow(/Usage/);
+  });
+
+  test("throws without new name", async () => {
+    await expect(playlistRenameCommand(args(["abc123"]))).rejects.toThrow(/Usage/);
+  });
+});
+
+// --- playlist update command ---
+
+describe("playlist update command", () => {
+  beforeEach(() => {
+    captured = undefined;
+    mockUpdatePlaylistDetails.mockClear();
+  });
+
+  test("updates name only", async () => {
+    await playlistUpdateCommand(args(["abc123"], { name: "New Name" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { name: "New Name" });
+    expect(captured).toEqual({ id: "abc123", name: "New Name" });
+  });
+
+  test("updates description only (allows clearing with empty string)", async () => {
+    await playlistUpdateCommand(args(["abc123"], { description: "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { description: "" });
+  });
+
+  test("--public sets public=true", async () => {
+    await playlistUpdateCommand(args(["abc123"], { public: "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { public: true });
+  });
+
+  test("--private sets public=false", async () => {
+    await playlistUpdateCommand(args(["abc123"], { private: "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { public: false });
+  });
+
+  test("--collaborative sets collaborative=true", async () => {
+    await playlistUpdateCommand(args(["abc123"], { collaborative: "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { collaborative: true });
+  });
+
+  test("--no-collaborative sets collaborative=false", async () => {
+    await playlistUpdateCommand(args(["abc123"], { "no-collaborative": "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { collaborative: false });
+  });
+
+  test("updates multiple fields together", async () => {
+    await playlistUpdateCommand(args(["abc123"], { name: "New", description: "Desc", private: "", collaborative: "" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", {
+      name: "New",
+      description: "Desc",
+      public: false,
+      collaborative: true,
+    });
+    expect(captured).toEqual({
+      id: "abc123",
+      name: "New",
+      description: "Desc",
+      public: false,
+      collaborative: true,
+    });
+  });
+
+  test("extracts id from playlist URI", async () => {
+    await playlistUpdateCommand(args(["spotify:playlist:abc123"], { name: "New" }));
+    expect(mockUpdatePlaylistDetails).toHaveBeenCalledWith("abc123", { name: "New" });
+  });
+
+  test("throws without id", async () => {
+    await expect(playlistUpdateCommand(args())).rejects.toThrow(/Usage/);
+  });
+
+  test("throws when no field flags provided", async () => {
+    await expect(playlistUpdateCommand(args(["abc123"]))).rejects.toThrow(/At least one field/);
+  });
+
+  test("throws when both --public and --private given", async () => {
+    await expect(playlistUpdateCommand(args(["abc123"], { public: "", private: "" }))).rejects.toThrow(
+      /both --public and --private/,
+    );
+  });
+
+  test("throws when both --collaborative and --no-collaborative given", async () => {
+    await expect(
+      playlistUpdateCommand(args(["abc123"], { collaborative: "", "no-collaborative": "" })),
+    ).rejects.toThrow(/both --collaborative and --no-collaborative/);
   });
 });
 

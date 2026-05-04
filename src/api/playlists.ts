@@ -107,3 +107,37 @@ export function createPlaylist(
     body: options,
   });
 }
+
+/**
+ * Renames an existing playlist.
+ * @param id - The Spotify playlist ID.
+ * @param name - The new playlist name.
+ * @see `PUT /playlists/{id}`
+ */
+export function renamePlaylist(id: string, name: string, fetch: FetchFn = defaultFetch) {
+  return fetch(`/playlists/${id}`, {
+    method: "PUT",
+    body: { name },
+  });
+}
+
+/**
+ * Updates one or more details of an existing playlist.
+ * @param id - The Spotify playlist ID.
+ * @param options - Fields to update. Only the provided fields are sent.
+ * @param options.name - New playlist name.
+ * @param options.description - New description (pass empty string to clear).
+ * @param options.public - Whether the playlist is public.
+ * @param options.collaborative - Whether the playlist is collaborative. Spotify requires `public: false` for a collaborative playlist.
+ * @see `PUT /playlists/{id}`
+ */
+export function updatePlaylistDetails(
+  id: string,
+  options: { name?: string; description?: string; public?: boolean; collaborative?: boolean },
+  fetch: FetchFn = defaultFetch,
+) {
+  return fetch(`/playlists/${id}`, {
+    method: "PUT",
+    body: options,
+  });
+}

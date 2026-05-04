@@ -180,3 +180,63 @@ export const playlistCreateCommand: CommandHandler = async (args) => {
   const data = await api.createPlaylist(opts);
   output(data);
 };
+
+/**
+ * Handles `spotify playlist rename <id> <new_name>`.
+ *
+ * Renames an existing playlist.
+ */
+export const playlistRenameCommand: CommandHandler = async (args) => {
+  const rawId = args.positional[0];
+  const name = args.positional[1];
+  if (!rawId || !name) {
+    throw argsError("Usage: spotify playlist rename <id> <new_name>");
+  }
+  const id = extractId(rawId);
+  await api.renamePlaylist(id, name);
+  output({ id, name });
+};
+
+const UPDATE_USAGE =
+  "Usage: spotify playlist update <id> [--name <text>] [--description <text>] [--public|--private] [--collaborative|--no-collaborative]";
+
+/**
+ * Handles `spotify playlist update <id> [--name ...] [--description ...] [--public|--private] [--collaborative|--no-collaborative]`.
+ *
+ * Updates one or more details of an existing playlist. At least one field flag must be provided.
+ */
+export const playlistUpdateCommand: CommandHandler = async (args) => {
+  const rawId = args.positional[0];
+  if (!rawId) throw argsError(UPDATE_USAGE);
+  const id = extractId(rawId);
+
+  const opts: { name?: string; description?: string; public?: boolean; collaborative?: boolean } = {};
+
+  if (args.flags.name !== undefined) opts.name = args.flags.name;
+  if (args.flags.description !== undefined) opts.description = args.flags.description;
+
+  const wantsPublic = args.flags.public !== undefined;
+  const wantsPrivate = args.flags.private !== undefined;
+  if (wantsPublic && wantsPrivate) {
+    throw argsError("Cannot specify both --public and --private");
+  }
+  if (wantsPublic) opts.public = true;
+  if (wantsPrivate) opts.public = false;
+
+  const wantsCollab = args.flags.collaborative !== undefined;
+  const wantsNoCollab = args.flags["no-collaborative"] !== undefined;
+  if (wantsCollab && wantsNoCollab) {
+    throw argsError("Cannot specify both --collaborative and --no-collaborative");
+  }
+  if (wantsCollab) opts.collaborative = true;
+  if (wantsNoCollab) opts.collaborative = false;
+
+  if (Object.keys(opts).length === 0) {
+    throw argsError(
+      "At least one field must be provided: --name, --description, --public/--private, or --collaborative/--no-collaborative",
+    );
+  }
+
+  await api.updatePlaylistDetails(id, opts);
+  output({ id, ...opts });
+};

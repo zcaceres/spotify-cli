@@ -443,7 +443,7 @@ $ spotify album remove <id|query...>
 
 </div>
 
-## Playlists <Badge type="tip" text="6 commands" />
+## Playlists <Badge type="tip" text="8 commands" />
 
 Create, modify, and browse playlists. Supports adding and removing tracks by URI, name match, or index position.
 
@@ -523,6 +523,43 @@ $ spotify playlist create <name> [--description <text>] [--public]
 | `<name>` | `string` | Playlist name |
 | `--description` | `string` | Playlist description |
 | `--public` | `boolean` | Make the playlist public |
+
+### playlist rename <Badge type="info" text="PLAYLISTS" />
+
+Rename an existing playlist. Accepts a Spotify ID or full URI.
+
+```sh
+$ spotify playlist rename <id|uri> <new_name>
+```
+
+| Option | Type | Description |
+|---|---|---|
+| `<id\|uri>` | `string` | Playlist ID or URI |
+| `<new_name>` | `string` | New playlist name (quote if it contains spaces) |
+
+### playlist update <Badge type="info" text="PLAYLISTS" />
+
+Update one or more details of an existing playlist. At least one field flag must be provided. Accepts a Spotify ID or full URI.
+
+```sh
+$ spotify playlist update <id|uri> [--name <text>] [--description <text>] [--public|--private] [--collaborative|--no-collaborative]
+```
+
+| Option | Type | Description |
+|---|---|---|
+| `<id\|uri>` | `string` | Playlist ID or URI |
+| `--name` | `string` | New playlist name |
+| `--description` | `string` | New description (pass `""` to clear) |
+| `--public` / `--private` | `boolean` | Make the playlist public or private (mutually exclusive) |
+| `--collaborative` / `--no-collaborative` | `boolean` | Toggle collaborative mode (mutually exclusive). Spotify requires the playlist to be private for collaborative to be enabled. |
+
+```sh
+# Make a playlist private
+$ spotify playlist update 37i9dQZF1DXcBWIGoYBM5M --private
+
+# Rename and clear the description in one call
+$ spotify playlist update 37i9dQZF1DXcBWIGoYBM5M --name "New Name" --description ""
+```
 
 ## User <Badge type="tip" text="5 commands" />
 
