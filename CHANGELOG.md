@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.5.0] - 2026-05-04
 
 ### Added
 - `track find --title <title> --artist <artist>` — exact-match track resolver. Builds Spotify's `track:"X" artist:"Y"` filter and returns the top match (same shape as `spotify track <id>`). Exits with `NOT_FOUND` (code 3) when nothing matches, instead of returning the personalized best-guess that `spotify search` would surface.
