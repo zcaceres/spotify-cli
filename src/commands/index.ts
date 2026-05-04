@@ -73,6 +73,7 @@ import {
   savedTracksCommand,
   saveTracksCommand,
   trackCommand,
+  trackFindCommand,
 } from "./tracks.js";
 import { followCommand, followingCommand, meCommand, topCommand, unfollowCommand } from "./user.js";
 
@@ -247,6 +248,15 @@ export const commands = new Map<string, CommandDef>([
     },
   ],
   [
+    "track find",
+    {
+      handler: trackFindCommand,
+      description: "Find canonical track URI by title + artist",
+      usage: "spotify track find --title <title> --artist <artist>",
+      textFormat: fmt.formatTrack,
+    },
+  ],
+  [
     "track saved",
     {
       handler: savedTracksCommand,
@@ -373,7 +383,7 @@ export const commands = new Map<string, CommandDef>([
     {
       handler: playlistAddCommand,
       description: "Add tracks to playlist",
-      usage: "spotify playlist add <playlist_id> <uri...> [--position N]",
+      usage: "spotify playlist add <playlist_id> [<uri>...] [--uris-file <path>] [-] [--position N]",
       textFormat: fmt.formatPlaylistAdd,
     },
   ],
@@ -382,7 +392,7 @@ export const commands = new Map<string, CommandDef>([
     {
       handler: playlistRemoveCommand,
       description: "Remove tracks from playlist",
-      usage: "spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]",
+      usage: "spotify playlist remove <playlist_id> [<uri>...] [--uris-file <path>] [-] [--match name] [--index N]",
       textFormat: fmt.formatPlaylistRemove,
     },
   ],

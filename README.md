@@ -51,7 +51,7 @@ spotify track saved --limit 5 | jq '.items[].track.name'  # pipe JSON anywhere
 
 ## Features
 
-- **42 commands** — playback, search, library, playlists, albums, user profile
+- **43 commands** — playback, search, library, playlists, albums, user profile
 - **Search-then-act** — pass human-readable names where IDs are expected (e.g. `spotify queue add "bohemian rhapsody"`)
 - **Enriched output** — Spotify's API returns opaque IDs for mutations; we resolve them to human/agent-readable names, artists, and albums automatically
 - **JSON to stdout** — pipe to `jq`, scripts, or AI agents

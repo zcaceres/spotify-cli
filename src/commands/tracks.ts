@@ -4,6 +4,7 @@
  * @module
  */
 
+import * as searchApi from "../api/search.js";
 import * as api from "../api/tracks.js";
 import { apiError, argsError, ErrorCode, SpotifyCliError } from "../errors.js";
 import { output } from "../output.js";
@@ -78,6 +79,33 @@ export const audioFeaturesCommand: CommandHandler = async (args) => {
     }
     throw err;
   }
+};
+
+/**
+ * Handles `spotify track find --title <title> --artist <artist>`.
+ *
+ * Looks up a single canonical track by title + artist using Spotify's
+ * `track:"X" artist:"Y"` filter syntax. Returns the top match (the same shape
+ * as `spotify track <id>`), or throws if no match is found.
+ */
+export const trackFindCommand: CommandHandler = async (args) => {
+  const title = args.flags.title;
+  const artist = args.flags.artist;
+  if (!title || !artist) {
+    throw argsError("Usage: spotify track find --title <title> --artist <artist>");
+  }
+  const q = `track:"${title.replace(/"/g, '\\"')}" artist:"${artist.replace(/"/g, '\\"')}"`;
+  const data = (await searchApi.search({ q, type: "track", limit: 1 })) as {
+    tracks?: { items?: unknown[]; total?: number };
+  };
+  const items = data.tracks?.items ?? [];
+  const top = items[0];
+  if (!top) {
+    throw apiError(`No track found for title="${title}" artist="${artist}"`, {
+      code: ErrorCode.NOT_FOUND,
+    });
+  }
+  output(top);
 };
 
 /**

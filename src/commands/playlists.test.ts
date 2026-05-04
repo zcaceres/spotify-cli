@@ -1,4 +1,8 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterAll, beforeAll, beforeEach, describe, expect, mock, test } from "bun:test";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { _setStdinReader } from "../parse.js";
 import { fixtures } from "../test/fixtures/index.js";
 import type { ParsedArgs } from "./index.js";
 
@@ -190,6 +194,65 @@ describe("playlist add command", () => {
 
   test("throws without uris", async () => {
     await expect(playlistAddCommand(args(["abc123"]))).rejects.toThrow(/Usage/);
+  });
+
+  describe("variadic input sources", () => {
+    let workDir: string;
+
+    beforeAll(() => {
+      workDir = mkdtempSync(join(tmpdir(), "spotify-cli-test-"));
+    });
+
+    afterAll(() => {
+      rmSync(workDir, { recursive: true, force: true });
+    });
+
+    test("reads URIs from --uris-file", async () => {
+      const filePath = join(workDir, "uris-add.txt");
+      writeFileSync(
+        filePath,
+        "# leading comment\nspotify:track:aaa\n\nspotify:track:bbb\n  spotify:track:ccc  \n# trailing\n",
+        "utf8",
+      );
+      await playlistAddCommand(args(["abc123"], { "uris-file": filePath }));
+      expect(mockAddTracksToPlaylist).toHaveBeenCalledWith(
+        "abc123",
+        ["spotify:track:aaa", "spotify:track:bbb", "spotify:track:ccc"],
+        undefined,
+      );
+    });
+
+    test("concatenates positional + --uris-file in order", async () => {
+      const filePath = join(workDir, "uris-add-2.txt");
+      writeFileSync(filePath, "spotify:track:bbb\nspotify:track:ccc\n", "utf8");
+      await playlistAddCommand(args(["abc123", "spotify:track:aaa"], { "uris-file": filePath }));
+      expect(mockAddTracksToPlaylist).toHaveBeenCalledWith(
+        "abc123",
+        ["spotify:track:aaa", "spotify:track:bbb", "spotify:track:ccc"],
+        undefined,
+      );
+    });
+
+    test("reads URIs from stdin when `-` is passed positionally", async () => {
+      const original = (): string => "";
+      _setStdinReader(() => "spotify:track:aaa\nspotify:track:bbb\n");
+      try {
+        await playlistAddCommand(args(["abc123", "-"]));
+        expect(mockAddTracksToPlaylist).toHaveBeenCalledWith(
+          "abc123",
+          ["spotify:track:aaa", "spotify:track:bbb"],
+          undefined,
+        );
+      } finally {
+        _setStdinReader(original);
+      }
+    });
+
+    test("throws when --uris-file is empty and no positional URIs given", async () => {
+      const filePath = join(workDir, "empty.txt");
+      writeFileSync(filePath, "# only comments\n\n", "utf8");
+      await expect(playlistAddCommand(args(["abc123"], { "uris-file": filePath }))).rejects.toThrow(/Usage/);
+    });
   });
 });
 
@@ -465,5 +528,39 @@ describe("playlist remove", () => {
   test("throws when --index is 0 (not 1-based)", async () => {
     mockGetPlaylistTracks.mockResolvedValue(makeFakePlaylistResponse(SAMPLE_TRACKS));
     await expect(playlistRemoveCommand(args([PLAYLIST_ID], { index: "0" }, {}))).rejects.toThrow(/Invalid index/);
+  });
+
+  describe("variadic input sources", () => {
+    let workDir: string;
+
+    beforeAll(() => {
+      workDir = mkdtempSync(join(tmpdir(), "spotify-cli-test-"));
+    });
+
+    afterAll(() => {
+      rmSync(workDir, { recursive: true, force: true });
+    });
+
+    test("reads URIs from --uris-file", async () => {
+      const filePath = join(workDir, "uris-remove.txt");
+      writeFileSync(filePath, "spotify:track:aaa\nspotify:track:bbb\n", "utf8");
+      await playlistRemoveCommand(args([PLAYLIST_ID], { "uris-file": filePath }));
+      expect(mockGetPlaylistTracks).not.toHaveBeenCalled();
+      expect(mockRemoveTracksFromPlaylist).toHaveBeenCalledWith(
+        PLAYLIST_ID,
+        expect.arrayContaining(["spotify:track:aaa", "spotify:track:bbb"]),
+      );
+    });
+
+    test("reads URIs from stdin when `-` is passed positionally", async () => {
+      const original = (): string => "";
+      _setStdinReader(() => "spotify:track:aaa\n");
+      try {
+        await playlistRemoveCommand(args([PLAYLIST_ID, "-"]));
+        expect(mockRemoveTracksFromPlaylist).toHaveBeenCalledWith(PLAYLIST_ID, ["spotify:track:aaa"]);
+      } finally {
+        _setStdinReader(original);
+      }
+    });
   });
 });
