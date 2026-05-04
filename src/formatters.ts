@@ -356,6 +356,24 @@ export function formatPlaylistCreate(data: unknown): string {
   return `Created playlist: ${d.name}`;
 }
 
+export function formatPlaylistRename(data: unknown): string {
+  if (typeof data !== "object" || data === null) return "Playlist renamed";
+  const d = data as Rec;
+  return `Renamed playlist to: ${d.name}`;
+}
+
+export function formatPlaylistUpdate(data: unknown): string {
+  if (typeof data !== "object" || data === null) return "Playlist updated";
+  const d = data as Rec;
+  const id = str(d.id);
+  const changes: string[] = [];
+  if (d.name !== undefined) changes.push(`name="${str(d.name)}"`);
+  if (d.description !== undefined) changes.push(`description="${str(d.description)}"`);
+  if (d.public !== undefined) changes.push(`public=${d.public}`);
+  if (d.collaborative !== undefined) changes.push(`collaborative=${d.collaborative}`);
+  return changes.length > 0 ? `Updated playlist ${id}: ${changes.join(", ")}` : `Updated playlist ${id}`;
+}
+
 // ── User ──
 
 export function formatMe(data: unknown): string {

@@ -60,8 +60,10 @@ import {
   playlistCommand,
   playlistCreateCommand,
   playlistRemoveCommand,
+  playlistRenameCommand,
   playlistsCommand,
   playlistTracksCommand,
+  playlistUpdateCommand,
 } from "./playlists.js";
 import { searchCommand } from "./search.js";
 import {
@@ -391,6 +393,25 @@ export const commands = new Map<string, CommandDef>([
       description: "Create a new playlist",
       usage: "spotify playlist create <name> [--description ...] [--public]",
       textFormat: fmt.formatPlaylistCreate,
+    },
+  ],
+  [
+    "playlist rename",
+    {
+      handler: playlistRenameCommand,
+      description: "Rename a playlist",
+      usage: "spotify playlist rename <id> <new_name>",
+      textFormat: fmt.formatPlaylistRename,
+    },
+  ],
+  [
+    "playlist update",
+    {
+      handler: playlistUpdateCommand,
+      description: "Update playlist details (name, description, public, collaborative)",
+      usage:
+        "spotify playlist update <id> [--name <text>] [--description <text>] [--public|--private] [--collaborative|--no-collaborative]",
+      textFormat: fmt.formatPlaylistUpdate,
     },
   ],
 
