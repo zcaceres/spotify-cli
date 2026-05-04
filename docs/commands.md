@@ -293,7 +293,7 @@ $ spotify search "Miles Davis" --type artist --limit 3
 }
 ```
 
-## Tracks <Badge type="tip" text="6 commands" />
+## Tracks <Badge type="tip" text="7 commands" />
 
 Look up individual tracks, analyze audio features, get recommendations, and manage your saved library.
 
@@ -304,6 +304,26 @@ Get detailed track metadata. Accepts a Spotify ID or full URI.
 ```sh
 $ spotify track <id|uri>
 ```
+
+### track find <Badge type="info" text="TRACKS" />
+
+Resolve a track to its canonical URI by exact title + artist. Uses Spotify's `track:"X" artist:"Y"` filter syntax — deterministic and not personalized, unlike `spotify search`. Returns the top match in the same shape as `spotify track <id>`, or exits with `NOT_FOUND` (code 3) when nothing matches.
+
+```sh
+$ spotify track find --title <title> --artist <artist>
+```
+
+| Option | Type | Description |
+|---|---|---|
+| `--title` | `string` | Exact track title |
+| `--artist` | `string` | Exact artist name |
+
+```sh
+$ spotify track find --title "Believer" --artist "Imagine Dragons" | jq -r .uri
+# spotify:track:1WxLYjSg7PzYoxrkQHLp83
+```
+
+Prefer `track find` over `search` for agentic workflows where you have a known title + artist and need a deterministic URI.
 
 ### track features <Badge type="info" text="TRACKS" />
 
@@ -473,34 +493,49 @@ $ spotify playlist tracks <id|uri> [--limit <n>] [--offset <n>]
 
 ### playlist add <Badge type="info" text="PLAYLISTS" />
 
-Add tracks to a playlist at an optional position. Track arguments accept Spotify IDs, URIs, or human-readable search queries.
+Add tracks to a playlist at an optional position. Track arguments accept Spotify IDs, URIs, or human-readable search queries. URIs may also be supplied via `--uris-file` or piped on stdin via the `-` sentinel; all sources concatenate.
 
 ```sh
-$ spotify playlist add <playlist_id> <uri|id|query...> [--position <n>]
+$ spotify playlist add <playlist_id> [<uri|id|query>...] [--uris-file <path>] [-] [--position <n>]
 ```
 
 | Option | Type | Description |
 |---|---|---|
 | `<playlist_id>` | `string` | Target playlist ID |
-| `<uri\|id\|query...>` | `string` | One or more track URIs, IDs, or search queries |
+| `[<uri\|id\|query>...]` | `string` | One or more track URIs, IDs, or search queries |
+| `--uris-file` | `path` | File of URIs/IDs/queries, one per line. Blank lines and `#` comments are ignored. |
+| `-` | sentinel | Read URIs/IDs/queries from stdin (one per line). |
 | `--position` | `integer` | Zero-based insert position |
+
+```sh
+# From a file
+$ spotify playlist add 37i9dQZF1DXcBWIGoYBM5M --uris-file uris.txt
+
+# From stdin
+$ printf 'spotify:track:aaa\nspotify:track:bbb\n' | spotify playlist add 37i9dQZF1DXcBWIGoYBM5M -
+
+# Mix positional + file
+$ spotify playlist add 37i9dQZF1DXcBWIGoYBM5M spotify:track:aaa --uris-file more.txt
+```
 
 ### playlist remove <Badge type="info" text="PLAYLISTS" />
 
-Remove tracks from a playlist by URI, name match, or index.
+Remove tracks from a playlist by URI, name match, or index. URIs may also be supplied via `--uris-file` or piped on stdin via the `-` sentinel.
 
 ```sh
-$ spotify playlist remove <playlist_id> [uri...] [--match <name>] [--index <n>]
+$ spotify playlist remove <playlist_id> [<uri|id|query>...] [--uris-file <path>] [-] [--match <name>] [--index <n>]
 ```
 
 | Option | Type | Description |
 |---|---|---|
 | `<playlist_id>` | `string` | Target playlist ID |
-| `[uri\|id\|query...]` | `string` | Track URIs, IDs, or search queries to remove |
+| `[<uri\|id\|query>...]` | `string` | Track URIs, IDs, or search queries to remove |
+| `--uris-file` | `path` | File of URIs/IDs/queries, one per line. Blank lines and `#` comments are ignored. |
+| `-` | sentinel | Read URIs/IDs/queries from stdin (one per line). |
 | `--match` | `string` | Remove tracks matching name or artist name (repeatable) |
 | `--index` | `string` | Remove tracks at 1-based positions (comma-separated, repeatable) |
 
-At least one of `uri`, `--match`, or `--index` is required.
+At least one of `uri`, `--uris-file`, `-`, `--match`, or `--index` is required.
 
 ```sh
 # Remove by name match
@@ -508,6 +543,9 @@ $ spotify playlist remove 37i9dQZF1DXcBWIGoYBM5M --match "Bohemian"
 
 # Remove by index
 $ spotify playlist remove 37i9dQZF1DXcBWIGoYBM5M --index 1,3,5
+
+# Remove URIs listed in a file
+$ spotify playlist remove 37i9dQZF1DXcBWIGoYBM5M --uris-file remove-list.txt
 ```
 
 ### playlist create <Badge type="info" text="PLAYLISTS" />

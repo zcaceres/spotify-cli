@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- `track find --title <title> --artist <artist>` — exact-match track resolver. Builds Spotify's `track:"X" artist:"Y"` filter and returns the top match (same shape as `spotify track <id>`). Exits with `NOT_FOUND` (code 3) when nothing matches, instead of returning the personalized best-guess that `spotify search` would surface.
+- `playlist add` and `playlist remove` accept `--uris-file <path>` (one URI/ID/query per line; blank lines and `#` comments allowed) and read URIs from stdin when `-` is passed as a positional. Positional, file, and stdin sources concatenate. Eliminates shell-quoting hazards (zsh non-splitting unquoted vars, xargs choking on apostrophes in titles like `Don't Stop Believin'`) when driving the CLI from a list-in-a-file.
+
 ## [0.4.0] - 2026-05-03
 
 ### Added
