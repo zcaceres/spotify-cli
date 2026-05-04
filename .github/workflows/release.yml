@@ -19,6 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Fetch tags so the "Check if tag exists" step actually finds existing
+          # tags. Without this, `git rev-parse <tag>` always exits non-zero on
+          # the runner's shallow clone, the tag check always reports "doesn't
+          # exist", and the workflow attempts to release the same version twice
+          # whenever a non-doc commit lands without a version bump.
+          fetch-tags: true
+          fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v2
         with:
