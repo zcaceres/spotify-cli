@@ -19,6 +19,14 @@ mock.module("../api/tracks.js", () => ({
   getRecommendations: mockGetRecommendations,
 }));
 
+const mockSearch = mock((_options: { q: string; type: string; limit?: number; offset?: number }) =>
+  Promise.resolve({ tracks: { items: [] as unknown[], total: 0 } }),
+);
+
+mock.module("../api/search.js", () => ({
+  search: mockSearch,
+}));
+
 const mockResolveInputs = mock((inputs: string[], _type: string) => Promise.resolve({ ids: inputs, searched: [] }));
 const mockResolveItems = mock((_type: string, ids: string[]) =>
   Promise.resolve(ids.map((id: string) => ({ type: "track", id, name: "Test", artist: "Artist", album: "Album" }))),
@@ -43,6 +51,7 @@ const {
   removeTracksCommand,
   audioFeaturesCommand,
   recommendationsCommand,
+  trackFindCommand,
 } = await import("./tracks.js");
 
 function args(
@@ -263,5 +272,59 @@ describe("track recommendations command", () => {
       const e = err as SpotifyCliError;
       expect(e.details.code).toBe(ErrorCode.DEPRECATED);
     }
+  });
+});
+
+describe("track find command", () => {
+  beforeEach(() => {
+    captured = undefined;
+    mockSearch.mockReset();
+  });
+
+  test('builds track:"X" artist:"Y" query and outputs the top match', async () => {
+    const item = { uri: "spotify:track:zzz", name: "Believer", artists: [{ name: "Imagine Dragons" }] };
+    mockSearch.mockResolvedValue({ tracks: { items: [item], total: 1 } });
+
+    await trackFindCommand(args([], { title: "Believer", artist: "Imagine Dragons" }));
+
+    expect(mockSearch).toHaveBeenCalledWith({
+      q: 'track:"Believer" artist:"Imagine Dragons"',
+      type: "track",
+      limit: 1,
+    });
+    expect(captured).toEqual(item);
+  });
+
+  test("escapes embedded double quotes in title and artist", async () => {
+    const item = { uri: "spotify:track:qqq" };
+    mockSearch.mockResolvedValue({ tracks: { items: [item], total: 1 } });
+
+    await trackFindCommand(args([], { title: 'She said "hello"', artist: 'A "B" C' }));
+
+    expect(mockSearch).toHaveBeenCalledWith({
+      q: 'track:"She said \\"hello\\"" artist:"A \\"B\\" C"',
+      type: "track",
+      limit: 1,
+    });
+  });
+
+  test("throws NOT_FOUND when there are no matches", async () => {
+    mockSearch.mockResolvedValue({ tracks: { items: [], total: 0 } });
+    try {
+      await trackFindCommand(args([], { title: "Nope", artist: "Nobody" }));
+      expect.unreachable("should throw");
+    } catch (err) {
+      const e = err as SpotifyCliError;
+      expect(e.details.code).toBe(ErrorCode.NOT_FOUND);
+      expect(e.message).toMatch(/No track found/);
+    }
+  });
+
+  test("throws Usage when --title is missing", async () => {
+    await expect(trackFindCommand(args([], { artist: "Imagine Dragons" }))).rejects.toThrow(/Usage/);
+  });
+
+  test("throws Usage when --artist is missing", async () => {
+    await expect(trackFindCommand(args([], { title: "Believer" }))).rejects.toThrow(/Usage/);
   });
 });

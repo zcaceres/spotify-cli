@@ -4,6 +4,7 @@
  * @module
  */
 
+import { readFileSync } from "node:fs";
 import { argsError, ErrorCode } from "./errors.js";
 import { identify } from "./identify.js";
 
@@ -74,4 +75,67 @@ export function extractId(input: string): string {
   if (result.kind === "uri") return result.id;
   if (result.kind === "id") return result.id;
   return input;
+}
+
+/**
+ * Reader for stdin contents. Overridable for tests via {@link _setStdinReader}.
+ * Default reads the entire contents of file descriptor 0 as UTF-8.
+ */
+let stdinReader: () => string = () => readFileSync(0, "utf8");
+
+/** @internal Test-only override for the stdin reader. Restore by passing the original. */
+export function _setStdinReader(fn: () => string): void {
+  stdinReader = fn;
+}
+
+/**
+ * Loads a list of inputs (URIs, IDs, or search queries) from a combination of
+ * positional args, a file flag, and stdin.
+ *
+ * - Positional `-` is a sentinel meaning "read from stdin" (consumed at most once).
+ * - `flags[fileFlag]` (default `"uris-file"`) names a file to read line-by-line.
+ * - File and stdin lines are trimmed; blank lines and `#`-prefixed comments are skipped.
+ *
+ * Inputs from all three sources are concatenated in this order: positional, then file.
+ * The stdin contents are inserted at the position of the `-` sentinel.
+ *
+ * @param positional - Positional args after consuming any leading IDs (e.g. playlist id).
+ * @param flags - Parsed flags record; only `flags[fileFlag]` is consulted.
+ * @param options - Optional override of the file flag name and stdin behavior.
+ * @returns Combined list of non-empty input strings.
+ */
+export function loadVariadicInputs(
+  positional: string[],
+  flags: Record<string, string>,
+  options: { fileFlag?: string; allowStdin?: boolean } = {},
+): string[] {
+  const fileFlag = options.fileFlag ?? "uris-file";
+  const allowStdin = options.allowStdin ?? true;
+
+  const out: string[] = [];
+  let stdinConsumed = false;
+
+  for (const item of positional) {
+    if (allowStdin && item === "-" && !stdinConsumed) {
+      out.push(...parseLines(stdinReader()));
+      stdinConsumed = true;
+    } else if (allowStdin && item === "-") {
+    } else {
+      out.push(item);
+    }
+  }
+
+  const filePath = flags[fileFlag];
+  if (filePath !== undefined && filePath !== "") {
+    out.push(...parseLines(readFileSync(filePath, "utf8")));
+  }
+
+  return out;
+}
+
+function parseLines(content: string): string[] {
+  return content
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && !line.startsWith("#"));
 }

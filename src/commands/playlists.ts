@@ -7,7 +7,7 @@
 import * as api from "../api/playlists.js";
 import { argsError } from "../errors.js";
 import { output } from "../output.js";
-import { ensureTrackUri, extractId, optionalIntFlag } from "../parse.js";
+import { ensureTrackUri, extractId, loadVariadicInputs, optionalIntFlag } from "../parse.js";
 import { resolveInputs, tryResolveItems } from "../resolve.js";
 import type { CommandHandler } from "./index.js";
 
@@ -47,15 +47,21 @@ export const playlistTracksCommand: CommandHandler = async (args) => {
 };
 
 /**
- * Handles `spotify playlist add <playlist_id> <uri...> [--position N]`.
+ * Handles `spotify playlist add <playlist_id> [<uri>...] [--uris-file <path>] [--position N]`.
  *
- * Adds one or more tracks to a playlist at an optional position.
+ * Adds one or more tracks to a playlist at an optional position. URIs may be
+ * passed as positional args, via `--uris-file <path>` (one per line, blank lines
+ * and `#` comments allowed), or by passing `-` as a positional and piping URIs
+ * on stdin. All sources are concatenated.
  */
 export const playlistAddCommand: CommandHandler = async (args) => {
   const id = args.positional[0];
-  const rawTracks = args.positional.slice(1);
-  if (!id || rawTracks.length === 0) {
-    throw argsError("Usage: spotify playlist add <playlist_id> <uri...>");
+  if (!id) {
+    throw argsError("Usage: spotify playlist add <playlist_id> [<uri>...] [--uris-file <path>] [-]");
+  }
+  const rawTracks = loadVariadicInputs(args.positional.slice(1), args.flags);
+  if (rawTracks.length === 0) {
+    throw argsError("Usage: spotify playlist add <playlist_id> [<uri>...] [--uris-file <path>] [-]");
   }
   const { ids, searched } = await resolveInputs(rawTracks, "track");
   const trackUris = ids.map(ensureTrackUri);
@@ -95,23 +101,27 @@ async function fetchAllPlaylistTracks(
 }
 
 /**
- * Handles `spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]`.
+ * Handles `spotify playlist remove <playlist_id> [<uri>...] [--uris-file <path>] [--match name] [--index N]`.
  *
  * Removes tracks by URI, name substring match, or 1-based index.
- * --match and --index can be repeated. URIs can also be passed as positional args.
+ * URIs may be passed as positional args, via `--uris-file <path>` (one per line,
+ * blank lines and `#` comments allowed), or by passing `-` and piping URIs on
+ * stdin. `--match` and `--index` can be repeated.
  */
 export const playlistRemoveCommand: CommandHandler = async (args) => {
+  const usage =
+    "Usage: spotify playlist remove <playlist_id> [<uri>...] [--uris-file <path>] [-] [--match name] [--index N]";
   const id = args.positional[0];
   if (!id) {
-    throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
+    throw argsError(usage);
   }
 
-  const directUris = args.positional.slice(1);
+  const directUris = loadVariadicInputs(args.positional.slice(1), args.flags);
   const matchValues = args.multiFlags.match ?? (args.flags.match !== undefined ? [args.flags.match] : []);
   const indexValues = args.multiFlags.index ?? (args.flags.index !== undefined ? [args.flags.index] : []);
 
   if (directUris.length === 0 && matchValues.length === 0 && indexValues.length === 0) {
-    throw argsError("Usage: spotify playlist remove <playlist_id> [uri...] [--match name] [--index N]");
+    throw argsError(usage);
   }
 
   const urisToRemove = new Set<string>();
