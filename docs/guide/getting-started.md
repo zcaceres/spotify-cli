@@ -4,20 +4,20 @@
 
 ### Pre-built binary (recommended)
 
-Download the latest binary for your platform from the [Releases](/releases) page. Then make it executable and move it to your PATH:
+Download the latest binary from [Releases](/releases), make it executable, and move it to your PATH:
 
 ```bash
 chmod +x spotify-darwin-arm64
 sudo mv spotify-darwin-arm64 /usr/local/bin/spotify
 ```
 
-On macOS, you'll need to remove the quarantine flag since the binary isn't signed:
+On macOS, remove the quarantine flag because the binary is unsigned:
 
 ```bash
 xattr -d com.apple.quarantine /usr/local/bin/spotify
 ```
 
-Verify the installation:
+Check the installation:
 
 ```bash
 spotify --help
@@ -25,7 +25,7 @@ spotify --help
 
 ### From source
 
-Requires [Bun](https://bun.sh) runtime.
+Requires [Bun](https://bun.sh).
 
 ```bash
 git clone https://github.com/zcaceres/spotify-cli.git
@@ -33,7 +33,7 @@ cd spotify-cli
 bun install
 ```
 
-When running from source, use `bun run src/cli.ts` instead of `spotify` in the examples below.
+When running from source, replace `spotify` below with `bun run src/cli.ts`.
 
 ## Create a Spotify App
 
@@ -42,41 +42,41 @@ When running from source, use `bun run src/cli.ts` instead of `spotify` in the e
 3. Set the **Redirect URI** to `http://127.0.0.1:8888/callback`
 4. Copy the **Client ID**
 
-A Spotify Premium account is required for playback controls (play, pause, skip, etc.). Read-only commands like search and library browsing work with any account.
+Playback controls require Spotify Premium. Search and library commands work with any account.
 
 ## Authentication
 
-The CLI uses Spotify's OAuth 2.0 PKCE flow — no client secret needed. Log in before using any commands:
+The CLI uses OAuth 2.0 PKCE, so it needs no client secret. Log in before running commands:
 
 ```bash
 spotify login --client-id <your-client-id>
 ```
 
-This opens your browser for authorization. After approving, tokens are saved to `~/.spotify-cli/tokens.json` and refresh automatically.
+Your browser opens for approval. Tokens are then saved to `~/.spotify-cli/tokens.json` and refreshed as needed.
 
 ## First commands
 
-Check what's currently playing:
+See what's playing:
 
 ```bash
 spotify now
 ```
 
-Search for a track and play it:
+Find and play a track:
 
 ```bash
 spotify search "bohemian rhapsody" --type track
 spotify play --uri spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 ```
 
-Save or queue tracks by name — no need to look up IDs:
+Save or queue tracks by name:
 
 ```bash
 spotify track save "bohemian rhapsody"
 spotify queue add "never gonna give you up"
 ```
 
-Browse your saved library:
+Browse your library:
 
 ```bash
 spotify track saved --limit 5
@@ -93,14 +93,14 @@ spotify volume 80
 
 ## Output formats
 
-By default, all output is JSON to stdout, making it easy to pipe into other tools:
+Commands write JSON to stdout by default, so you can pipe it into other tools:
 
 ```bash
 spotify now | jq '.item.name'
 spotify track saved --limit 50 | jq '[.items[].track.name]'
 ```
 
-Add `--text` to any command for human-readable plaintext instead:
+Use `--text` for plain text:
 
 ```bash
 spotify now --text
@@ -110,12 +110,12 @@ spotify volume 80 --text
 # Volume set to 80
 ```
 
-Errors are written to stderr as JSON (or plaintext with `--text`) with structured [error codes](/commands#exit-codes).
+Errors go to stderr as JSON, or plain text with `--text`. Each includes an [error code](/commands#exit-codes).
 
 ## Troubleshooting
 
-**"No active device"** — Open Spotify on any device (phone, desktop, or web player) before running playback commands. Use `spotify devices` to list available devices.
+**"No active device":** Open Spotify on your phone, desktop, or the web before running playback commands. Use `spotify devices` to list devices.
 
-**"Token expired"** — Tokens refresh automatically. If you hit auth errors, run `spotify login --client-id <id>` again.
+**"Token expired":** If token refresh fails, run `spotify login --client-id <id>` again.
 
-**"Command not found: spotify"** — Ensure the binary is in your PATH, or use the full path to the binary.
+**"Command not found: spotify":** Put the binary in your PATH or run it with its full path.

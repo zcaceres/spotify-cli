@@ -8,15 +8,15 @@ import { withBase } from 'vitepress'
     <section class="hero">
       <div class="hero-content">
         <img :src="withBase('/logo.svg')" alt="Spotify CLI" class="hero-logo" width="80" height="80" />
-        <span class="overline">Open Source CLI</span>
-        <h1 class="headline">Control Spotify<br>from your AI Agent</h1>
+        <span class="overline">Open-source Spotify CLI</span>
+        <h1 class="headline">Control Spotify<br>from the command line</h1>
         <p class="subtitle">
-          Secure, agent (and human) friendly CLI for playback, search, playlists, and library management. JSON output. PKCE auth.
+          Play music, search Spotify, and manage your library. Use it yourself or call it from an agent.
         </p>
       </div>
       <div class="cta-buttons">
-        <a :href="withBase('/guide/getting-started')" class="btn btn-primary">Get Started</a>
-        <a :href="withBase('/api/')" class="btn btn-secondary">API Reference</a>
+        <a :href="withBase('/guide/getting-started')" class="btn btn-primary">Get started</a>
+        <a :href="withBase('/api/')" class="btn btn-secondary">API reference</a>
       </div>
       <div class="code-preview">
         <div class="code-line code-dim">$ spotify queue add "bohemian rhapsody"</div>
@@ -38,8 +38,8 @@ import { withBase } from 'vitepress'
           <circle cx="24" cy="8" r="4" fill="#1DB954" opacity="0.3" />
           <circle cx="24" cy="8" r="2" fill="#1DB954" />
         </svg>
-        <h3>Agent-Friendly</h3>
-        <p>Every command outputs structured JSON — perfect for LLM agents, scripts, and automation pipelines. No parsing needed.</p>
+        <h3>JSON Output</h3>
+        <p>Every command returns JSON for agents, scripts, and automation. No parsing needed.</p>
       </div>
       <div class="feature-card">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -47,8 +47,8 @@ import { withBase } from 'vitepress'
           <path d="M22 8L26 16L22 24" stroke="#1DB954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M18 6L14 26" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
         </svg>
-        <h3>Enriched Output</h3>
-        <p>Spotify's API returns opaque IDs. We resolve them to names, artists, and albums — readable by both humans and AI agents.</p>
+        <h3>Names, Not IDs</h3>
+        <p>Turns Spotify IDs into track, artist, and album names that people and agents can read.</p>
       </div>
       <div class="feature-card">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -56,8 +56,8 @@ import { withBase } from 'vitepress'
           <circle cx="28" cy="22" r="3" stroke="#1DB954" stroke-width="1.5" fill="none" />
           <path d="M28 20V24M26 22H30" stroke="#1DB954" stroke-width="1" stroke-linecap="round" opacity="0.5" />
         </svg>
-        <h3>Structured Errors</h3>
-        <p>Structured JSON to stdout, errors to stderr. Machine-readable exit codes for every failure type.</p>
+        <h3>Predictable Errors</h3>
+        <p>Results go to stdout and errors to stderr, with an exit code for each error type.</p>
       </div>
       <div class="feature-card">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -65,8 +65,8 @@ import { withBase } from 'vitepress'
           <path d="M12 14V10C12 7.8 13.8 6 16 6C18.2 6 20 7.8 20 10V14" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round" />
           <circle cx="16" cy="20" r="2" fill="#1DB954" />
         </svg>
-        <h3>Secure PKCE Auth</h3>
-        <p>No client secret needed. Browser-based OAuth with PKCE, automatic token refresh, and secure local storage.</p>
+        <h3>PKCE Sign-in</h3>
+        <p>Sign in through your browser without a client secret. Tokens refresh automatically and stay local.</p>
       </div>
     </section>
   </div>
