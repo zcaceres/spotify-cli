@@ -1,5 +1,5 @@
 # Releases
 
-Download pre-built binaries for your platform. No Bun installation required — each binary is a self-contained executable.
+Download a self-contained binary for your platform. Bun is not required.
 
 <ReleasesPage />

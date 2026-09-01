@@ -2,7 +2,7 @@
 
 # Command Reference
 
-Control Spotify playback, manage your library, search the catalog, and build automations — all from the command line. By default every command returns structured JSON. Pass `--text` for human-readable plaintext output.
+Control playback, search Spotify, and manage your library from the command line. Commands return JSON by default. Pass `--text` for plain text.
 
 ```sh
 $ spotify <command> [options]
@@ -10,7 +10,7 @@ $ spotify <command> [options]
 
 ### `--text` flag <Badge type="info" text="GLOBAL" />
 
-Add `--text` to any command for concise, human-readable output instead of JSON. Useful for quick terminal checks and as a token-efficient format for LLM tool use.
+Add `--text` to any command for concise plain text. It works well for terminal checks and uses fewer agent tokens than JSON.
 
 ```sh
 $ spotify now --text
@@ -24,7 +24,7 @@ $ spotify volume 80 --text
 Volume set to 80
 ```
 
-The flag can appear anywhere in the argument list. Errors in text mode include the error code:
+The flag can appear anywhere in the command. Text errors include the error code:
 
 ```
 Error: Unknown command: foo [UNKNOWN_COMMAND]
@@ -32,11 +32,11 @@ Error: Unknown command: foo [UNKNOWN_COMMAND]
 
 ## Authentication <Badge type="tip" text="3 commands" />
 
-Manage OAuth tokens and session state. All auth data is stored locally — nothing is sent to third-party servers.
+Manage OAuth tokens and sessions. Auth data stays local.
 
 ### login <Badge type="info" text="AUTH" />
 
-Authenticate with Spotify using OAuth 2.0 PKCE. Opens browser to authorize, then stores tokens locally.
+Sign in with OAuth 2.0 PKCE. The command opens your browser and stores the tokens locally.
 
 ```sh
 $ spotify login [--client-id <id>]
@@ -68,7 +68,7 @@ $ spotify logout
 
 ### auth status <Badge type="info" text="AUTH" />
 
-Show current token validity and granted OAuth scopes.
+Show token status and OAuth scopes.
 
 ```sh
 $ spotify auth status
@@ -82,11 +82,11 @@ $ spotify auth status
 
 ## Player <Badge type="tip" text="14 commands" />
 
-Control playback, manage the queue, and interact with Spotify Connect devices. Most commands accept an optional `--device` flag to target a specific device.
+Control playback, manage the queue, and choose Spotify Connect devices. Most commands accept `--device`.
 
 ### now <Badge type="info" text="PLAYER" />
 
-Get the currently playing track with playback state.
+Show the current track and playback state.
 
 ```sh
 $ spotify now
@@ -106,7 +106,7 @@ $ spotify now
 
 ### play <Badge type="info" text="PLAYER" />
 
-Start or resume playback with optional targeting.
+Start or resume playback, optionally on a specific device.
 
 ```sh
 $ spotify play [--uri <uri>] [--context <uri>] [--device <id>] [--offset <n>] [--position <ms>]
@@ -200,7 +200,7 @@ $ spotify queue
 
 ### queue add <Badge type="info" text="PLAYER" />
 
-Add a track to the end of the playback queue. Accepts a Spotify URI, a track ID, or a human-readable search query.
+Add a track to the queue by URI, ID, or search query.
 
 ```sh
 $ spotify queue add <uri|id|query> [--device <id>]
@@ -257,16 +257,16 @@ $ spotify recent [--limit <n>] [--after <timestamp>] [--before <timestamp>]
 | Option | Type | Description |
 |---|---|---|
 | `--limit` | `integer` | Number of items to return |
-| `--after` | `integer` | Unix timestamp — return items after this |
-| `--before` | `integer` | Unix timestamp — return items before this |
+| `--after` | `integer` | Return items after this Unix timestamp |
+| `--before` | `integer` | Return items before this Unix timestamp |
 
 ## Search <Badge type="tip" text="1 command" />
 
-Full-text search across the Spotify catalog. Supports tracks, albums, artists, and playlists.
+Search Spotify for tracks, albums, artists, or playlists.
 
 ### search <Badge type="info" text="SEARCH" />
 
-Search the Spotify catalog. Defaults to searching for tracks.
+Search Spotify. The default type is `track`.
 
 ```sh
 $ spotify search <query> [--type <type>] [--limit <n>] [--offset <n>]
@@ -295,7 +295,7 @@ $ spotify search "Miles Davis" --type artist --limit 3
 
 ## Tracks <Badge type="tip" text="7 commands" />
 
-Look up individual tracks, analyze audio features, get recommendations, and manage your saved library.
+Look up tracks, get audio features or recommendations, and manage saved tracks.
 
 ### track <Badge type="info" text="TRACKS" />
 
@@ -307,7 +307,7 @@ $ spotify track <id|uri>
 
 ### track find <Badge type="info" text="TRACKS" />
 
-Resolve a track to its canonical URI by exact title + artist. Uses Spotify's `track:"X" artist:"Y"` filter syntax — deterministic and not personalized, unlike `spotify search`. Returns the top match in the same shape as `spotify track <id>`, or exits with `NOT_FOUND` (code 3) when nothing matches.
+Find a track by exact title and artist, then return its canonical URI. Unlike `spotify search`, this uses Spotify's unpersonalized `track:"X" artist:"Y"` filter. It returns the top match in the same shape as `spotify track <id>`, or exits with `NOT_FOUND` (code 3).
 
 ```sh
 $ spotify track find --title <title> --artist <artist>
@@ -323,7 +323,7 @@ $ spotify track find --title "Believer" --artist "Imagine Dragons" | jq -r .uri
 # spotify:track:1WxLYjSg7PzYoxrkQHLp83
 ```
 
-Prefer `track find` over `search` for agentic workflows where you have a known title + artist and need a deterministic URI.
+Use `track find` when you know the title and artist and need a consistent URI.
 
 ### track features <Badge type="info" text="TRACKS" />
 
@@ -380,7 +380,7 @@ $ spotify track saved [--limit <n>] [--offset <n>]
 
 ### track save <Badge type="info" text="TRACKS" />
 
-Save one or more tracks to your library. Accepts Spotify IDs, URIs, or human-readable search queries.
+Save tracks by ID, URI, or search query.
 
 ```sh
 $ spotify track save <id|query...>
@@ -403,11 +403,11 @@ $ spotify track save "bohemian rhapsody"
 }
 ```
 
-The `items` field enriches Spotify's opaque IDs with human-readable metadata. The `searched` field only appears when a search query was used instead of a direct ID.
+`items` pairs Spotify IDs with track details. `searched` appears only when an input was a search query.
 
 ### track remove <Badge type="info" text="TRACKS" />
 
-Remove one or more tracks from your library. Accepts Spotify IDs, URIs, or human-readable search queries.
+Remove saved tracks by ID, URI, or search query.
 
 ```sh
 $ spotify track remove <id|query...>
@@ -417,7 +417,7 @@ $ spotify track remove <id|query...>
 
 ## Albums <Badge type="tip" text="5 commands" />
 
-Fetch album metadata, list album tracks, and manage your saved album library.
+View albums and their tracks, and manage saved albums.
 
 ### album <Badge type="info" text="ALBUMS" />
 
@@ -447,7 +447,7 @@ $ spotify album saved [--limit <n>] [--offset <n>]
 
 ### album save <Badge type="info" text="ALBUMS" />
 
-Save one or more albums to your library. Accepts Spotify IDs, URIs, or human-readable search queries.
+Save albums by ID, URI, or search query.
 
 ```sh
 $ spotify album save <id|query...>
@@ -455,7 +455,7 @@ $ spotify album save <id|query...>
 
 ### album remove <Badge type="info" text="ALBUMS" />
 
-Remove one or more albums from your library. Accepts Spotify IDs, URIs, or human-readable search queries.
+Remove saved albums by ID, URI, or search query.
 
 ```sh
 $ spotify album remove <id|query...>
@@ -465,7 +465,7 @@ $ spotify album remove <id|query...>
 
 ## Playlists <Badge type="tip" text="8 commands" />
 
-Create, modify, and browse playlists. Supports adding and removing tracks by URI, name match, or index position.
+Create, edit, and browse playlists. Add or remove tracks by URI, name, or position.
 
 ### playlist <Badge type="info" text="PLAYLISTS" />
 
@@ -493,7 +493,7 @@ $ spotify playlist tracks <id|uri> [--limit <n>] [--offset <n>]
 
 ### playlist add <Badge type="info" text="PLAYLISTS" />
 
-Add tracks to a playlist at an optional position. Track arguments accept Spotify IDs, URIs, or human-readable search queries. URIs may also be supplied via `--uris-file` or piped on stdin via the `-` sentinel; all sources concatenate.
+Add tracks by ID, URI, or search query, optionally at a set position. Read more inputs from `--uris-file` or stdin with `-`; inputs from all sources are combined.
 
 ```sh
 $ spotify playlist add <playlist_id> [<uri|id|query>...] [--uris-file <path>] [-] [--position <n>]
@@ -520,7 +520,7 @@ $ spotify playlist add 37i9dQZF1DXcBWIGoYBM5M spotify:track:aaa --uris-file more
 
 ### playlist remove <Badge type="info" text="PLAYLISTS" />
 
-Remove tracks from a playlist by URI, name match, or index. URIs may also be supplied via `--uris-file` or piped on stdin via the `-` sentinel.
+Remove tracks by URI, name, or position. Read URIs from `--uris-file` or stdin with `-`.
 
 ```sh
 $ spotify playlist remove <playlist_id> [<uri|id|query>...] [--uris-file <path>] [-] [--match <name>] [--index <n>]
@@ -577,7 +577,7 @@ $ spotify playlist rename <id|uri> <new_name>
 
 ### playlist update <Badge type="info" text="PLAYLISTS" />
 
-Update one or more details of an existing playlist. At least one field flag must be provided. Accepts a Spotify ID or full URI.
+Update a playlist by ID or URI. Provide at least one field flag.
 
 ```sh
 $ spotify playlist update <id|uri> [--name <text>] [--description <text>] [--public|--private] [--collaborative|--no-collaborative]
@@ -601,7 +601,7 @@ $ spotify playlist update 37i9dQZF1DXcBWIGoYBM5M --name "New Name" --description
 
 ## User <Badge type="tip" text="5 commands" />
 
-View your profile, top listening stats, and manage artist follows.
+View your profile and top music, or manage followed artists.
 
 ### me <Badge type="info" text="USER" />
 
@@ -645,13 +645,13 @@ $ spotify following [--limit <n>] [--after <artist_id>]
 | Option | Type | Description |
 |---|---|---|
 | `--limit` | `integer` | Number of items |
-| `--after` | `string` | Cursor — last artist ID from previous page |
+| `--after` | `string` | Last artist ID from the previous page |
 
 <div class="compact-grid">
 
 ### follow <Badge type="info" text="USER" />
 
-Follow one or more artists. Accepts Spotify IDs, URIs, or human-readable search queries.
+Follow artists by ID, URI, or search query.
 
 ```sh
 $ spotify follow <id|query...>
@@ -659,7 +659,7 @@ $ spotify follow <id|query...>
 
 ### unfollow <Badge type="info" text="USER" />
 
-Unfollow one or more artists. Accepts Spotify IDs, URIs, or human-readable search queries.
+Unfollow artists by ID, URI, or search query.
 
 ```sh
 $ spotify unfollow <id|query...>
@@ -669,7 +669,7 @@ $ spotify unfollow <id|query...>
 
 ## Exit Codes
 
-All commands use consistent exit codes for scripting and automation.
+All commands use the same exit codes.
 
 | Code | Name | Meaning |
 |---|---|---|
